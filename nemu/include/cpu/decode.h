@@ -28,24 +28,30 @@ typedef struct {
   char str[OP_STR_SIZE];  // 字符串类型，应该是调试用的
 } Operand;
 
+// 这个结构体应该是一条指令，然后获得到的所有信息，\
+从体系结构的视角，应该是解码器，不过这里似乎是将解码和取指合二为一了，\
+所以我们发现这里并没有取指的阶段(?)
 typedef struct {
-  uint32_t opcode;
-  vaddr_t seq_eip;  // sequential eip
-  bool is_operand_size_16;
-  uint8_t ext_opcode;
-  bool is_jmp;
-  vaddr_t jmp_eip;
-  Operand src, dest, src2;
+  uint32_t opcode;  // 表示操作码，也就是标识指令的
+  vaddr_t seq_eip;  // sequential eip 标识顺序执行的eip，其实就是没有branch时的eip
+  bool is_operand_size_16;  // 是否为16位操作数
+  uint8_t ext_opcode; // 表示拓展操作码(?目前没有很了解这指的是哪些)
+  bool is_jmp;  // 表示是否为跳转指令
+  vaddr_t jmp_eip;  // 跳转到的eip
+  Operand src, dest, src2;  // 表示操作数 ->  源、目的、第二个源
 #ifdef DEBUG
+// 表示debug的
   char assembly[80];
   char asm_buf[128];
   char *p;
 #endif
 } DecodeInfo;
 
+// 对于这个部分不是特别理解\
+从下面的解释来看，似乎是地址的一种格式
 typedef union {
   struct {
-    uint8_t R_M		:3;
+    uint8_t R_M		:3; 
     uint8_t reg		:3;
     uint8_t mod		:2;
   };
