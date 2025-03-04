@@ -5,21 +5,27 @@
 
 #include "rtl.h"
 
+// OP_TYPE_REG  ->  寄存器 \
+  OP_TYPE_MEM  -> 内存\
+  OP_TYPE_IMM  -> 立即数
 enum { OP_TYPE_REG, OP_TYPE_MEM, OP_TYPE_IMM };
 
 #define OP_STR_SIZE 40
 
+// 结构体表示的是操作数，也就是上面提到的三种：reg,mem,imm
 typedef struct {
-  uint32_t type;
-  int width;
+  uint32_t type;  // 表示类型，即寄存器、内存、立即数
+  int width;  //  表示数据宽度(字节为单位)
   union {
-    uint32_t reg;
-    rtlreg_t addr;
-    uint32_t imm;
-    int32_t simm;
+    uint32_t reg; // 如果是寄存器，则表示寄存器的标号
+    rtlreg_t addr;  // 如果是mem，那么用来表示地址
+    uint32_t imm; // 如果是立即数，这里标识的是unsigned
+    int32_t simm; // 如果是立即数，这里标识的是signed
+    // 虽然但是，目前的知识我不是很理解，为什么这里的有无符号需要分开()
   };
-  rtlreg_t val;
-  char str[OP_STR_SIZE];
+  rtlreg_t val; //操作数的值，从体系结构的角度理解，应该是说需要在decode阶段取到某一个操作数的值。  \
+  我去查看一下rtlreg_t的类型，其实就是uint32_t，但是这里我没有很理解会怎么去处理立即数(?)
+  char str[OP_STR_SIZE];  // 字符串类型，应该是调试用的
 } Operand;
 
 typedef struct {
