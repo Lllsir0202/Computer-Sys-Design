@@ -40,5 +40,6 @@ void cpu_exec(uint64_t n) {
     if (nemu_state != NEMU_RUNNING) { return; }
   }
 
+  // 如果这样的话，似乎其实是执行了n条指令才会停止(?)
   if (nemu_state == NEMU_RUNNING) { nemu_state = NEMU_STOP; }
 }

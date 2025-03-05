@@ -5,9 +5,9 @@
 
 #include "rtl.h"
 
-// OP_TYPE_REG  ->  寄存器 \
-  OP_TYPE_MEM  -> 内存\
-  OP_TYPE_IMM  -> 立即数
+// OP_TYPE_REG  ->  寄存器 
+// OP_TYPE_MEM  -> 内存
+// OP_TYPE_IMM  -> 立即数
 enum { OP_TYPE_REG, OP_TYPE_MEM, OP_TYPE_IMM };
 
 #define OP_STR_SIZE 40
@@ -23,14 +23,14 @@ typedef struct {
     int32_t simm; // 如果是立即数，这里标识的是signed
     // 虽然但是，目前的知识我不是很理解，为什么这里的有无符号需要分开()
   };
-  rtlreg_t val; //操作数的值，从体系结构的角度理解，应该是说需要在decode阶段取到某一个操作数的值。  \
-  我去查看一下rtlreg_t的类型，其实就是uint32_t，但是这里我没有很理解会怎么去处理立即数(?)
+  rtlreg_t val; //操作数的值，从体系结构的角度理解，应该是说需要在decode阶段取到某一个操作数的值。
+  // 我去查看一下rtlreg_t的类型，其实就是uint32_t，但是这里我没有很理解会怎么去处理立即数(?)
   char str[OP_STR_SIZE];  // 字符串类型，应该是调试用的
 } Operand;
 
-// 这个结构体应该是一条指令，然后获得到的所有信息，\
-从体系结构的视角，应该是解码器，不过这里似乎是将解码和取指合二为一了，\
-所以我们发现这里并没有取指的阶段(?)
+// 这个结构体应该是一条指令，然后获得到的所有信息，
+// 从体系结构的视角，应该是解码器，不过这里似乎是将解码和取指合二为一了，
+// 所以我们发现这里并没有取指的阶段(?)
 typedef struct {
   uint32_t opcode;  // 表示操作码，也就是标识指令的
   vaddr_t seq_eip;  // sequential eip 标识顺序执行的eip，其实就是没有branch时的eip
@@ -47,8 +47,8 @@ typedef struct {
 #endif
 } DecodeInfo;
 
-// 对于这个部分不是特别理解\
-从下面的解释来看，似乎是地址的一种格式
+// 对于这个部分不是特别理解
+// 从下面的解释来看，似乎是地址的一种格式
 typedef union {
   struct {
     uint8_t R_M		:3; 

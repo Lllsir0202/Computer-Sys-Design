@@ -8,8 +8,8 @@ typedef void (*EHelper) (vaddr_t *);
 
 #include "cpu/decode.h"
 
-// 这个函数应该是用于取指令的\
-返回值是uint32_t类型的指令
+// 这个函数应该是用于取指令的,
+// 返回值是uint32_t类型的指令
 static inline uint32_t instr_fetch(vaddr_t *eip, int len) {
   uint32_t instr = vaddr_read(*eip, len);
 #ifdef DEBUG
@@ -25,15 +25,15 @@ static inline uint32_t instr_fetch(vaddr_t *eip, int len) {
 
 void rtl_setcc(rtlreg_t*, uint8_t);
 
-// 现在还不太理解是什么名字。\
-查询后发现，似乎表示的是跳转的一些指令码。\
-o ->  overflow;(OF=1)\
-b ->  below;(CF=1)\
-e ->  equal;(ZF=1)\
-s ->  sign(-)(SF=1);\
-p ->  parity(奇偶)(PF=1);\
-l ->  less(SF!=OF);\
-但说实话现在不是很理解
+// 现在还不太理解是什么名字。
+// 查询后发现，似乎表示的是跳转的一些指令码。
+// o ->  overflow;(OF=1)
+// b ->  below;(CF=1)
+// e ->  equal;(ZF=1)
+// s ->  sign(-)(SF=1);
+// p ->  parity(奇偶)(PF=1);
+// l ->  less(SF!=OF);
+// 但说实话现在不是很理解
 static inline const char* get_cc_name(int subcode) {
   static const char *cc_name[] = {
     "o", "no", "b", "nb",
