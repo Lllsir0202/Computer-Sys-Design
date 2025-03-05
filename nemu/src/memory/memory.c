@@ -7,7 +7,7 @@
     guest_to_host(addr); \
     })
 
-// pmem是数组，表示128G的大内存RAM
+// pmem是数组，表示128MB的大内存RAM
 uint8_t pmem[PMEM_SIZE];
 
 /* Memory accessing interfaces */
