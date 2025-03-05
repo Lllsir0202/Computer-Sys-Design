@@ -15,12 +15,26 @@ enum { R_AL, R_CL, R_DL, R_BL, R_AH, R_CH, R_DH, R_BH };
  */
 
 typedef struct {
-  struct {
+  // struct {
+  //   uint32_t _32;
+  //   uint16_t _16;
+  //   uint8_t _8[2];
+  // } gpr[8];
+  
+  union {
     uint32_t _32;
     uint16_t _16;
     uint8_t _8[2];
-  } gpr[8];
-
+  } gpr[8] = {
+    {R_EAX, R_AX, {R_AL, R_AH}},
+    {R_ECX, R_CX, {R_CL, R_CH}},
+    {R_EDX, R_DX, {R_DL, R_DH}},
+    {R_EBX, R_BX, {R_BL, R_BH}},
+    {R_ESP, R_SP, {-1,-1}},
+    {R_EBP, R_BP, {-1,-1}},
+    {R_ESI, R_SI, {-1,-1}},
+    {R_EDI, R_DI, {-1,-1}}
+  };
   /* Do NOT change the order of the GPRs' definitions. */
 
   /* In NEMU, rtlreg_t is exactly uint32_t. This makes RTL instructions
