@@ -14,6 +14,8 @@ enum { R_AL, R_CL, R_DL, R_BL, R_AH, R_CH, R_DH, R_BH };
  * For more details about the register encoding scheme, see i386 manual.
  */
 
+// 所以其实这里的_32就是eax，而_16即低十六位，_8为低16位分为两份
+// 所以可以使用union来分配32位空间，来实现访问即可
 typedef struct {
   struct {
     uint32_t _32;
