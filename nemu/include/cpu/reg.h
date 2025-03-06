@@ -17,18 +17,27 @@ enum { R_AL, R_CL, R_DL, R_BL, R_AH, R_CH, R_DH, R_BH };
 // 所以其实这里的_32就是eax，而_16即低十六位，_8为低16位分为两份
 // 所以可以使用union来分配32位空间，来实现访问即可
 typedef struct {
-  struct {
-    uint32_t _32;
-    uint16_t _16;
-    uint8_t _8[2];
-  } gpr[8];
+  // struct {
+  //   uint32_t _32;
+  //   uint16_t _16;
+  //   uint8_t _8[2];
+  // } gpr[8];
 
   /* Do NOT change the order of the GPRs' definitions. */
 
   /* In NEMU, rtlreg_t is exactly uint32_t. This makes RTL instructions
    * in PA2 able to directly access these registers.
    */
-  rtlreg_t eax, ecx, edx, ebx, esp, ebp, esi, edi;
+  // rtlreg_t eax, ecx, edx, ebx, esp, ebp, esi, edi;
+
+  union {
+    union {
+      uint32_t _32;
+      uint16_t _16;
+      uint8_t _8[2];
+    } gpr[8];
+    rtlreg_t eax, ecx, edx, ebx, esp, ebp, esi, edi;
+  } ;
 
   vaddr_t eip;
 
