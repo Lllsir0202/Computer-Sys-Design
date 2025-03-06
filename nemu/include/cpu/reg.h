@@ -30,6 +30,7 @@ typedef struct {
    */
   // rtlreg_t eax, ecx, edx, ebx, esp, ebp, esi, edi;
 
+  // 其实就是让这整个内存空间，由eax,ecx,edx,ebx,esp,ebp,esi,edi的顺序进行占用
   union {
     union {
       uint32_t _32;
