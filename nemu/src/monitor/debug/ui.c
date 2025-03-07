@@ -69,8 +69,8 @@ static struct {
   { "info", "Print informations of something", cmd_info},
   { "p", "Get the result of the expr", cmd_p},
   { "x", "Scan the memory", cmd_x},
-  // { "w EXPR", "Set the watchpoint", cmd_w},
-  // { "d N", "Delete NO.n watchpoint", cmd_d}
+  // { "w", "Set the watchpoint", cmd_w},
+  // { "d", "Delete NO.n watchpoint", cmd_d}
   /* TODO: Add more commands */
 
 };
