@@ -151,11 +151,13 @@ static int cmd_x(char *args){
   addr = strtoul(arg, NULL, 16);
   // printf("0x%x\n", addr);
   int i;
+  unsigned char *ptr;
   for(i = 0 ; i < N ; i++){
     // 首先输出内存地址
     printf("0x%x\t",addr);
+    ptr = (unsigned char*)addr;
+    printf("%c\n",*ptr);
     addr = addr + 4;
-    
   }
   return 0;
 }
