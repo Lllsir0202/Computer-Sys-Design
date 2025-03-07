@@ -65,7 +65,7 @@ static struct {
   { "c", "Continue the execution of the program", cmd_c },
   { "q", "Exit NEMU", cmd_q },
   // Followings are added
-  { "si", "Exec N(N=1) steps", cmd_si},
+  { "si", "Exec N(default N=1) steps", cmd_si},
   { "info", "Print informations of something", cmd_info},
   { "p", "Get the result of the expr", cmd_p},
   { "x", "Scan the memory", cmd_x},
@@ -152,11 +152,12 @@ static int cmd_x(char *args){
   // printf("0x%x\n", addr);
   int i;
   // printf("111");
-  uint8_t* ptr = (uint8_t*)addr;
-  printf("%x", (int)*ptr);
+  // uint8_t* ptr = (uint8_t*)addr;
+  // printf("%x", (int)*ptr);
   for(i = 0 ; i < N ; i++){
     // 首先输出内存地址
     printf("0x%x\t", addr);
+    printf("%d\n", vaddr_read(addr, 4));
     addr = addr + 4;
   }
   return 0;
