@@ -149,15 +149,17 @@ static int cmd_x(char *args){
   // 这里需要提取出来内存地址，由于是32位的，所以我们可以使用uint32_t存即可
   vaddr_t addr;
   addr = strtoul(arg, NULL, 16);
-  printf("0x%x\n", addr);
+  // printf("0x%x\n", addr);
   int i;
-  int *ptr;
-  printf("111");
-  ptr = (int*)addr;
-  printf("%d", (int)ptr);
+  unsigned char *ptr;
+  // printf("111");
+  // ptr = (int*)addr;
+  // printf("%d", (int)ptr);
   for(i = 0 ; i < N ; i++){
     // 首先输出内存地址
-    printf("0x%x\t",addr);
+    printf("0x%x\t", addr);
+    ptr = (unsigned char*)addr;
+    printf("%c\n", (char)(*ptr));
     addr = addr + 4;
   }
   return 0;
