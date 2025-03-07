@@ -28,8 +28,8 @@ static struct rule {
   {"\\*", '*'},         // mul
   {"/", '/'},         // div
   {"==", TK_EQ},        // equal
-  {"(", '('},         // (
-  {")", ')'},         // )
+  {"\\(", '('},         // (
+  {"\\)", ')'},         // )
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
