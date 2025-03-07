@@ -48,7 +48,7 @@ static int cmd_info(char *args);
 static int cmd_p(char *args);
 
 // // x
-// static int cmd_x(char *args);
+static int cmd_x(char *args);
 
 // // w
 // static int cmd_w(char *args);
@@ -68,7 +68,7 @@ static struct {
   { "si", "Exec N(N=1) steps", cmd_si},
   { "info", "Print informations of something", cmd_info},
   { "p", "Get the result of the expr", cmd_p},
-  // { "x N EXPR", "Scan the memory", cmd_x},
+  { "x", "Scan the memory", cmd_x},
   // { "w EXPR", "Set the watchpoint", cmd_w},
   // { "d N", "Delete NO.n watchpoint", cmd_d}
   /* TODO: Add more commands */
@@ -139,6 +139,18 @@ static int cmd_info(char *args){
 
 static int cmd_p(char *args){
   // char* arg = strtok(NULL, " ");
+  return 0;
+}
+
+static int cmd_x(char *args){
+  char* arg = strtok(NULL, " ");
+  int N = atoi(arg);
+  arg = strtok(NULL, " ");
+  int i;
+  for(i = 0 ; i < N ; i++){
+    // 首先输出内存地址
+
+  }
   return 0;
 }
 
