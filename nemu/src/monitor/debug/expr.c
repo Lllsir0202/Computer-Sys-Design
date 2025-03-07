@@ -26,10 +26,10 @@ static struct rule {
   {"\\+", '+'},         // plus
   {"\\-", '-'},         // sub
   {"\\*", '*'},         // mul
-  {"\\/", '/'},         // div
+  {"/", '/'},         // div
   {"==", TK_EQ},        // equal
-  {"\\(", '('},         // (
-  {"\\)", ')'},         // )
+  {"(", '('},         // (
+  {")", ')'},         // )
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
