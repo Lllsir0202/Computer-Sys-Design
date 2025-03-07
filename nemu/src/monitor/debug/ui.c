@@ -156,7 +156,7 @@ static int cmd_x(char *args){
     // 首先输出内存地址
     printf("0x%x\t",addr);
     ptr = (unsigned char*)addr;
-    printf("%c\n",*ptr);
+    printf("%0x\n",*ptr);
     addr = addr + 4;
   }
   return 0;
