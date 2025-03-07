@@ -42,7 +42,7 @@ static int cmd_help(char *args);
 static int cmd_si(char *args);
 
 // info
-// static int cmd_info(char *args);
+static int cmd_info(char *args);
 
 // p
 // static int cmd_p(char *args);
@@ -66,7 +66,7 @@ static struct {
   { "q", "Exit NEMU", cmd_q },
   // Followings are added
   { "si", "Exec N(N=1) steps", cmd_si},
-  // { "info SUBCMD", "Print informations of exe", cmd_info},
+  { "info", "Print informations of something", cmd_info},
   // { "p EXPR", "Get the result of the expr", cmd_p},
   // { "x N EXPR", "Scan the memory", cmd_x},
   // { "w EXPR", "Set the watchpoint", cmd_w},
@@ -117,9 +117,25 @@ static int cmd_si(char *args){
   }
 }
 
-// static int cmd_info(char *args){
-//   char* arg = strtok(NULL, " ");
-// }
+static int cmd_info(char *args){
+  char* arg = strtok(NULL, " ");
+  int i;
+  // 如果是r，那么输出所有寄存器
+  if(strcmp(arg, "r") == 0){
+    for(i = 0 ; i < 8; i++){
+      printf("%s\t",regsl[i]);
+      printf("%u\n",reg_l(i));
+    }
+    printf("eip\t");
+    printf("%u\n",cpu.eip);
+  }else if(strcmp(arg, "w") == 0){
+
+  }else{
+    printf("Unknown command '%s'\n", arg);
+  }
+  return 0;
+  // 
+}
 
 void ui_mainloop(int is_batch_mode) {
   if (is_batch_mode) {
