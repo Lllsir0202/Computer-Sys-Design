@@ -45,7 +45,7 @@ static int cmd_si(char *args);
 static int cmd_info(char *args);
 
 // p
-// static int cmd_p(char *args);
+static int cmd_p(char *args);
 
 // // x
 // static int cmd_x(char *args);
@@ -67,7 +67,7 @@ static struct {
   // Followings are added
   { "si", "Exec N(N=1) steps", cmd_si},
   { "info", "Print informations of something", cmd_info},
-  // { "p EXPR", "Get the result of the expr", cmd_p},
+  { "p", "Get the result of the expr", cmd_p},
   // { "x N EXPR", "Scan the memory", cmd_x},
   // { "w EXPR", "Set the watchpoint", cmd_w},
   // { "d N", "Delete NO.n watchpoint", cmd_d}
@@ -135,6 +135,11 @@ static int cmd_info(char *args){
   }
   return 0;
   // 
+}
+
+static int cmd_p(char *args){
+  // char* arg = strtok(NULL, " ");
+  return 0;
 }
 
 void ui_mainloop(int is_batch_mode) {
