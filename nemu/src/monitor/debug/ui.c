@@ -152,8 +152,8 @@ static int cmd_x(char *args){
   printf("0x%x\n", addr);
   int i;
   int *ptr;
-  ptr = (int*)addr;
   printf("111");
+  ptr = (int*)addr;
   printf("%d", *ptr);
   for(i = 0 ; i < N ; i++){
     // 首先输出内存地址
