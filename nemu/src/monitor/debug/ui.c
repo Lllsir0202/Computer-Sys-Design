@@ -146,10 +146,13 @@ static int cmd_x(char *args){
   char* arg = strtok(NULL, " ");
   int N = atoi(arg);
   arg = strtok(NULL, " ");
+  // 这里需要提取出来内存地址，由于是32位的，所以我们可以使用uint32_t存即可
+  vaddr_t start_addr = strtoul(arg, NULL, 16);
+  printf("%u", start_addr);
   int i;
   for(i = 0 ; i < N ; i++){
     // 首先输出内存地址
-
+    
   }
   return 0;
 }
