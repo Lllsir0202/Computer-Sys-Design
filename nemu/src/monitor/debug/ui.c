@@ -38,6 +38,24 @@ static int cmd_q(char *args) {
 
 static int cmd_help(char *args);
 
+// si
+static int cmd_si(char *args);
+
+// info
+// static int cmd_info(char *args);
+
+// p
+// static int cmd_p(char *args);
+
+// // x
+// static int cmd_x(char *args);
+
+// // w
+// static int cmd_w(char *args);
+
+// // d
+// static int cmd_d(char *args);
+
 static struct {
   char *name;
   char *description;
@@ -46,7 +64,13 @@ static struct {
   { "help", "Display informations about all supported commands", cmd_help },
   { "c", "Continue the execution of the program", cmd_c },
   { "q", "Exit NEMU", cmd_q },
-
+  // Followings are added
+  { "si[N]", "Exec N(N=1) steps", cmd_si},
+  // { "info SUBCMD", "Print informations of exe", cmd_info},
+  // { "p EXPR", "Get the result of the expr", cmd_p},
+  // { "x N EXPR", "Scan the memory", cmd_x},
+  // { "w EXPR", "Set the watchpoint", cmd_w},
+  // { "d N", "Delete NO.n watchpoint", cmd_d}
   /* TODO: Add more commands */
 
 };
@@ -75,6 +99,27 @@ static int cmd_help(char *args) {
   }
   return 0;
 }
+
+static int cmd_si(char *args){
+  char* arg = strtok(NULL, " ");
+  // 这里的arg其实就是si [N] 中的n
+  if(arg == NULL){
+    // 说明是默认情况
+    // 执行一条指令后暂停
+    cpu_exec(1);
+    return 0;
+  }
+  else{
+    // 说明设定了参数
+    int n = atoi(arg);
+    cpu_exec(n);
+    return 0;
+  }
+}
+
+// static int cmd_info(char *args){
+//   char* arg = strtok(NULL, " ");
+// }
 
 void ui_mainloop(int is_batch_mode) {
   if (is_batch_mode) {
