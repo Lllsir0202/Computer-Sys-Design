@@ -151,9 +151,9 @@ static int cmd_x(char *args){
   addr = strtoul(arg, NULL, 16);
   printf("0x%x\n", addr);
   int i;
-  unsigned int *ptr;
-  ptr = (unsigned int*)addr;
-  printf("%x\n", *ptr);
+  int *ptr;
+  ptr = (int*)addr;
+  printf("%d", *ptr);
   for(i = 0 ; i < N ; i++){
     // 首先输出内存地址
     printf("0x%x\t",addr);
