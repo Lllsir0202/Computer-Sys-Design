@@ -65,7 +65,7 @@ static struct {
   { "c", "Continue the execution of the program", cmd_c },
   { "q", "Exit NEMU", cmd_q },
   // Followings are added
-  { "si[N]", "Exec N(N=1) steps", cmd_si},
+  { "si [N]", "Exec N(N=1) steps", cmd_si},
   // { "info SUBCMD", "Print informations of exe", cmd_info},
   // { "p EXPR", "Get the result of the expr", cmd_p},
   // { "x N EXPR", "Scan the memory", cmd_x},
