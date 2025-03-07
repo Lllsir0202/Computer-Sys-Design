@@ -11,7 +11,7 @@
 uint8_t pmem[PMEM_SIZE];
 
 /* Memory accessing interfaces */
-
+// 在调试器的x中非常有用...
 uint32_t paddr_read(paddr_t addr, int len) {
   return pmem_rw(addr, uint32_t) & (~0u >> ((4 - len) << 3));
 }
