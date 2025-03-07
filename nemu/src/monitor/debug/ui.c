@@ -157,7 +157,10 @@ static int cmd_x(char *args){
   for(i = 0 ; i < N ; i++){
     // 首先输出内存地址
     printf("0x%x\t", addr);
-    printf("0x%x\n", vaddr_read(addr, 4));
+    for(int j = 0 ; j < 4 ; j++){
+      printf("0x%x\r", vaddr_read(addr,1+j));
+    }
+    printf("\n");
     addr = addr + 4;
   }
   return 0;
