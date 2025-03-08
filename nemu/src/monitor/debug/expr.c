@@ -90,11 +90,20 @@ static bool make_token(char *e) {
         switch (rules[i].token_type) {
           case TK_NOTYPE:{
           }break;
-          case '+':{
-            tokens[nr_token++].type = '+';
-          }break;
-        }
+          case TK_NUM:
+          case TK_HEX:
+          case TK_REG:{
+            if(substr_len > 32){
+              Log("Too long expr token of \"%.*s\", len is %d", substr_len, substr_start, substr_len);
+              assert(0);
+            }
+            for(int j = 0 ; j < substr_len; j++)
+            {
 
+            }
+          }
+        }
+        assert(nr_token < 32);
         break;
       }
     }
