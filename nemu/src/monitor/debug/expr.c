@@ -7,7 +7,7 @@
 #include <regex.h>
 
 enum {
-  TK_NOTYPE = 256, TK_EQ, TK_NUM, TK_HEX, TK_REG
+  TK_NOTYPE = 256, TK_EQ, TK_NUM, TK_HEX, TK_REG, TK_NEQ
 
   /* TODO: Add more token types */
 
@@ -28,6 +28,7 @@ static struct rule {
   {"\\*", '*'},         // mul
   {"/", '/'},           // div
   {"==", TK_EQ},        // equal
+  {"!=", Tk_NEQ},       // not equal
   {"\\(", '('},         // (
   {"\\)", ')'},         // )
   {"[0-9] | [1-9][0-9]+", TK_NUM},    // NUM
@@ -127,7 +128,9 @@ uint32_t expr(char *e, bool *success) {
   }
 
   /* TODO: Insert codes to evaluate the expression. */
-  TODO();
+  // TODO();
+  
+
 
   return 0;
 }

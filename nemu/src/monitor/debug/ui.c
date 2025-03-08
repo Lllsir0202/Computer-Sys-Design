@@ -145,7 +145,8 @@ static int cmd_p(char *args){
 static int cmd_x(char *args){
   char* arg = strtok(NULL, " ");
   int N = atoi(arg);
-  arg = strtok(NULL, " ");
+  // 在expr时改变操作，将剩下的所有字符都得到，从而进行expr的计算
+  arg = strtok(NULL, "");
   // 这里需要提取出来内存地址，由于是32位的，所以我们可以使用uint32_t存即可
   vaddr_t addr;
   addr = strtoul(arg, NULL, 16);
