@@ -147,7 +147,7 @@ static int cmd_p(char *args){
     return -1;
   }
   else{
-    printf("Result: %d", result);
+    printf("Result: %d\n", result);
   }
   return 0;
 }
