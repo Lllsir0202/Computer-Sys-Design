@@ -5,6 +5,7 @@
  */
 #include <sys/types.h>
 #include <regex.h>
+#include <stdlib.h>
 
 enum {
   TK_NOTYPE = 256, TK_EQ, TK_NUM, TK_HEX, TK_REG, TK_NEQ
@@ -126,6 +127,66 @@ static bool make_token(char *e) {
   return true;
 }
 
+static bool check_parentheses(int p, int q){
+  // 用来判断括号是否匹配，其实就是首尾是否都是括号、内部括号是否对应
+  int judge = 0;
+  for(int i = p; i < q; i++){
+    if(tokens[i].type == '('){
+      judge++;
+    }
+    if(tokens[i].type == ')'){
+      judge--;
+    }
+    if(judge < 0){
+      Log("Meet unmatched ()");
+      return false;
+    }
+  }
+  return (judge == 0 && tokens[p].type == '(' && tokens[q-1].type == ')');
+}
+
+static uint32_t eval(int p, int q){
+  if (p > q) {
+    /* Bad expression */
+    // 这里表示出现了交错，可能情况应该是()这种
+    Log("Invalid expression!");
+    assert(0);
+  }
+  else if (p == q) {
+    /* Single token.
+     * For now this token should be a number.
+     * Return the value of the number.
+     */
+     // 表示一个token，因为我们没有别的情况，所以应该是一个num
+    assert(p == q);
+    int index = p;
+    switch (tokens[index].type){
+      case TK_NUM:{
+        // 表示十进制数字
+        return strtoul(tokens[index].str, NULL, 10);
+      }
+      case TK_HEX:{
+        char* _noperfix = tokens[index].str + 2;
+        return strtoul(_noperfix, NULL, 16);
+      }
+      default:{
+        Log("Invalid case");
+        assert(0);
+      }
+    }
+  }
+  else if (check_parentheses(p, q) == true) {
+    /* The expression is surrounded by a matched pair of parentheses.
+     * If that is the case, just throw away the parentheses.
+     */
+    return eval(p + 1, q - 1);
+  }
+  else {
+    /* We should do more things here. */
+    return 0;
+  }
+}
+
 uint32_t expr(char *e, bool *success) {
   if (!make_token(e)) {
     *success = false;
@@ -140,7 +201,7 @@ uint32_t expr(char *e, bool *success) {
   for(i = 0 ; i < nr_token; i++){
     printf("%s\n", tokens[i].str);
     // 接下来就是需要去计算求值了
-    
+    Log("%d",eval(0,nr_token));
   }
 
 
