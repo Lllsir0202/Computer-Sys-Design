@@ -165,11 +165,15 @@ static uint32_t eval(int p, int q){
     switch (tokens[index].type){
       case TK_NUM:{
         // 表示十进制数字
-        return strtoul(tokens[index].str, NULL, 10);
+        uint32_t num =  strtoul(tokens[index].str, NULL, 10);
+        Log("%d", num);
+        return num;
       }
       case TK_HEX:{
         char* _noperfix = tokens[index].str + 2;
-        return strtoul(_noperfix, NULL, 16);
+        uint32_t num =  strtoul(_noperfix, NULL, 16);
+        Log("%d",num);
+        return num;
       }
       default:{
         panic("Invalid case");
