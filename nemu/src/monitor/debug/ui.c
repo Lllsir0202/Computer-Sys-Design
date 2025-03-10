@@ -138,7 +138,17 @@ static int cmd_info(char *args){
 }
 
 static int cmd_p(char *args){
-  // char* arg = strtok(NULL, " ");
+  char* arg = strtok(NULL, "");
+  bool success;
+  uint32_t result = expr(arg, &success);
+  if(!success){
+    // 表示没有成功
+    Log("Failed to phase the expr");
+    return -1;
+  }
+  else{
+    printf("Result: %d", result);
+  }
   return 0;
 }
 

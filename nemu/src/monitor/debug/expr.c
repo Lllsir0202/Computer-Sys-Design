@@ -28,12 +28,14 @@ static struct rule {
   {"\\*", '*'},         // mul
   {"/", '/'},           // div
   {"==", TK_EQ},        // equal
-  {"!=", Tk_NEQ},       // not equal
+  {"!=", TK_NEQ},       // not equal
   {"\\(", '('},         // (
   {"\\)", ')'},         // )
   {"[0-9] | [1-9][0-9]+", TK_NUM},    // NUM
   {"[0x|X][0-9a-fA-F]+", TK_HEX},     // HEX_NUM
   {"$[a-z]+", TK_REG},  // reg
+  {"!", '!'}           // !
+  // 对于解引用来说，我们的处理其实和乘法识别没有区别
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
@@ -98,7 +100,7 @@ static bool make_token(char *e) {
               Log("Too long expr token of \"%.*s\", len is %d", substr_len, substr_start, substr_len);
               assert(0);
             }
-            int j
+            int j;
             for(j = 0 ; j < substr_len; j++)
             {
               tokens[nr_token].str[j] = substr_start[j];
@@ -129,7 +131,12 @@ uint32_t expr(char *e, bool *success) {
 
   /* TODO: Insert codes to evaluate the expression. */
   // TODO();
-  
+  // 到这里说明token都成功识别了，并且在tokens数组中
+  *success = true;
+  int i;
+  for(i = 0 ; i < nr_token; i++){
+    printf("%s", tokens[i].str);
+  }
 
 
   return 0;
