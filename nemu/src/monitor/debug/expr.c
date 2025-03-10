@@ -138,7 +138,7 @@ static bool check_parentheses(int p, int q){
       judge--;
     }
     if(judge < 0){
-      Log("Meet unmatched ()");
+      panic("Meet unmatched ()");
       return false;
     }
   }
