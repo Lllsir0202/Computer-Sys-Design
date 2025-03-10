@@ -109,7 +109,8 @@ static bool make_token(char *e) {
           } break;
         }
         assert(nr_token < 32);
-        tokens[nr_token++].type = rules[i].token_type;
+        tokens[nr_token].type = rules[i].token_type;
+        ++nr_token;
         break;
       }
     }
@@ -135,7 +136,7 @@ uint32_t expr(char *e, bool *success) {
   *success = true;
   int i;
   for(i = 0 ; i < nr_token; i++){
-    printf("%s", tokens[i].str);
+    printf("%d\n", tokens[i].type);
   }
 
 
