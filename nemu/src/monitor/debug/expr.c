@@ -138,7 +138,7 @@ static bool check_parentheses(int p, int q){
       judge--;
     }
     if(judge < 0){
-      panic("Meet unmatched ()");
+      panic("Meet unmatched ");
       return false;
     }
   }
@@ -149,8 +149,7 @@ static uint32_t eval(int p, int q){
   if (p > q) {
     /* Bad expression */
     // 这里表示出现了交错，可能情况应该是()这种
-    Log("Invalid expression!");
-    assert(0);
+    panic("Invalid expression!");
   }
   else if (p == q) {
     /* Single token.
