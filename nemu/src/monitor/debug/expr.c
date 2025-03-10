@@ -169,8 +169,7 @@ static uint32_t eval(int p, int q){
         return strtoul(_noperfix, NULL, 16);
       }
       default:{
-        Log("Invalid case");
-        assert(0);
+        panic("Invalid case");
       }
     }
   }
