@@ -107,10 +107,11 @@ static bool make_token(char *e) {
             }
             tokens[nr_token].str[j] = '\0';
           }
-          default:
+          default:{
             assert(nr_token < 32);
             tokens[nr_token].type = rules[i].token_type;
             ++nr_token;
+          } break;
         }
         break;
       }
