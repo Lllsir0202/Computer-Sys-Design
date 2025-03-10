@@ -138,9 +138,12 @@ static bool check_parentheses(int p, int q){
       judge--;
     }
     if(judge < 0){
-      panic("Meet unmatched ");
+      panic("Meet unmatched ()");
       return false;
     }
+  }
+  if(judge != 0){
+    panic("Meet unmatched ()");
   }
   return (judge == 0 && tokens[p].type == '(' && tokens[q-1].type == ')');
 }
