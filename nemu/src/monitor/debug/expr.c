@@ -106,11 +106,11 @@ static bool make_token(char *e) {
               tokens[nr_token].str[j] = substr_start[j];
             }
             tokens[nr_token].str[j] = '\0';
-          } break;
+          }
+          assert(nr_token < 32);
+          tokens[nr_token].type = rules[i].token_type;
+          ++nr_token;
         }
-        assert(nr_token < 32);
-        tokens[nr_token].type = rules[i].token_type;
-        ++nr_token;
         break;
       }
     }
@@ -136,7 +136,9 @@ uint32_t expr(char *e, bool *success) {
   *success = true;
   int i;
   for(i = 0 ; i < nr_token; i++){
-    printf("%d\n", tokens[i].type);
+    // printf("%d\n", tokens[i].type);
+    // 接下来就是需要去计算求值了
+    
   }
 
 
