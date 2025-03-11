@@ -36,7 +36,7 @@ static struct rule {
   {"\\)", ')'},         // )
   {"(0x|X)[0-9a-fA-F]+", TK_HEX},     // HEX_NUM
   {"[0-9]+", TK_NUM},    // NUM
-  {"$[a-z]+", TK_REG},  // reg
+  {"\\$[a-z]+", TK_REG},  // reg
   {"!", '!'},           // !
   {"&&", TK_AND},       // and
   {"||", TK_OR}         // or
