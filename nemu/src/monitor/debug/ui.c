@@ -143,7 +143,7 @@ static int cmd_p(char *args){
   uint32_t result = expr(arg, &success);
   if(!success){
     // 表示没有成功
-    Log("Failed to phase the expr");
+    Log("Failed to calculate the expression %s", arg);
     return -1;
   }
   else{
@@ -158,8 +158,14 @@ static int cmd_x(char *args){
   // 在expr时改变操作，将剩下的所有字符都得到，从而进行expr的计算
   arg = strtok(NULL, "");
   // 这里需要提取出来内存地址，由于是32位的，所以我们可以使用uint32_t存即可
-  vaddr_t addr;
-  addr = strtoul(arg, NULL, 16);
+
+  // 注意的是这里其实是一个expr，所以我们加一下计算
+  bool success;
+  vaddr_t addr = expr(arg, &success);
+  if(!success){
+    Log("Failed to calculate the expression of %s", arg);
+    return -1;
+  }
   // printf("0x%x\n", addr);
   int i;
   // printf("111");
