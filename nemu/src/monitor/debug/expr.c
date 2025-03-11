@@ -210,9 +210,11 @@ static int find_dominate_op(int p, int q){
   for(int i = p ; i <= q; i++){
     if(tokens[i].type == '('){
       parentheses++;
+      continue;
     }
     if(tokens[i].type == ')'){
       parentheses--;
+      continue;
     }
     if(parentheses == 0){
       // 进入这个分支表示不在一个括号中
