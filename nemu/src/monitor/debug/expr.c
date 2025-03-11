@@ -146,9 +146,9 @@ static bool check_parentheses(int p, int q){
       return false;
     }
   }
-  if(judge != 0){
-    Log("p is %d, q is %d\n", p, q);
-    
+  Log("p is %d, q is %d\n", p, q);
+
+  if(judge != 0){    
     panic("Meet unmatched () in the end");
   }
   return (judge == 0 && tokens[p].type == '(' && tokens[q].type == ')');
