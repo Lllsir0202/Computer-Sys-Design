@@ -173,7 +173,7 @@ static uint32_t eval(int p, int q){
       case TK_HEX:{
         char* _noperfix = tokens[index].str + 2;
         uint32_t num =  strtoul(_noperfix, NULL, 16);
-        Log("hex num is %0x",num);
+        Log("hex num is 0x%x",num);
         return num;
       }
       default:{
@@ -210,8 +210,9 @@ uint32_t expr(char *e, bool *success) {
     // 接下来就是需要去计算求值了
   }
 
-  Log("Test: Num is %x",eval(0,nr_token-1));
+  uint32_t result = eval(0,nr_token-1);
+  Log("Test: Num is 0x%x",result);
   
 
-  return 0;
+  return result;
 }
