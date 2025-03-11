@@ -153,45 +153,82 @@ static bool check_parentheses(int p, int q){
 }
 
 // 在寻找dominate op之前，我们需要确定好op的优先级
-// static int get_op_prior(int type){
-//   // 这里我们先确定下优先级
-//   // 首先最高的是：括号
-//   // 其次是：单目运算符，右结合
-//   // 然后是：乘除，左结合
-//   // 再后是：加减，左结合
-//   switch(type){
-//     case '(':
-//     case ')':{
-//       return 0;
-//     }
-//     case TK_DEREF:
-//     case TK_NEG:{
-//       return 1;
-//     }
-//     case '*':
-//     case '/':{
-//       return 2;
-//     }
-//     case '+':
-//     case '-':{
-//       return 3;
-//     }
-//     case TK_AND:{
-//       return 4;
-//     }
-//     case TK_OR:{
-//       return 5;
-//     }
-//   }
-// }
+static int get_op_prior(int type){
+  // 这里我们先确定下优先级
+  // 首先最高的是：括号
+  // 其次是：单目运算符，右结合
+  // 然后是：乘除，左结合
+  // 再后是：加减，左结合
+
+  // 在这里是越小优先级越高
+  switch(type){
+    case '(':
+    case ')':{
+      return 0;
+    }
+    case TK_DEREF:
+    case TK_NEG:{
+      return 1;
+    }
+    case '*':
+    case '/':{
+      return 2;
+    }
+    case '+':
+    case '-':{
+      return 3;
+    }
+    case TK_EQ:
+    case TK_NEQ:{
+      return 4;
+    }
+    case TK_AND:{
+      return 5;
+    }
+    case TK_OR:{
+      return 6;
+    }
+    default:{
+      Log("Get op prior REACHES some strange position");
+      panic("Op is %d", type);
+    }
+  }
+}
 
 // 寻找dominate op
-// static int find_dominate_op(int p, int q){
-//   // 可以在进入eval之前，就进行一次计算，这样就不需要处理别的情况了
-//   // for(int i = p ; i <= q; i++){
-//   //   if(tokens[i].type == '-' && (i == 0 || tokens[i-1].type == ))
-//   // }
-// }
+static int find_dominate_op(int p, int q){
+  // 可以在进入eval之前，就进行一次计算，这样就不需要处理别的情况了
+  // for(int i = p ; i <= q; i++){
+  //   if(tokens[i].type == '-' && (i == 0 || tokens[i-1].type == ))
+  // }
+  int parentheses = 0;
+  int op = -1; // 这里的op表示索引，需要使用tokens[op]来访问
+  int min_prior = 10; // 表示优先级，由于我们上面的实现中，是数字越小，优先级越高，所以开始选择一个较大的数字
+  int cur_prior;
+  for(int i = p ; i <= q; i++){
+    if(tokens[i].type == '('){
+      parentheses++;
+    }
+    if(tokens[i].type == ')'){
+      parentheses--;
+    }
+    if(parentheses == 0){
+      // 进入这个分支表示不在一个括号中
+      // 下一个分支表示是非运算符，那么直接continue
+      if(tokens[i].type == TK_NUM || tokens[i].type == TK_HEX || tokens[i].type == TK_REG){
+        continue;
+      }
+      // 接下来就是基于优先级去处理了
+      cur_prior = get_op_prior(tokens[i].type);
+      if(min_prior >= cur_prior){
+        min_prior = cur_prior;
+        op = i;
+      }
+    }
+  }
+  assert(op != -1);
+  return op;
+}
 
 // 通过char*得到寄存器的值
 static uint32_t get_reg_value(char* reg){
@@ -253,15 +290,62 @@ static uint32_t eval(int p, int q){
     /* The expression is surrounded by a matched pair of parentheses.
      * If that is the case, just throw away the parentheses.
      */
-    Log("p is %d, q is %d\n", p, q);
+    // Log("p is %d, q is %d\n", p, q);
     return eval(p + 1, q - 1);
   }
   else {
     /* We should do more things here. */
     // 这里其实就是作出计算的操作，一方面这里不是完整的一个括号，另一方面这里先需要知道哪个是dominate operator
     // 首先找到dominate op，然后定位前后位置
-
-    return 0;
+    int op = find_dominate_op(p,q);
+    // 这里如果op对应的type是单目运算符，那么需要重新处理
+    if(tokens[op].type == TK_DEREF || tokens[op].type == TK_NEG){
+      return 0;
+    }else{
+      // 这个分支，表示这里是正常的计算了
+      uint32_t left_val = eval(p, op-1);
+      if(tokens[op].type == TK_AND){
+        if(left_val == 0){
+          return 0;
+        }else{
+          return eval(p, op);
+        }
+      }
+      if(tokens[op].type == TK_OR){
+        if(left_val == 0){
+          return eval(op+1, q);
+        }else{
+          return 1;
+        }
+      }
+      uint32_t right_val = eval(op+1, q);
+      uint32_t result = 0;
+      switch (tokens[op].type){
+        case '+':{
+          result = left_val + right_val;
+        }break;
+        case '-':{
+          result = left_val - right_val;
+        }break;
+        case '*':{
+          result = left_val * right_val;
+        }break;
+        case '/':{
+          if(right_val != 0){
+            result = left_val / right_val;
+          }else{
+            panic("Invalid result: the divisor is 0");
+          }
+        }break;
+        case TK_EQ:{
+          result = (left_val == right_val);
+        }break;
+        case TK_NEQ:{
+          result = (left_val != right_val);
+        }break;
+      }
+      return result;
+    }
   }
 }
 
