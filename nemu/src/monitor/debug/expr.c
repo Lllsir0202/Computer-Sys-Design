@@ -312,7 +312,7 @@ static uint32_t eval(int p, int q){
         if(left_val == 0){
           return 0;
         }else{
-          return eval(p, op-1);
+          return eval(op+1, q);
         }
       }
       if(tokens[op].type == TK_OR){
