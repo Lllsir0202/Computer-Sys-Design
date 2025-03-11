@@ -155,7 +155,7 @@ static uint32_t eval(int p, int q){
     panic("Invalid expression!");
   }
   else if (p == q) {
-    // panic("here");
+    panic("here");
     /* Single token.
      * For now this token should be a number.
      * Return the value of the number.
@@ -185,7 +185,7 @@ static uint32_t eval(int p, int q){
     /* The expression is surrounded by a matched pair of parentheses.
      * If that is the case, just throw away the parentheses.
      */
-    printf("p is %d, q is %d\n", p, q);
+    // printf("p is %d, q is %d\n", p, q);
     return eval(p + 1, q - 1);
   }
   else {
