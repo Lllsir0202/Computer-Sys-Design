@@ -210,7 +210,7 @@ uint32_t expr(char *e, bool *success) {
     // 接下来就是需要去计算求值了
   }
 
-  Log("num is %x",eval(0,nr_token-1));
+  Log("Test: Num is %x",eval(0,nr_token-1));
   
 
   return 0;
