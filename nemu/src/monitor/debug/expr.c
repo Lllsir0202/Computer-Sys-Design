@@ -173,7 +173,7 @@ static uint32_t eval(int p, int q){
       case TK_HEX:{
         char* _noperfix = tokens[index].str + 2;
         uint32_t num =  strtoul(_noperfix, NULL, 16);
-        Log("num is %d",num);
+        Log("num is %0x",num);
         return num;
       }
       default:{
