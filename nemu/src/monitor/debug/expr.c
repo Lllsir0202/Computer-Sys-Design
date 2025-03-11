@@ -238,7 +238,8 @@ static uint32_t eval(int p, int q){
         return num;
       }
       case TK_REG:{
-        return get_reg_value(tokens[index].str);
+        char* _noperfix = tokens[index].str + 1;
+        return get_reg_value(_noperfix);
       }
       default:{
         panic("Invalid case");
