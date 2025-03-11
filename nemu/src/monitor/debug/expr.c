@@ -361,6 +361,11 @@ uint32_t expr(char *e, bool *success) {
     // 接下来就是需要去计算求值了
     // 然后我们需要考虑的是，我们应该处理
     // 对于解引用
+    if(i == 0 || (tokens[i].type == '*' && (tokens[i-1].type == '(' || 
+      tokens[i-1].type == '+' || tokens[i-1].type == '-' || 
+      tokens[i-1].type == '*' || tokens[i-1].type == '/'))){
+        tokens[i].type = TK_DEREF;
+    }
   }
 
   uint32_t result = eval(0,nr_token-1);
