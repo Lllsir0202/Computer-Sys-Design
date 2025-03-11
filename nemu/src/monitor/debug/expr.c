@@ -8,7 +8,9 @@
 #include <stdlib.h>
 
 enum {
-  TK_NOTYPE = 256, TK_EQ, TK_NUM, TK_HEX, TK_REG, TK_NEQ, TK_AND, TK_OR
+  TK_NOTYPE = 256, TK_EQ, TK_NUM, TK_HEX, TK_REG, TK_NEQ, TK_AND, TK_OR, 
+  // 这两个token其实就是*和-，但是作出区分主要为了作为解引用和负号
+  TK_DEREF, TK_NEG
 
   /* TODO: Add more token types */
 
@@ -162,16 +164,50 @@ static bool check_parentheses(int p, int q){
 //     case ')':{
 //       return 0;
 //     }
+//     case TK_DEREF:
+//     case TK_NEG:{
+//       return 1;
+//     }
+//     case '*':
+//     case '/':{
+//       return 2;
+//     }
+//     case '+':
+//     case '-':{
+//       return 3;
+//     }
+//     case TK_AND:{
+//       return 4;
+//     }
+//     case TK_OR:{
+//       return 5;
+//     }
 //   }
 // }
 
-// // 寻找dominate op
+// 寻找dominate op
 // static int find_dominate_op(int p, int q){
-//   for(int i = p ; i <= q; i++){
-    
-//   }
+//   // 可以在进入eval之前，就进行一次计算，这样就不需要处理别的情况了
+//   // for(int i = p ; i <= q; i++){
+//   //   if(tokens[i].type == '-' && (i == 0 || tokens[i-1].type == ))
+//   // }
 // }
 
+// 通过char*得到寄存器的值
+static uint32_t get_reg_value(char* reg){
+  for(int i = 0; i < 8 ; i++){
+    if(strcmp(reg, regsl[i]) == 0){
+      return reg_l(i);
+    }
+    if(strcmp(reg, regsw[i]) == 0){
+      return reg_w(i);
+    }
+    if(strcmp(reg, regsb[i]) == 0){
+      return reg_b(i);
+    }
+  }
+  panic("Invalid register %s", reg);
+}
 
 static uint32_t eval(int p, int q){
   if (p > q) {
@@ -200,6 +236,9 @@ static uint32_t eval(int p, int q){
         uint32_t num =  strtoul(_noperfix, NULL, 16);
         Log("hex num is 0x%x",num);
         return num;
+      }
+      case TK_REG:{
+        return get_reg_value(tokens[index].str);
       }
       default:{
         panic("Invalid case");
