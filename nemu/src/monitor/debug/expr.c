@@ -8,7 +8,7 @@
 #include <stdlib.h>
 
 enum {
-  TK_NOTYPE = 256, TK_EQ, TK_NUM, TK_HEX, TK_REG, TK_NEQ
+  TK_NOTYPE = 256, TK_EQ, TK_NUM, TK_HEX, TK_REG, TK_NEQ, TK_AND, TK_OR
 
   /* TODO: Add more token types */
 
@@ -35,7 +35,9 @@ static struct rule {
   {"(0x|X)[0-9a-fA-F]+", TK_HEX},     // HEX_NUM
   {"[0-9]+", TK_NUM},    // NUM
   {"$[a-z]+", TK_REG},  // reg
-  {"!", '!'}           // !
+  {"!", '!'},           // !
+  {"&&", TK_AND},       // and
+  {"||", TK_OR}         // or
   // 对于解引用来说，我们的处理其实和乘法识别没有区别
 };
 
@@ -148,6 +150,29 @@ static bool check_parentheses(int p, int q){
   return (judge == 0 && tokens[p].type == '(' && tokens[q].type == ')');
 }
 
+// 在寻找dominate op之前，我们需要确定好op的优先级
+// static int get_op_prior(int type){
+//   // 这里我们先确定下优先级
+//   // 首先最高的是：括号
+//   // 其次是：单目运算符，右结合
+//   // 然后是：乘除，左结合
+//   // 再后是：加减，左结合
+//   switch(type){
+//     case '(':
+//     case ')':{
+//       return 0;
+//     }
+//   }
+// }
+
+// // 寻找dominate op
+// static int find_dominate_op(int p, int q){
+//   for(int i = p ; i <= q; i++){
+    
+//   }
+// }
+
+
 static uint32_t eval(int p, int q){
   if (p > q) {
     /* Bad expression */
@@ -190,8 +215,9 @@ static uint32_t eval(int p, int q){
   }
   else {
     /* We should do more things here. */
-    // 这里其实就是作出计算的操作，一方面这里不是完整的一个括号，另一方面这里需要知道哪个是dominate operator
-    
+    // 这里其实就是作出计算的操作，一方面这里不是完整的一个括号，另一方面这里先需要知道哪个是dominate operator
+    // 首先找到dominate op，然后定位前后位置
+
     return 0;
   }
 }
