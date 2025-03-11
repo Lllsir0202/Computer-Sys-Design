@@ -147,7 +147,7 @@ static bool check_parentheses(int p, int q){
     }
   }
   if(judge != 0){
-    Log("p is %s, q is %s\n", tokens[p].str, tokens[q].str);
+    Log("p is %d, q is %d\n", p, q);
     
     panic("Meet unmatched () in the end");
   }
