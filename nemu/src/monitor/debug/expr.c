@@ -206,6 +206,9 @@ static uint32_t get_reg_value(char* reg){
       return reg_b(i);
     }
   }
+  if(strcmp(reg, "eip") == 0){
+    return cpu.eip;
+  }
   panic("Invalid register %s", reg);
 }
 
