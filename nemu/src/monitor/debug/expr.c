@@ -166,13 +166,13 @@ static uint32_t eval(int p, int q){
       case TK_NUM:{
         // 表示十进制数字
         uint32_t num =  strtoul(tokens[index].str, NULL, 10);
-        Log("%d", num);
+        Log("num is %d", num);
         return num;
       }
       case TK_HEX:{
         char* _noperfix = tokens[index].str + 2;
         uint32_t num =  strtoul(_noperfix, NULL, 16);
-        Log("%d",num);
+        Log("num is %d",num);
         return num;
       }
       default:{
