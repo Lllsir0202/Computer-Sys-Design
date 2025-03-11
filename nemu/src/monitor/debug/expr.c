@@ -365,7 +365,7 @@ uint32_t expr(char *e, bool *success) {
   *success = true;
   int i;
   for(i = 0 ; i < nr_token; i++){
-    printf("str is %s\n index is %d", tokens[i].str, i);
+    printf("str is %s index is %d\n", tokens[i].str, i);
     // 接下来就是需要去计算求值了
   }
 
