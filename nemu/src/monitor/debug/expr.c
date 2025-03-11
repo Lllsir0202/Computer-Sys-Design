@@ -130,7 +130,7 @@ static bool make_token(char *e) {
 static bool check_parentheses(int p, int q){
   // 用来判断括号是否匹配，其实就是首尾是否都是括号、内部括号是否对应
   int judge = 0;
-  for(int i = p; i < q; i++){
+  for(int i = p; i <= q; i++){
     if(tokens[i].type == '('){
       judge++;
     }
@@ -145,7 +145,7 @@ static bool check_parentheses(int p, int q){
   if(judge != 0){
     panic("Meet unmatched ()");
   }
-  return (judge == 0 && tokens[p].type == '(' && tokens[q-1].type == ')');
+  return (judge == 0 && tokens[p].type == '(' && tokens[q].type == ')');
 }
 
 static uint32_t eval(int p, int q){
