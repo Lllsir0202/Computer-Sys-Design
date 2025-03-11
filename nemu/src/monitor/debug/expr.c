@@ -155,6 +155,7 @@ static uint32_t eval(int p, int q){
     panic("Invalid expression!");
   }
   else if (p == q) {
+    panic("here");
     /* Single token.
      * For now this token should be a number.
      * Return the value of the number.
