@@ -206,9 +206,10 @@ uint32_t expr(char *e, bool *success) {
   for(i = 0 ; i < nr_token; i++){
     printf("str is %s\n", tokens[i].str);
     // 接下来就是需要去计算求值了
-    Log("%d",eval(0,nr_token));
   }
 
+  Log("%d",eval(0,nr_token));
+  
 
   return 0;
 }
