@@ -124,10 +124,10 @@ static int cmd_info(char *args){
   if(strcmp(arg, "r") == 0){
     for(i = 0 ; i < 8; i++){
       printf("%s\t",regsl[i]);
-      printf("%u\n",reg_l(i));
+      printf("0x%x\n",reg_l(i));
     }
     printf("eip\t");
-    printf("%u\n",cpu.eip);
+    printf("0x%x\n",cpu.eip);
   }else if(strcmp(arg, "w") == 0){
 
   }else{
@@ -147,7 +147,7 @@ static int cmd_p(char *args){
     return -1;
   }
   else{
-    printf("Result: %x\n", result);
+    printf("Result: 0x%x\n", result);
   }
   return 0;
 }
