@@ -309,18 +309,10 @@ static uint32_t eval(int p, int q){
       // 这个分支，表示这里是正常的计算了
       uint32_t left_val = eval(p, op-1);
       if(tokens[op].type == TK_AND){
-        if(left_val == 0){
-          return 0;
-        }else{
-          return eval(op+1, q);
-        }
+        return left_val && eval(op+1, q);
       }
       if(tokens[op].type == TK_OR){
-        if(left_val == 0){
-          return eval(op+1, q);
-        }else{
-          return 1;
-        }
+        return left_val || eval(op+1, q);
       }
       uint32_t right_val = eval(op+1, q);
       uint32_t result = 0;
