@@ -290,7 +290,7 @@ static uint32_t eval(int p, int q){
     /* The expression is surrounded by a matched pair of parentheses.
      * If that is the case, just throw away the parentheses.
      */
-    // Log("p is %d, q is %d\n", p, q);
+    Log("p is %s, q is %s\n", tokens[p].str, tokens[q].str);
     return eval(p + 1, q - 1);
   }
   else {
