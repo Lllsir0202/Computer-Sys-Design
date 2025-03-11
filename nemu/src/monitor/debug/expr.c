@@ -303,8 +303,11 @@ static uint32_t eval(int p, int q){
     // 首先找到dominate op，然后定位前后位置
     int op = find_dominate_op(p,q);
     // 这里如果op对应的type是单目运算符，那么需要重新处理
-    if(tokens[op].type == TK_DEREF || tokens[op].type == TK_NEG){
-      return 0;
+    if(tokens[op].type == TK_DEREF){
+      return vaddr_read(eval(op+1, q), 4);
+    }
+    else if(tokens[op].type == TK_NEG){
+      return -1 * eval(op+1, q);
     }else{
       // 这个分支，表示这里是正常的计算了
       uint32_t left_val = eval(p, op-1);
