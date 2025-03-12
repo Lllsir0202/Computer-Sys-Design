@@ -225,12 +225,13 @@ static int find_dominate_op(int p, int q){
       }
       // 接下来就是基于优先级去处理了
       cur_prior = get_op_prior(tokens[i].type);
-      if(min_prior > cur_prior ||(min_prior == cur_prior && tokens[i].type != TK_NEG && tokens[i].type != TK_DEREF)){
+      if(min_prior > cur_prior || (min_prior == cur_prior && tokens[i].type != TK_NEG && tokens[i].type != TK_DEREF)){
         min_prior = cur_prior;
         op = i;
       }
     }
   }
+  Log("Final dominate op is %d", op);
   assert(op != -1);
   return op;
 }
