@@ -19,5 +19,8 @@ void init_wp_pool() {
 }
 
 /* TODO: Implement the functionality of watchpoint */
-
+// 用来实现wp的添加
+WP* new_up(){
+  return wp_pool+1;
+}
 
