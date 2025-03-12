@@ -287,7 +287,7 @@ static uint32_t eval(int p, int q){
         return get_reg_value(_noperfix);
       }
       default:{
-        panic("Invalid case");
+        panic("Invalid case, p==q in type %d", tokens[index].type);
       }
     }
   }
