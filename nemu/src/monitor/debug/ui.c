@@ -124,7 +124,7 @@ static int cmd_info(char *args){
   if(strcmp(arg, "r") == 0){
     for(i = 0 ; i < 8; i++){
       printf("%s\t",regsl[i]);
-      printf("0x%x\n",reg_l(i));
+      printf("0x%32x\n",reg_l(i));
     }
     printf("eip\t");
     printf("0x%x\n",cpu.eip);
