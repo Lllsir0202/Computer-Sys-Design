@@ -163,18 +163,19 @@ static int get_op_prior(int type){
   // 再后是：加减，左结合
 
   // 在这里是越小优先级越高
+  // -> 发现不行，这样不好处理，不如将小数字作为优先级低的，即：越大优先级越高
   switch(type){
     case '(':
     case ')':{
-      return 0;
+      return 6;
     }
     case TK_DEREF:
     case TK_NEG:{
-      return 1;
+      return 5;
     }
     case '*':
     case '/':{
-      return 2;
+      return 4;
     }
     case '+':
     case '-':{
@@ -182,13 +183,13 @@ static int get_op_prior(int type){
     }
     case TK_EQ:
     case TK_NEQ:{
-      return 4;
+      return 2;
     }
     case TK_AND:{
-      return 5;
+      return 1;
     }
     case TK_OR:{
-      return 6;
+      return 0;
     }
     default:{
       Log("Get op prior REACHES some strange position");
