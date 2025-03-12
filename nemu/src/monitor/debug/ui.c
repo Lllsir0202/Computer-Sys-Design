@@ -9,6 +9,8 @@
 
 void cpu_exec(uint64_t);
 
+extern void show_all();
+
 /* We use the `readline' library to provide more flexibility to read from stdin. */
 char* rl_gets() {
   static char *line_read = NULL;
@@ -129,7 +131,7 @@ static int cmd_info(char *args){
     printf("eip\t");
     printf("0x%08x\n",cpu.eip);
   }else if(strcmp(arg, "w") == 0){
-
+    show_all();
   }else{
     printf("Unknown command '%s'\n", arg);
   }
