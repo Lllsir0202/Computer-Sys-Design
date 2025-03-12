@@ -308,6 +308,7 @@ static uint32_t eval(int p, int q){
       return vaddr_read(eval(op+1, q), 4);
     }
     else if(tokens[op].type == TK_NEG){
+      Log("P is %d, Q is %d, OP is %d", p, q, op);
       return -1 * eval(op+1, q);
     }else{
       // 这个分支，表示这里是正常的计算了
