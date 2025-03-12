@@ -232,7 +232,7 @@ static int find_dominate_op(int p, int q){
       }
     }
   }
-  Log("Final dominate op is %d", op);
+  Log("Final dominate op is %d, prior is %d", op, min_prior);
   assert(op != -1);
   return op;
 }
