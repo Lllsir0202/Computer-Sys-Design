@@ -273,13 +273,13 @@ static uint32_t eval(int p, int q){
       case TK_NUM:{
         // 表示十进制数字
         uint32_t num =  strtoul(tokens[index].str, NULL, 10);
-        Log("dec num is %d", num);
+        // Log("dec num is %d", num);
         return num;
       }
       case TK_HEX:{
         char* _noperfix = tokens[index].str + 2;
         uint32_t num =  strtoul(_noperfix, NULL, 16);
-        Log("hex num is 0x%x",num);
+        // Log("hex num is 0x%x",num);
         return num;
       }
       case TK_REG:{
@@ -295,7 +295,7 @@ static uint32_t eval(int p, int q){
     /* The expression is surrounded by a matched pair of parentheses.
      * If that is the case, just throw away the parentheses.
      */
-    Log("p is %s, q is %s\n", tokens[p].str, tokens[q].str);
+    // Log("p is %s, q is %s\n", tokens[p].str, tokens[q].str);
     return eval(p + 1, q - 1);
   }
   else {
