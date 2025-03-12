@@ -81,3 +81,41 @@ void free_up(WP* wp){
     }
   }
 }
+
+void show_all(){
+  WP* p = head;
+  while(p != NULL){
+    printf("#%-4d", p->NO);
+    printf("%-8s", p->expression);
+    bool success;
+    uint32_t result = expr(p->expression, &success);
+    if(!success){
+      printf("\n");
+      panic("Invalid expr in wp");
+    }
+    printf("%08x", result);
+    p = p->next;
+  }
+}
+
+bool check_up(){
+  WP* p = head;
+  bool success;
+  uint32_t result;
+  bool flag = false;
+  while(p != NULL){
+    // 需要检查expr是否变化
+    result = expr(p->expression, &success);
+    if(!success){
+      panic("Failed to phase expression %s", p->expression);
+    }
+    if(result != p->old_value){
+      printf("Meet watchpoint expr change of NO %-4d\n", p->NO);
+      printf("expr: %-8s", p->expression);
+      printf("val:%-808x\n", result);
+      flag = true;
+    }
+    p = p->next;
+  }
+  return flag;
+}
