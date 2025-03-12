@@ -370,12 +370,12 @@ uint32_t expr(char *e, bool *success) {
     // 对于解引用
     if(tokens[i].type == '*' && (i == 0 || (tokens[i-1].type == '(' || 
       tokens[i-1].type == '+' || tokens[i-1].type == '-' || 
-      tokens[i-1].type == '*' || tokens[i-1].type == '/'))){
+      tokens[i-1].type == '*' || tokens[i-1].type == '/'|| tokens[i-1].type == TK_NEG || tokens[i-1].type == TK_DEREF))){
         tokens[i].type = TK_DEREF;
     }
     if(tokens[i].type == '-' && (i == 0 || (tokens[i-1].type == '(' || 
       tokens[i-1].type == '+' || tokens[i-1].type == '-' || 
-      tokens[i-1].type == '*' || tokens[i-1].type == '/'))){
+      tokens[i-1].type == '*' || tokens[i-1].type == '/' || tokens[i-1].type == TK_NEG || tokens[i-1].type == TK_DEREF))){
         Log("index is %d", i);
         tokens[i].type = TK_NEG;
     }
