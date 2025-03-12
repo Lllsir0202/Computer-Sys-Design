@@ -124,10 +124,10 @@ static int cmd_info(char *args){
   if(strcmp(arg, "r") == 0){
     for(i = 0 ; i < 8; i++){
       printf("%s\t",regsl[i]);
-      printf("0x%x\n",reg_l(i));
+      printf("0x%08x\n",reg_l(i));
     }
     printf("eip\t");
-    printf("0x%x\n",cpu.eip);
+    printf("0x%08x\n",cpu.eip);
   }else if(strcmp(arg, "w") == 0){
 
   }else{
@@ -147,7 +147,7 @@ static int cmd_p(char *args){
     return -1;
   }
   else{
-    printf("Result: 0x%x\n", result);
+    printf("Result: 0x%08x\n", result);
   }
   return 0;
 }
@@ -173,9 +173,9 @@ static int cmd_x(char *args){
   // printf("%x", (int)*ptr);
   for(i = 0 ; i < N ; i++){
     // 首先输出内存地址
-    printf("0x%x\t", addr);
+    printf("0x%08x\t", addr);
     for(int j = 0 ; j < 4 ; j++){
-      printf("0x%x ", vaddr_read(addr,1));
+      printf("0x%02x ", vaddr_read(addr,1));
       addr++;
     }
     printf("\n");
