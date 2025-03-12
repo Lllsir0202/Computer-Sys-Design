@@ -225,14 +225,14 @@ static int find_dominate_op(int p, int q){
       }
       // 接下来就是基于优先级去处理了
       cur_prior = get_op_prior(tokens[i].type);
-      Log("current prior is %d", cur_prior);
+      // Log("current prior is %d", cur_prior);
       if(min_prior > cur_prior || (min_prior == cur_prior && tokens[i].type != TK_NEG && tokens[i].type != TK_DEREF)){
         min_prior = cur_prior;
         op = i;
       }
     }
   }
-  Log("Final dominate op is %d, prior is %d", op, min_prior);
+  // Log("Final dominate op is %d, prior is %d", op, min_prior);
   assert(op != -1);
   return op;
 }
@@ -310,7 +310,7 @@ static uint32_t eval(int p, int q){
       return vaddr_read(eval(op+1, q), 4);
     }
     else if(tokens[op].type == TK_NEG){
-      Log("P is %d, Q is %d, OP is %d", p, q, op);
+      // Log("P is %d, Q is %d, OP is %d", p, q, op);
       return -1 * eval(op+1, q);
     }else{
       // 这个分支，表示这里是正常的计算了
@@ -376,7 +376,7 @@ uint32_t expr(char *e, bool *success) {
     if(tokens[i].type == '-' && (i == 0 || (tokens[i-1].type == '(' || 
       tokens[i-1].type == '+' || tokens[i-1].type == '-' || 
       tokens[i-1].type == '*' || tokens[i-1].type == '/' || tokens[i-1].type == TK_NEG || tokens[i-1].type == TK_DEREF))){
-        Log("index is %d", i);
+        // Log("index is %d", i);
         tokens[i].type = TK_NEG;
     }
 
