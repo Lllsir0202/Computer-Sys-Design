@@ -10,6 +10,9 @@
 void cpu_exec(uint64_t);
 
 extern void show_all();
+extern WP* new_up();
+extern void free_up(int no);
+
 
 /* We use the `readline' library to provide more flexibility to read from stdin. */
 char* rl_gets() {
@@ -53,10 +56,10 @@ static int cmd_p(char *args);
 static int cmd_x(char *args);
 
 // // w
-// static int cmd_w(char *args);
+static int cmd_w(char *args);
 
 // // d
-// static int cmd_d(char *args);
+static int cmd_d(char *args);
 
 static struct {
   char *name;
@@ -71,8 +74,8 @@ static struct {
   { "info", "Print informations of something", cmd_info},
   { "p", "Get the result of the expr", cmd_p},
   { "x", "Scan the memory", cmd_x},
-  // { "w", "Set the watchpoint", cmd_w},
-  // { "d", "Delete NO.n watchpoint", cmd_d}
+  { "w", "Set the watchpoint", cmd_w},
+  { "d", "Delete NO.n watchpoint", cmd_d}
   /* TODO: Add more commands */
 
 };
@@ -182,6 +185,26 @@ static int cmd_x(char *args){
     }
     printf("\n");
   }
+  return 0;
+}
+
+static int cmd_w(char *args){
+  char* arg = strtok(NULL, "");
+  WP* wp = new_up();
+  wp->expression = arg;
+  bool success;
+  uint32_t result = expr(arg, &success);
+  if(!success){
+    panic("Failed to phase expression %s", arg);
+  }
+  wp->old_value = result;
+  return 0;
+}
+
+static int cmd_d(char *args){
+  char* arg = strtok(NULL, "");
+  int no = strtoul(arg, NULL,10);
+  free_up(no);
   return 0;
 }
 

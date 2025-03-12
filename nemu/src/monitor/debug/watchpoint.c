@@ -44,7 +44,9 @@ WP* new_up(){
   return new_wp;
 }
 
-void free_up(WP* wp){
+void free_up(int no){
+  assert(no < NR_WP);
+  WP* wp = wp_pool + no;
   assert(wp != NULL);
   WP* p = head;
   assert(p != NULL);
