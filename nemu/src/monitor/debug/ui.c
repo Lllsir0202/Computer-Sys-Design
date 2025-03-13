@@ -10,7 +10,7 @@
 void cpu_exec(uint64_t);
 
 extern void show_all();
-extern WP* new_up();
+extern WP* new_up(char* arg);
 extern void free_up(int no);
 
 
@@ -190,7 +190,7 @@ static int cmd_x(char *args){
 
 static int cmd_w(char *args){
   char* arg = strtok(NULL, "");
-  WP* wp = new_up();
+  WP* wp = new_up(arg);
   printf("%s",wp->expression);
   bool success;
   uint32_t result = expr(arg, &success);

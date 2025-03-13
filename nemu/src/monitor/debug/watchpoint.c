@@ -20,7 +20,7 @@ void init_wp_pool() {
 
 /* TODO: Implement the functionality of watchpoint */
 // 用来实现wp的添加
-WP* new_up(){
+WP* new_up(char* arg){
   // 首先我们需要在free中找一个，然后返回其的WP*即可
   if(free_ == NULL){
     // 说明没有了
@@ -41,6 +41,7 @@ WP* new_up(){
     p->next = new_wp;
     new_wp->next = NULL;
   }
+  strcpy(new_wp->expression, arg);
   return new_wp;
 }
 
