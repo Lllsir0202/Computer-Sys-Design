@@ -93,7 +93,7 @@ void show_all(){
     bool success;
     uint32_t result = expr(p->expression, &success);
     printf("#%-4d", p->NO);
-    printf("%-8s", p->expression);
+    printf("%-16s", p->expression);
     if(!success){
       printf("\n");
       panic("Invalid expr in wp");
