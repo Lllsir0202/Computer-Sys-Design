@@ -169,6 +169,7 @@ static int get_op_prior(int type){
     case ')':{
       return 6;
     }
+    case '!':
     case TK_DEREF:
     case TK_NEG:{
       return 5;
@@ -312,7 +313,11 @@ static uint32_t eval(int p, int q){
     else if(tokens[op].type == TK_NEG){
       // Log("P is %d, Q is %d, OP is %d", p, q, op);
       return -1 * eval(op+1, q);
-    }else{
+    }
+    else if(tokens[op].type == '!'){
+      return !eval(op+1, q);
+    }
+    else{
       // 这个分支，表示这里是正常的计算了
       uint32_t left_val = eval(p, op-1);
       if(tokens[op].type == TK_AND){
