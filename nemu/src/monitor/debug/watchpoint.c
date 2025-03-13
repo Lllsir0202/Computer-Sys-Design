@@ -116,7 +116,7 @@ bool check_up(){
     }
     if(result != p->old_value){
       printf("Meet watchpoint expr change of NO %-4d\n", p->NO);
-      printf("expr: %-8s", p->expression);
+      printf("expr: %-16s", p->expression);
       printf("val:%08x\n", result);
       p->old_value = result;
       flag = true;
