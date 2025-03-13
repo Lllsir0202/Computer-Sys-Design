@@ -32,6 +32,7 @@ WP* new_up(char* arg){
   free_ = free_->next;
   if(head == NULL){
     head = new_wp;
+    new_wp->next = NULL;
   }else{
     WP* p = head;
     while(p->next != NULL){
