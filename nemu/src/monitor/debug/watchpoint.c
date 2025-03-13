@@ -96,7 +96,7 @@ void show_all(){
       printf("\n");
       panic("Invalid expr in wp");
     }
-    printf("%08x", result);
+    printf("%08x\n", result);
     p = p->next;
   }
 }
