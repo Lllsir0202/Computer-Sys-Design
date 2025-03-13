@@ -191,7 +191,7 @@ static int cmd_x(char *args){
 static int cmd_w(char *args){
   char* arg = strtok(NULL, "");
   WP* wp = new_up(arg);
-  printf("%s",wp->expression);
+  // printf("%s",wp->expression);
   bool success;
   uint32_t result = expr(arg, &success);
   if(!success){
