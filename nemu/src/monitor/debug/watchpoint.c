@@ -90,10 +90,10 @@ void free_up(int no){
 void show_all(){
   WP* p = head;
   while(p != NULL){
-    printf("#%-4d", p->NO);
-    printf("%-8s", p->expression);
     bool success;
     uint32_t result = expr(p->expression, &success);
+    printf("#%-4d", p->NO);
+    printf("%-8s", p->expression);
     if(!success){
       printf("\n");
       panic("Invalid expr in wp");
