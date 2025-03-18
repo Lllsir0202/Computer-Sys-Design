@@ -11,6 +11,6 @@ clean:
 
 submit: clean
 	git gc
-	cd .. && tar cj $(shell basename `pwd`) > $(2212878).tar.bz2
+	cd .. && tar cj $(shell basename `pwd`) > $(STU_ID).tar.bz2
 
 .PHONY: default clean submit
