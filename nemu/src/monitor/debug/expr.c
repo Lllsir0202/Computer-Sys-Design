@@ -142,11 +142,12 @@ static bool check_parentheses(int p, int q){
       judge--;
     }
     if(judge < 0){
+      Log("i is %d", i);
       panic("Meet unmatched () in pairing");
       return false;
     }
   }
-  Log("p is %d, q is %d, judge is %d\n", p, q, judge);
+  // Log("p is %d, q is %d\n", p, q);
 
   if(judge != 0){    
     panic("Meet unmatched () in the end");
