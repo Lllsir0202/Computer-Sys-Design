@@ -137,12 +137,17 @@ static bool check_parentheses(int p, int q){
   for(int i = p; i <= q; i++){
     if(tokens[i].type == '('){
       judge++;
+      Log("judge is %d", judge);
+
     }
     if(tokens[i].type == ')'){
       judge--;
+      Log("judge is %d", judge);
+
     }
     if(judge < 0){
       Log("i is %d", i);
+      Log("judge is %d", judge);
       panic("Meet unmatched () in pairing");
       return false;
     }
