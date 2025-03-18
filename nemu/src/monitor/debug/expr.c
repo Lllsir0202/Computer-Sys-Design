@@ -159,6 +159,7 @@ static bool check_parentheses(int p, int q){
   if(judge != 0){    
     panic("Meet unmatched () in the end");
   }
+  Log("here");
   return (judge == 0 && tokens[p].type == '(' && tokens[q].type == ')');
 }
 
