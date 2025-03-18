@@ -137,20 +137,15 @@ static bool check_parentheses(int p, int q){
   for(int i = p; i <= q; i++){
     if(tokens[i].type == '('){
       judge++;
-      Log("i is %d", i);
-      Log("judge is %d", judge);
-
     }
     if(tokens[i].type == ')'){
       judge--;
-      Log("i is %d", i);
-      Log("judge is %d", judge);
-
     }
     if(judge < 0){
-      Log("i is %d", i);
-      Log("judge is %d", judge);
       panic("Meet unmatched () in pairing");
+      return false;
+    }
+    if(judge == 0 && i != q){
       return false;
     }
   }
@@ -159,7 +154,6 @@ static bool check_parentheses(int p, int q){
   if(judge != 0){    
     panic("Meet unmatched () in the end");
   }
-  Log("here");
   return (judge == 0 && tokens[p].type == '(' && tokens[q].type == ')');
 }
 
@@ -216,7 +210,7 @@ static int find_dominate_op(int p, int q){
   // }
   int parentheses = 0;
   int op = -1; // 这里的op表示索引，需要使用tokens[op]来访问
-  int min_prior = 10; // 表示优先级，由于我们上面的实现中，是数字越小，优先级越高，所以开始选择一个较大的数字
+  int min_prior = 10; // 表示优先级，由于我们上面的实现中，是数字越小，优先级越高，所以开始选择一个较大的数字 ->  优先级越小，数字越小
   int cur_prior;
   for(int i = p ; i <= q; i++){
     if(tokens[i].type == '('){
@@ -242,7 +236,7 @@ static int find_dominate_op(int p, int q){
       }
     }
   }
-  Log("Final dominate op is %d, prior is %d", op, min_prior);
+  // Log("Final dominate op is %d, prior is %d", op, min_prior);
   assert(op != -1);
   return op;
 }
