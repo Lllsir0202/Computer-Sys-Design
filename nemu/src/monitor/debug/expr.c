@@ -146,7 +146,7 @@ static bool check_parentheses(int p, int q){
       return false;
     }
   }
-  Log("p is %d, q is %d\n", p, q);
+  Log("p is %d, q is %d, judge is %d\n", p, q, judge);
 
   if(judge != 0){    
     panic("Meet unmatched () in the end");
