@@ -1,6 +1,9 @@
 #include "cpu/exec.h"
 #include "all-instr.h"
 
+// 这里其实相当于把这里的所有可能的情况，都通过这里的函数指针进行记录
+// 需要执行的时候，其实更换下函数指针，传入eip，就可以一样的执行了
+// 其实本质上是避免太多的if-else或者switch-case
 typedef struct {
   DHelper decode;
   EHelper execute;
@@ -71,6 +74,8 @@ make_group(gp7,
 
 /* TODO: Add more instructions!!! */
 
+// 在这里似乎应该就是使用opcode去索引 译码函数, 执行函数, 以及操作数宽度
+// 目前不懂如何去索引两个0xfc的数据
 opcode_entry opcode_table [512] = {
   /* 0x00 */	EMPTY, EMPTY, EMPTY, EMPTY,
   /* 0x04 */	EMPTY, EMPTY, EMPTY, EMPTY,

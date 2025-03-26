@@ -79,6 +79,8 @@ void operand_write(Operand *, rtlreg_t *);
 /* shared by all helper functions */
 extern DecodeInfo decoding;
 
+// 这里DecodeInfo只有一个实例
+// 下面的宏表示各个Operand的指针
 #define id_src (&decoding.src)
 #define id_src2 (&decoding.src2)
 #define id_dest (&decoding.dest)
