@@ -83,11 +83,12 @@ static inline void restart() {
   /* Set the initial instruction pointer. */
   cpu.eip = ENTRY_START;
 
-  // 初始化，但是我们似乎结构体的时候已经结束了，所以这里输出确认下
+  // 初始化
+  // 其实只需要初始化下const_1，其他的都是0
   cpu.EFLAGS.const_1 = 1;
-  uint32_t test;
-  memcpy(&test, &cpu.EFLAGS, sizeof(test));
-  Log("EFLAGS init value is %x", test);
+  // uint32_t test;
+  // memcpy(&test, &cpu.EFLAGS, sizeof(test));
+  // Log("EFLAGS init value is %x", test);
 
 #ifdef DIFF_TEST
   init_qemu_reg();
