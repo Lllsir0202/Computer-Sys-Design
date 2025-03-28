@@ -98,6 +98,8 @@ make_DHelper(I_E2G);
 make_DHelper(I_G2E);
 make_DHelper(I);
 make_DHelper(r);
+// Add:used in pop
+make_DHelper(pop_r);
 make_DHelper(E);
 make_DHelper(gp7_E);
 make_DHelper(test_I);
