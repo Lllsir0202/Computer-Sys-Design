@@ -10,12 +10,14 @@ typedef void (*EHelper) (vaddr_t *);
 
 // 这个函数应该是用于取指令的,
 // 返回值是uint32_t类型的指令
+// -> 其实最终不一定取的是指令，这个函数的用处很多，比如我们只需要一个byte的时候，我们传入len=1即可
 static inline uint32_t instr_fetch(vaddr_t *eip, int len) {
   uint32_t instr = vaddr_read(*eip, len);
 #ifdef DEBUG
   uint8_t *p_instr = (void *)&instr;
   int i;
   for (i = 0; i < len; i ++) {
+    // 写入debug的p，其实用于输出所有的取到的bytes
     decoding.p += sprintf(decoding.p, "%02x ", p_instr[i]);
   }
 #endif

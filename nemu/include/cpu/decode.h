@@ -49,6 +49,7 @@ typedef struct {
 
 // 对于这个部分不是特别理解
 // 从下面的解释来看，似乎是地址的一种格式
+// 这是ModR/M的字节编码格式
 typedef union {
   struct {
     uint8_t R_M		:3; 
