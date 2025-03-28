@@ -64,8 +64,8 @@ typedef struct {
     bool reserve_2 : 1;
     bool RF : 1;
     bool VM : 1;
-    uint16_t reserve_3 : 16;
-  } EFLAGS ;
+    uint16_t reserve_3 : 14;
+  } EFLAGS;
 
 
 } CPU_state;
