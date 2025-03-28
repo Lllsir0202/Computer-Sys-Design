@@ -21,7 +21,6 @@ typedef struct {
     rtlreg_t addr;  // 如果是mem，那么用来表示地址
     uint32_t imm; // 如果是立即数，这里标识的是unsigned
     int32_t simm; // 如果是立即数，这里标识的是signed
-    // 虽然但是，目前的知识我不是很理解，为什么这里的有无符号需要分开()
   };
   rtlreg_t val; //操作数的值，从体系结构的角度理解，应该是说需要在decode阶段取到某一个操作数的值。
   // 我去查看一下rtlreg_t的类型，其实就是uint32_t，但是这里我没有很理解会怎么去处理立即数(?)
@@ -35,7 +34,7 @@ typedef struct {
   uint32_t opcode;  // 表示操作码，也就是标识指令的
   vaddr_t seq_eip;  // sequential eip 标识顺序执行的eip，其实就是没有branch时的eip
   bool is_operand_size_16;  // 是否为16位操作数
-  uint8_t ext_opcode; // 表示拓展操作码(?目前没有很了解这指的是哪些)
+  uint8_t ext_opcode; // 表示拓展操作码(?目前没有很了解这指的是哪些) -> 是ModR/M字节模式里起到作用的
   bool is_jmp;  // 表示是否为跳转指令
   vaddr_t jmp_eip;  // 跳转到的eip
   Operand src, dest, src2;  // 表示操作数 ->  源、目的、第二个源
