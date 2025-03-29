@@ -85,6 +85,7 @@ static inline void restart() {
 
   // 初始化
   uint32_t init_val = 0x2;
+  assert(sizeof(cpu.EFLAGS) == sizeof(init_val));
   memcpy(&cpu.EFLAGS, &init_val, sizeof(init_val));
   // Log("EFLAGS init value is %x", test);
 
