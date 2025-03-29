@@ -6,8 +6,8 @@ make_EHelper(mov) {
 }
 
 make_EHelper(push) {
-  Log("id_dest val is %x",id_dest->val);
-  Log("id_dest reg is %x", id_dest->reg);
+  // Log("id_dest val is %x",id_dest->val);
+  // Log("id_dest reg is %x", id_dest->reg);
   rtl_push(&id_dest->val);
 
   print_asm_template1(push);
