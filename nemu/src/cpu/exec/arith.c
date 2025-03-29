@@ -7,7 +7,8 @@ make_EHelper(add) {
 }
 
 make_EHelper(sub) {
-  TODO();
+  Log("The dest op is %x", id_dest->val);
+  Log("The src op is %x", id_src->val);
 
   print_asm_template2(sub);
 }
