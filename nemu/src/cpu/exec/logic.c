@@ -2,6 +2,7 @@
 
 make_EHelper(test) {
   rtl_and(&t0, &id_dest->val, &id_src->val);
+  Log("t0 is %x", t0);
   rtl_set_CF(&tzero);
   rtl_set_OF(&tzero);
   rtl_update_ZFSF(&t0, id_dest->width);
