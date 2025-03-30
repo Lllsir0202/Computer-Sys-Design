@@ -117,7 +117,11 @@ static int cmd_si(char *args){
   else{
     // 说明设定了参数
     int n = atoi(arg);
-    Log("Exec num is %d", n);
+    if(n >= 10)
+    {
+      Log("Please input a number with 10(not included)");
+      return 0;
+    }
     cpu_exec(n);
     return 0;
   }
