@@ -13,7 +13,11 @@ make_EHelper(and) {
 }
 
 make_EHelper(xor) {
-  TODO();
+  // 我们得到了两个寄存器并读到了值
+  // 我们只需要进行xor，并进行EFLAGS的更新即可
+  rtl_xor(&t0, &id_dest->val, &id_src->val);
+  // 接下来设定CF、OF为0
+  rtl_
 
   print_asm_template2(xor);
 }

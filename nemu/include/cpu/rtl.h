@@ -143,11 +143,15 @@ static inline void c_set_OF(const rtlreg_t* src){
   cpu.EFLAGS.OF = (*src == 0) ? 0 : 1;
 }
 
-// Not used
-static inline void c_set_ZF(const rtlreg_t* src){}
+// Not used -> mainly used in set 0
+static inline void c_set_ZF(const rtlreg_t* src){
+  cpu.EFLAGS.ZF = (*src == 0) ? 0 : 1;
+}
 
-// Not used
-static inline void c_set_SF(const rtlreg_t* src){}
+// Not used -> mainly used in set 0
+static inline void c_set_SF(const rtlreg_t* src){
+  cpu.EFLAGS.SF = (*src == 0) ? 0 : 1;
+}
 
 static inline void c_get_CF(rtlreg_t* dest){
   *dest = cpu.EFLAGS.CF;
