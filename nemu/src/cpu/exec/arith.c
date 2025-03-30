@@ -1,7 +1,28 @@
 #include "cpu/exec.h"
 
 make_EHelper(add) {
-  TODO();
+  rtl_add(&t0, &id_dest->val, &id_src->val);
+  operand_write(id_dest, &t0);
+  // 首先考虑CF，CF处理的是：本质上其实是无符号计算，
+  // 不同于减法，这里的计算考虑是否会超出，那么其实就是，如果超出，那么相加后的数字小于相加前的，
+  // 相对来说，sltu则是无符号数比较，t0 < id_dest->val，那么说明加法进位，则为1
+  rtl_sltu(&t1, &t0, &id_dest->val);
+  rtl_set_CF(&t1);
+
+  // 接下来考虑OF，OF处理的是：在有符号计算中，
+  // 如果有符号减法出现了进位
+  // 公式：OF = (sign(src1) != sign(src2)) && (sign(result) != sign(src1))
+  // 也就是说，当两个操作数的符号不一样，并且结果符号和第一个的不同，
+  // 那么说明 (+num) - (-num) and result is - OR (-num) - (+num) and result is +
+  // 其实本质上是因为无符号表示溢出后，最高位为0->1 OR 1->0
+  
+  // 如果异或结果最高位为1,那么说明这两个数是同符号，
+  rtl_xor(&t2, &id_dest->val, &id_src->val);
+  rtl_xor(&t3, &id_dest->val, &t0);
+  rtl_and(&t0, &t2, &t3);
+  rtl_msb(&t0, &t0, id_dest->width);
+  rtl_set_OF(&t0);
+  rtl_update_ZFSF(&id_dest->val,id_dest->width);
 
   print_asm_template2(add);
 }
