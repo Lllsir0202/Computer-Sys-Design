@@ -117,6 +117,7 @@ static int cmd_si(char *args){
   else{
     // 说明设定了参数
     int n = atoi(arg);
+    Log("Exec num is %d", n);
     cpu_exec(n);
     return 0;
   }
