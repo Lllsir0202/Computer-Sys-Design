@@ -17,7 +17,11 @@ make_EHelper(xor) {
   // 我们只需要进行xor，并进行EFLAGS的更新即可
   rtl_xor(&t0, &id_dest->val, &id_src->val);
   // 接下来设定CF、OF为0
-  rtl_
+  rtl_set_CF(&tzero);
+  rtl_set_OF(&tzero);
+  // 设置ZF、SF
+  rtl_update_ZFSF(&t0, id_dest->width);
+  operand_write(id_dest, &t0);
 
   print_asm_template2(xor);
 }
