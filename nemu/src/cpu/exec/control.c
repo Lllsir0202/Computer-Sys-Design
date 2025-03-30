@@ -31,8 +31,8 @@ make_EHelper(call) {
 }
 
 make_EHelper(ret) {
-  // 首先将寄存器存下来，然后基于id_dest来处理
-  decoding.jmp_eip = id_dest->val;
+  rtl_pop(&t0);
+  decoding.jmp_eip = t0;
   Log("jmp_eip is %x", id_dest->val);
   decoding.is_jmp = 1;
 
