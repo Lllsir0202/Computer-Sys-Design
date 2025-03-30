@@ -74,7 +74,7 @@ make_group(gp4,
   /* 0xff */
 make_group(gp5,
     EMPTY, EMPTY, EMPTY, EMPTY,
-    EMPTY, EMPTY, IDEX(push_SI,push_m), EMPTY)
+    EMPTY, EMPTY, IDEX(push_SI,push), EMPTY)
 
   /* 0x0f 0x01*/
 make_group(gp7,

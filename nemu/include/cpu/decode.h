@@ -99,8 +99,6 @@ make_DHelper(I);
 make_DHelper(r);
 // Add:used in pop
 make_DHelper(pop_r);
-// Add:used in push_m
-make_DHelper(push_m_I);
 make_DHelper(E);
 make_DHelper(gp7_E);
 make_DHelper(test_I);
