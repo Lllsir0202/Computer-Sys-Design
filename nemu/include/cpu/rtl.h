@@ -111,12 +111,22 @@ static inline void rtl_sr(int r, int width, const rtlreg_t* src1) {
   }
 }
 
+static inline void c_set_CF(const rtlreg_t* src);
+static inline void c_set_OF(const rtlreg_t* src);
+static inline void c_set_ZF(const rtlreg_t* src);
+static inline void c_set_SF(const rtlreg_t* src);
+
+static inline void c_get_CF(rtlreg_t* dest);
+static inline void c_get_OF(rtlreg_t* dest);
+static inline void c_get_ZF(rtlreg_t* dest);
+static inline void c_get_SF(rtlreg_t* dest);
+
 #define make_rtl_setget_eflags(f) \
   static inline void concat(rtl_set_, f) (const rtlreg_t* src) { \
-    TODO(); \
+    concat(c_set_, f) (src); \
   } \
   static inline void concat(rtl_get_, f) (rtlreg_t* dest) { \
-    TODO(); \
+    concat(c_get_, f) (dest); \
   }
 
 make_rtl_setget_eflags(CF)
@@ -124,14 +134,45 @@ make_rtl_setget_eflags(OF)
 make_rtl_setget_eflags(ZF)
 make_rtl_setget_eflags(SF)
 
+// Add: used to set/get eflags
+static inline void c_set_CF(const rtlreg_t* src){
+  cpu.EFLAGS.CF = (*src == 0) ? 0 : 1;
+}
+
+static inline void c_set_OF(const rtlreg_t* src){
+  cpu.EFLAGS.OF = (*src == 0) ? 0 : 1;
+}
+
+// Not used
+static inline void c_set_ZF(const rtlreg_t* src){}
+
+// Not used
+static inline void c_set_SF(const rtlreg_t* src){}
+
+static inline void c_get_CF(rtlreg_t* dest){
+  *dest = cpu.EFLAGS.CF;
+}
+
+static inline void c_get_OF(rtlreg_t* dest){
+  *dest = cpu.EFLAGS.OF;
+}
+
+static inline void c_get_ZF(rtlreg_t* dest){
+  *dest = cpu.EFLAGS.ZF;
+}
+
+static inline void c_get_SF(rtlreg_t* dest){
+  *dest = cpu.EFLAGS.SF;
+}
+
 static inline void rtl_mv(rtlreg_t* dest, const rtlreg_t *src1) {
   // dest <- src1
-  TODO();
+  *dest = *src1;
 }
 
 static inline void rtl_not(rtlreg_t* dest) {
   // dest <- ~dest
-  TODO();
+  *dest = ~(*dest);
 }
 
 static inline void rtl_sext(rtlreg_t* dest, const rtlreg_t* src1, int width) {
@@ -172,7 +213,8 @@ static inline void rtl_neq0(rtlreg_t* dest, const rtlreg_t* src1) {
 
 static inline void rtl_msb(rtlreg_t* dest, const rtlreg_t* src1, int width) {
   // dest <- src1[width * 8 - 1]
-  TODO();
+  // 其实就是把src右移8*width-1位(?)
+  *dest = ((*src1) >> ((width << 3) - 1)) & 1;
 }
 
 static inline void rtl_update_ZF(const rtlreg_t* result, int width) {
