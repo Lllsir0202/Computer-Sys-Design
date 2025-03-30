@@ -43,9 +43,18 @@ static make_EHelper(name) { \
 }
 
 /* 0x80, 0x81, 0x83 */
+// R/M with intermediate
+// 00 -> ADD
+// 01	-> OR
+// 02	-> ADC
+// 03	-> SBB
+// 04	-> AND
+// 05	-> SUB
+// 06	-> XOR
+// 07	-> CMP
 make_group(gp1,
     EMPTY, EMPTY, EMPTY, EMPTY,
-    EMPTY, EX(sub), EMPTY, EMPTY)
+    EX(and), EX(sub), EMPTY, EMPTY)
 
   /* 0xc0, 0xc1, 0xd0, 0xd1, 0xd2, 0xd3 */
 make_group(gp2,

@@ -7,7 +7,13 @@ make_EHelper(test) {
 }
 
 make_EHelper(and) {
-  TODO();
+  rtl_and(&t0, &id_dest->val, &id_src->val);
+  // 接下来考虑EFLAGS的变化
+  // 基于i386手册,CF=0,OF=0
+  rtl_set_CF(&tzero);
+  rtl_set_OF(&tzero);
+  rtl_update_ZFSF(&t0, id_dest->width);
+  operand_write(id_dest, &t0);
 
   print_asm_template2(and);
 }

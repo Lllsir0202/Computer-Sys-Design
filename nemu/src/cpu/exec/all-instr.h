@@ -11,6 +11,7 @@ make_EHelper(ret);
 
 //Add: in pa2-2
 make_EHelper(lea);
+make_EHelper(and);
 
 make_EHelper(operand_size);
 
