@@ -55,7 +55,25 @@ make_EHelper(sub) {
 }
 
 make_EHelper(cmp) {
-  TODO();
+  rtl_sub(&t0, &id_dest->val, &id_src->val);
+  // 接下来进行置位即可
+  // 本质上就是减法
+  // CF:无符号溢出
+  // CF = (sign(src1) != sign(src2)) & (sign(result) != sign(src1))
+  // (+num) - (-num) -> - || (-num) - (+num) -> +
+  rtl_sltu(&t1, &id_dest->val, &t0);
+  rtl_set_CF(&t1);
+  
+  // 对于OF
+  // OF:有符号溢出
+  // OF = (sign(src1) == sign(src2)) & (sign(result) != sign(src1))
+  // (+num) + (+num) -> - || (-num) + (-num) -> +
+  rtl_xor(&t1, &id_dest->val, &id_src->val);
+  rtl_xor(&t2, &t0, &id_dest->val);
+  rtl_and(&t0, &t1, &t2);
+  rtl_msb(&t0, &t0, id_dest->width);
+  rtl_set_OF(&t0);
+  rtl_update_ZFSF(&t0, id_dest->width);
 
   print_asm_template2(cmp);
 }
