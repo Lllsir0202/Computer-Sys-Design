@@ -188,6 +188,11 @@ make_DHelper(pop_r) {
   decode_op_r(eip, id_dest, false);
 }
 
+// Add: used in push get memory intermediate
+make_DHelper(push_m_I) {
+  decode_op_I(eip, id_src, true);
+}
+
 make_DHelper(E) {
   decode_op_rm(eip, id_dest, true, NULL, false);
 }

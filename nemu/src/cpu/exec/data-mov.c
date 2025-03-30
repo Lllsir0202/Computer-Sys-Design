@@ -13,6 +13,14 @@ make_EHelper(push) {
   print_asm_template1(push);
 }
 
+// Add: used in memory
+make_EHelper(push_m) {
+  rtl_add(&t0, &id_dest->val, &id_src->val);
+  rtl_push(&t0);
+
+  print_asm_template1(push);
+}
+
 make_EHelper(pop) {
   rtl_pop(&id_dest->val);
 
