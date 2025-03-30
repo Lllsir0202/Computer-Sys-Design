@@ -10,14 +10,15 @@ make_EHelper(add) {
   rtl_set_CF(&t1);
 
   // 接下来考虑OF，OF处理的是：在有符号计算中，
-  // 如果有符号减法出现了进位
-  // 公式：OF = (sign(src1) != sign(src2)) && (sign(result) != sign(src1))
-  // 也就是说，当两个操作数的符号不一样，并且结果符号和第一个的不同，
-  // 那么说明 (+num) - (-num) and result is - OR (-num) - (+num) and result is +
+  // 如果有符号加法出现了进位
+  // 公式：OF = (sign(src1) == sign(src2)) && (sign(result) != sign(src1))
+  // 也就是说，当两个操作数的符号一样，并且结果符号和操作数的不同，
+  // 那么说明 (+num) + (+num) and result is - OR (-num) + (-num) and result is +
   // 其实本质上是因为无符号表示溢出后，最高位为0->1 OR 1->0
   
   // 如果异或结果最高位为1,那么说明这两个数是同符号，
   rtl_xor(&t2, &id_dest->val, &id_src->val);
+  rtl_not(&t2);
   rtl_xor(&t3, &id_dest->val, &t0);
   rtl_and(&t0, &t2, &t3);
   rtl_msb(&t0, &t0, id_dest->width);
