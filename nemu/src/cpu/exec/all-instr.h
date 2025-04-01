@@ -29,6 +29,7 @@ make_EHelper(movsx);
 make_EHelper(jmp_rm);
 make_EHelper(cltd);
 make_EHelper(idiv);
+make_EHelper(imul);
 
 make_EHelper(operand_size);
 
