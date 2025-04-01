@@ -187,7 +187,7 @@ static inline void rtl_sext(rtlreg_t* dest, const rtlreg_t* src1, int width) {
   // 其实这里应该都拓展满，因为如果是16位，后面会再去截取
   uint32_t shift = (sizeof(*dest) - width) << 3;
   // Log("id_src val is %x", *src1);
-  *dest = ((int32_t)*src1 << shift) >> shift;
+  *dest = ((int32_t)(*src1 << shift)) >> shift;
   // Log("id_dest val is %x", *dest);
 }
 
