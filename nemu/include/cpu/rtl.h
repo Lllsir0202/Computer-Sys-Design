@@ -231,14 +231,21 @@ static inline void rtl_msb(rtlreg_t* dest, const rtlreg_t* src1, int width) {
 static inline void rtl_update_ZF(const rtlreg_t* result, int width) {
   // eflags.ZF <- is_zero(result[width * 8 - 1 .. 0])
   
-  uint32_t mask = (1U << (width << 3)) - 1;
+  uint32_t mask = 0;
+  // cpu.EFLAGS.ZF = (((*result) & mask) == 0) ? 1 : 0;
+  switch (width)
+  {
+  case 4:
+    mask |= 0xffff0000;
+  case 2:
+    mask |= 0xff00;
+  case 1:
+    mask |= 0xff;
+    break;
+  default:
+    Assert(0, "width is not 1, 2 or 4");
+  }
   cpu.EFLAGS.ZF = (((*result) & mask) == 0) ? 1 : 0;
-  
-  Log("Width is %d", width);
-  Log("Mask is %x", mask);
-  Log("1: %d", width << 3);
-  Log("2: %x", 0U - 1);
-  // cpu.EFLAGS.ZF = 1;
 }
 
 static inline void rtl_update_SF(const rtlreg_t* result, int width) {
