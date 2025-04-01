@@ -87,8 +87,8 @@ make_EHelper(inc) {
 make_EHelper(dec) {
   t1 = 1;
   rtl_sub(&t0, &id_dest->val, &t1);
-  Log("id_dest val is %x, after dec is %x", id_dest->val, t0);
-
+  // Log("id_dest val is %x, after dec is %x", id_dest->val, t0);
+  operand_write(id_dest, &t0);
   print_asm_template1(dec);
 }
 
