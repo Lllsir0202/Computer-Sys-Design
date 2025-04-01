@@ -230,11 +230,13 @@ static inline void rtl_msb(rtlreg_t* dest, const rtlreg_t* src1, int width) {
 
 static inline void rtl_update_ZF(const rtlreg_t* result, int width) {
   // eflags.ZF <- is_zero(result[width * 8 - 1 .. 0])
-  /*
+  
   uint32_t mask = (1U << (width << 3)) - 1;
   cpu.EFLAGS.ZF = (((*result) & mask) == 0) ? 1 : 0;
-  */
-  cpu.EFLAGS.ZF = 0;
+  
+  Log("Width is %d", width);
+  Log("Mask is %x", mask);
+  // cpu.EFLAGS.ZF = 1;
 }
 
 static inline void rtl_update_SF(const rtlreg_t* result, int width) {
