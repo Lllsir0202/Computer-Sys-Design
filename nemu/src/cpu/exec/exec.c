@@ -66,7 +66,7 @@ make_group(gp2,
   /* 0xf6, 0xf7 */
   // 00 -> test
 make_group(gp3,
-    EX(test), EMPTY, EMPTY, EMPTY,
+    IDEXW(I,test,1), EMPTY, EMPTY, EMPTY,
     EMPTY, EMPTY, EMPTY, EMPTY)
 
   /* 0xfe */
