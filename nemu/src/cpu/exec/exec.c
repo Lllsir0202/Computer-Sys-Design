@@ -203,7 +203,7 @@ opcode_entry opcode_table [512] = {
   /* 0xa0 */	EMPTY, EMPTY, EMPTY, EMPTY,
   /* 0xa4 */	EMPTY, EMPTY, EMPTY, EMPTY,
   /* 0xa8 */	EMPTY, EMPTY, EMPTY, EMPTY,
-  /* 0xac */	EMPTY, EMPTY, EMPTY, IDEX(E2G, imul), // 0x0faf imul
+  /* 0xac */	EMPTY, EMPTY, EMPTY, IDEX(E2G, imul1), // 0x0faf imul
   /* 0xb0 */	EMPTY, EMPTY, EMPTY, EMPTY,
   /* 0xb4 */	EMPTY, EMPTY, IDEX(E,movzx), EMPTY, // 0x0fb6 movzx 
   /* 0xb8 */	EMPTY, EMPTY, EMPTY, EMPTY,
