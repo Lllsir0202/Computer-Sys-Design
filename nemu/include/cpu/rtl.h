@@ -234,7 +234,7 @@ static inline void rtl_update_ZF(const rtlreg_t* result, int width) {
   uint32_t mask = (1U << (width << 3)) - 1;
   cpu.EFLAGS.ZF = (((*result) & mask) == 0) ? 1 : 0;
   */
-  cpu.EFLAGS.ZF = 1;
+  cpu.EFLAGS.ZF = 0;
 }
 
 static inline void rtl_update_SF(const rtlreg_t* result, int width) {
