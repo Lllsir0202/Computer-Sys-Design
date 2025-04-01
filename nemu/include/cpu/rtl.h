@@ -245,6 +245,7 @@ static inline void rtl_update_ZF(const rtlreg_t* result, int width) {
   default:
     Assert(0, "width is not 1, 2 or 4");
   }
+  Log("Mask is %x", mask);
   cpu.EFLAGS.ZF = (((*result) & mask) == 0) ? 1 : 0;
 }
 
