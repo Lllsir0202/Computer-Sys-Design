@@ -65,9 +65,10 @@ make_group(gp2,
 
   /* 0xf6, 0xf7 */
   // 00 -> test
+  // 07 -> idiv
 make_group(gp3,
-    IDEXW(I,test,1), EMPTY, EMPTY, EMPTY,
-    EMPTY, EMPTY, EMPTY, EMPTY)
+    IDEX(I,test), EMPTY, EMPTY, EMPTY,
+    EMPTY, EMPTY, EMPTY, IDEX(I,idiv))
 
   /* 0xfe */
 make_group(gp4,
