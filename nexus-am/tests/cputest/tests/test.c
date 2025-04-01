@@ -7,5 +7,5 @@ long long add(long long a, long long b) {
 
 int main()
 {
-    nemu_assert(1);
+    nemu_assert(0);
 }
