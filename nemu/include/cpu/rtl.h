@@ -181,7 +181,8 @@ static inline void rtl_not(rtlreg_t* dest) {
 
 static inline void rtl_sext(rtlreg_t* dest, const rtlreg_t* src1, int width) {
   // dest <- signext(src1[(width * 8 - 1) .. 0])
-  TODO();
+  Log("src1 width is %x", *src1);
+  panic("here");
 }
 
 static inline void rtl_push(const rtlreg_t* src1) {
