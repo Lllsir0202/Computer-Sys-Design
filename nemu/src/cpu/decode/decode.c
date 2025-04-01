@@ -40,7 +40,7 @@ static inline make_DopHelper(SI) {
    */
   uint32_t uvalue = instr_fetch(eip, op->width);
   // bug！！！
-  // 如果直接转换，由于这里可能只有1个byte，直接转换不会处理，所以我们不能这么做
+  // 如果直接转换，由于这里可能只有1个byte，直接转换不会处理，所以我们不能这么做 -> bingo
   op->simm = (op->width == 1) ? ((int32_t)(int8_t)uvalue) : ((int32_t)uvalue);
 
   rtl_li(&op->val, op->simm);
