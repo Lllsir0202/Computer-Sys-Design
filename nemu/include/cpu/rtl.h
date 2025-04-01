@@ -185,6 +185,7 @@ static inline void rtl_sext(rtlreg_t* dest, const rtlreg_t* src1, int width) {
   // panic("here");
   // 有符号拓展，由于我们得不到src1的宽度 -> 查看data-mov的处理，我们知道其实width为id_src->width
   // 其实这里应该都拓展满，因为如果是16位，后面会再去截取
+  Log("%d", sizeof(*dest));
   uint32_t shift = (sizeof(*dest) - width) << 3;
   *dest = (*src1 << shift) >> shift;
 }
