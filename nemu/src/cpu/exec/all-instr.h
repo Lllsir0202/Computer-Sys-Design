@@ -30,6 +30,8 @@ make_EHelper(jmp_rm);
 make_EHelper(cltd);
 make_EHelper(idiv);
 make_EHelper(imul1);
+make_EHelper(imul2);
+
 
 make_EHelper(operand_size);
 
