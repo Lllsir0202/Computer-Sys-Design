@@ -64,8 +64,9 @@ make_group(gp2,
     EX(shl), EMPTY, EMPTY, EX(sar))
 
   /* 0xf6, 0xf7 */
+  // 00 -> test
 make_group(gp3,
-    EMPTY, EMPTY, EMPTY, EMPTY,
+    EX(test), EMPTY, EMPTY, EMPTY,
     EMPTY, EMPTY, EMPTY, EMPTY)
 
   /* 0xfe */
