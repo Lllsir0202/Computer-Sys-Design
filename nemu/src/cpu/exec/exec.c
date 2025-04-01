@@ -76,9 +76,10 @@ make_group(gp4,
   /* 0xff */
   // 0x06 push
   // 0x05 jmp
+  // 0x04 jmp rel
 make_group(gp5,
     EMPTY, EMPTY, EMPTY, EMPTY,
-    EMPTY, EX(jcc), EX(push), EMPTY)
+    EX(jmp_rm), EX(jmp_rm), EX(push), EMPTY)
 
   /* 0x0f 0x01*/
 make_group(gp7,
