@@ -236,7 +236,7 @@ static inline void rtl_update_ZF(const rtlreg_t* result, int width) {
   
   Log("Width is %d", width);
   Log("Mask is %x", mask);
-  Log("1: %x", width << 3);
+  Log("1: %d", width << 3);
   Log("2: %x", 1U << (width << 3));
   // cpu.EFLAGS.ZF = 1;
 }
