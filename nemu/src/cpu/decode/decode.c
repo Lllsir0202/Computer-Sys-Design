@@ -39,8 +39,8 @@ static inline make_DopHelper(SI) {
    op->simm = ???
    */
   uint32_t uvalue = instr_fetch(eip, op->width);
-  memcpy(&op->simm, &uvalue, sizeof(op->simm));
-  // op->simm = (int32_t)uvalue;
+  Log("uvalue is %u", uvalue);
+  op->simm = (int32_t)uvalue;
   Log("simm is %d", op->simm);
 
   rtl_li(&op->val, op->simm);
