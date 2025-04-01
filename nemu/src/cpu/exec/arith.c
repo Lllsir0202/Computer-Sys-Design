@@ -79,7 +79,10 @@ make_EHelper(cmp) {
 }
 
 make_EHelper(inc) {
-  TODO();
+  t1 = 1;
+  rtl_add(&t0, &id_dest->val, &t1);
+  // Log("id_dest val is %x, after inc is %x", id_dest->val, t0);
+  operand_write(id_dest, &t0);
 
   print_asm_template1(inc);
 }
