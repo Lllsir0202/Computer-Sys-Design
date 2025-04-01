@@ -193,7 +193,6 @@ make_DHelper(pop_r) {
 
 make_DHelper(E) {
   decode_op_rm(eip, id_dest, true, NULL, false);
-  Log("id_dest val is %x", id_dest->val);
 }
 
 make_DHelper(gp7_E) {
