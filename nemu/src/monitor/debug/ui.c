@@ -133,6 +133,8 @@ static int cmd_info(char *args){
     }
     printf("eip\t");
     printf("0x%08x\n",cpu.eip);
+    printf("eflags\t");
+    printf("\tZF: 0x%x\n",cpu.EFLAGS.ZF);
   }else if(strcmp(arg, "w") == 0){
     show_all();
   }else{
