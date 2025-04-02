@@ -35,47 +35,47 @@ void diff_test_skip_nemu() { is_skip_nemu = true; }
 
 static void test_regs(union gdb_regs *r, bool* diff) {
   if (r->eax != cpu.eax) {
-    Log("eax: 0x%x, 0x%x", r->eax, cpu.eax);
+    Log("gdb eax: 0x%x, nemu: 0x%x", r->eax, cpu.eax);
     *diff = true;
     return;
   }
   if (r->ecx != cpu.ecx) {
-    Log("ecx: 0x%x, 0x%x", r->ecx, cpu.ecx);
+    Log("gdb ecx: 0x%x, nemu: 0x%x", r->ecx, cpu.ecx);
     *diff = true;
     return;
   }
   if (r->edx != cpu.edx) {
-    Log("edx: 0x%x, 0x%x", r->edx, cpu.edx);
+    Log("gdb edx: 0x%x, nemu: 0x%x", r->edx, cpu.edx);
     *diff = true;
     return;
   }
   if (r->ebx != cpu.ebx) {
-    Log("ebx: 0x%x, 0x%x", r->ebx, cpu.ebx);
+    Log("gdb ebx: 0x%x, nemu: 0x%x", r->ebx, cpu.ebx);
     *diff = true;
     return;
   }
   if (r->esp != cpu.esp) {
-    Log("esp: 0x%x, 0x%x", r->esp, cpu.esp);
+    Log("gdb esp: 0x%x, nemu: 0x%x", r->esp, cpu.esp);
     *diff = true;
     return;
   }
   if (r->ebp != cpu.ebp) {
-    Log("ebp: 0x%x, 0x%x", r->ebp, cpu.ebp);
+    Log("gdb ebp: 0x%x, nemu: 0x%x", r->ebp, cpu.ebp);
     *diff = true; 
     return;
   }
   if (r->esi != cpu.esi) {
-    Log("esi: 0x%x, 0x%x", r->esi, cpu.esi);
+    Log("gdb esi: 0x%x, nemu: 0x%x", r->esi, cpu.esi);
     *diff = true;
     return;
   }
   if (r->edi != cpu.edi) {
-    Log("edi: 0x%x, 0x%x", r->edi, cpu.edi);
+    Log("gdb edi: 0x%x, nemu: 0x%x", r->edi, cpu.edi);
     *diff = true;
     return;
   }
   if (r->eip != cpu.eip) {
-    Log("eip: 0x%x, 0x%x", r->eip, cpu.eip);
+    Log("gdb eip: 0x%x, nemu: 0x%x", r->eip, cpu.eip);
     *diff = true;
     return;
   }
