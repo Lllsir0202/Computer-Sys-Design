@@ -34,7 +34,10 @@ make_EHelper(popa) {
 }
 
 make_EHelper(leave) {
-  TODO();
+  // 首先需要esp = ebp;
+  // 然后ebp = 栈顶弹出的值
+  rtl_mv(&cpu.esp, &cpu.ebp);
+  rtl_pop(&cpu.ebp);
 
   print_asm("leave");
 }
