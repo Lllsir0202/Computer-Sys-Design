@@ -128,7 +128,7 @@ opcode_entry opcode_table [512] = {
   /* 0x64 */	EMPTY, EMPTY, EX(operand_size), EMPTY,
   /* 0x68 */	IDEX(push_SI, push), EMPTY, IDEXW(push_SI, push, 1), EMPTY, // 0x68 push imm16/imm32 0x6a push
   /* 0x6c */	EMPTY, EMPTY, EMPTY, EMPTY,
-  /* 0x70 */	EMPTY, EMPTY, EMPTY, EMPTY,
+  /* 0x70 */	EMPTY, EMPTY, IDEXW(J,jcc,1), EMPTY, // 0x72 jb/jnae 0x73 jae/jnb
   /* 0x74 */	IDEXW(J,jcc,1), IDEXW(J,jcc,1), IDEXW(J,jcc,1), IDEXW(J,jcc,1), // 0x74 jz/je 0x75 jnz/jne 0x76 jbe 0x77 ja/jnbe
   /* 0x78 */	EMPTY, EMPTY, EMPTY, EMPTY, 
   /* 0x7c */	IDEXW(J, jcc, 1), IDEXW(J,jcc,1), IDEXW(J,jcc,1), IDEXW(J,jcc,1), // 0x7c jl 0x7d jnl/jge 0x7e jle 0x7f jg/jnle
