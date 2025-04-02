@@ -137,7 +137,7 @@ static int cmd_info(char *args){
     printf("\tZF: 0x%x\n\t",cpu.EFLAGS.ZF);
     printf("\tSF: 0x%x\n\t",cpu.EFLAGS.SF);
     printf("\tOF: 0x%x\n\t",cpu.EFLAGS.OF);
-    printf("\tCF: 0x%x\n\t",cpu.EFLAGS.CF);
+    printf("\tCF: 0x%x\n",cpu.EFLAGS.CF);
   }else if(strcmp(arg, "w") == 0){
     show_all();
   }else{
