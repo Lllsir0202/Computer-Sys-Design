@@ -57,7 +57,7 @@ make_EHelper(sub) {
 
 make_EHelper(cmp) {
   rtl_sub(&t0, &id_dest->val, &id_src->val);
-  Log("id_dest->val is %x, id_src->val is %x, t0 is %x", id_dest->val, id_src->val, t0);
+  // Log("id_dest->val is %x, id_src->val is %x, t0 is %x", id_dest->val, id_src->val, t0);
   // 接下来进行置位即可
   // 本质上就是减法
   // CF:无符号溢出
