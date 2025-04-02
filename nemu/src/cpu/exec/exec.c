@@ -59,20 +59,19 @@ make_group(gp1,
   /* 0xc0, 0xc1, 0xd0, 0xd1, 0xd2, 0xd3 */
   // 07 -> sar
   // 04 -> shl
+  // 05 -> shr
 make_group(gp2,
     EMPTY, EMPTY, EMPTY, EMPTY,
-    EX(shl), EMPTY, EMPTY, EX(sar))
+    EX(shl), EX(shr), EMPTY, EX(sar))
 
   /* 0xf6, 0xf7 */
   // 00 -> test IDEX(test_I,test)
   // 02 -> not
-  // 04 -> shl
-  // 05 -> shr
   // 07 -> idiv
   // 05 -> imul -> one operater
 make_group(gp3,
-    IDEX(test_I, test), EMPTY, EX(not), EX(shl),
-    EX(shr), EX(imul1), EMPTY, EX(idiv))
+    IDEX(test_I, test), EMPTY, EX(not), EMPTY,
+    EMPTY, EX(imul1), EMPTY, EX(idiv))
 
   /* 0xfe */
   // 00 -> inc
