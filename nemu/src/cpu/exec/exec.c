@@ -70,8 +70,9 @@ make_group(gp2,
   // 07 -> idiv
   // 05 -> imul -> one operater
   // 04 -> mul  
+  // 03 -> neg
 make_group(gp3,
-    IDEX(test_I, test), EMPTY, EX(not), EMPTY,
+    IDEX(test_I, test), EMPTY, EX(not), EX(neg),
     EX(mul), EX(imul1), EX(div), EX(idiv))
 
   /* 0xfe */
