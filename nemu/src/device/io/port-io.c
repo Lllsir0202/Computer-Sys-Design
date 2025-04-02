@@ -52,6 +52,7 @@ void pio_write(ioaddr_t addr, int len, uint32_t data) {
   assert(len == 1 || len == 2 || len == 4);
   assert(addr + len - 1 < PORT_IO_SPACE_MAX);
   memcpy(pio_space + addr, &data, len);
+  Log("pio_write: addr = 0x%x, len = %d, data = 0x%x", addr, len, data);
   pio_callback(addr, len, true);
 }
 
