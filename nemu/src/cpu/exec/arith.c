@@ -57,6 +57,7 @@ make_EHelper(sub) {
 
 make_EHelper(cmp) {
   rtl_sub(&t0, &id_dest->val, &id_src->val);
+  Log("id_dest->val is %x, id_src->val is %x, t0 is %x", id_dest->val, id_src->val, t0);
   // 接下来进行置位即可
   // 本质上就是减法
   // CF:无符号溢出
@@ -68,7 +69,7 @@ make_EHelper(cmp) {
   // 对于OF
   // OF:有符号溢出
   // OF = (sign(src1) == sign(src2)) & (sign(result) != sign(src1))
-  // (+num) + (+num) -> - || (-num) + (-num) -> +
+  // (+num) - (+num) -> - || (-num) - (-num) -> +
   rtl_xor(&t1, &id_dest->val, &id_src->val);
   rtl_xor(&t2, &t0, &id_dest->val);
   rtl_and(&t3, &t1, &t2);
