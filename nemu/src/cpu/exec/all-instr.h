@@ -40,8 +40,11 @@ make_EHelper(shr);
 make_EHelper(sbb);
 make_EHelper(div);
 make_EHelper(mul);
+
+//Add: in pa2-3
 make_EHelper(in);
 make_EHelper(out);
+make_EHelper(cwtl);
 
 make_EHelper(operand_size);
 
