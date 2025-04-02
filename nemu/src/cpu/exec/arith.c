@@ -2,6 +2,7 @@
 
 make_EHelper(add) {
   rtl_add(&t0, &id_dest->val, &id_src->val);
+  operand_write(id_dest, &t0);
   // 首先考虑CF，CF处理的是：本质上其实是无符号计算，
   // 不同于减法，这里的计算考虑是否会超出，那么其实就是，如果超出，那么相加后的数字小于相加前的，
   // 相对来说，sltu则是无符号数比较，t0 < id_dest->val，那么说明加法进位，则为1
@@ -16,13 +17,13 @@ make_EHelper(add) {
   // 其实本质上是因为无符号表示溢出后，最高位为0->1 OR 1->0
   
   // 如果异或结果最高位为1,那么说明这两个数是同符号，
+  
   rtl_xor(&t2, &id_dest->val, &id_src->val);
   rtl_not(&t2);
   rtl_xor(&t3, &id_dest->val, &t0);
   rtl_and(&t2, &t2, &t3);
   rtl_msb(&t2, &t2, id_dest->width);
   rtl_set_OF(&t2);
-  operand_write(id_dest, &t0);
   rtl_update_ZFSF(&id_dest->val,id_dest->width);
 
   print_asm_template2(add);
@@ -30,6 +31,8 @@ make_EHelper(add) {
 
 make_EHelper(sub) {
   rtl_sub(&t0, &id_dest->val, &id_src->val);
+  operand_write(id_dest, &t0);
+
   // 首先考虑CF，CF处理的是：本质上其实是无符号计算，
   // 这里的CF考虑这里无符号是否够减，不够就需要去借位，因为无符号，所以结果如果为负数，那么就是大数。
   // 相对来说，sltu则是无符号数比较，id_dest->val < t0，那么说明减法借位，则为1
@@ -49,7 +52,6 @@ make_EHelper(sub) {
   rtl_and(&t2, &t2, &t3);
   rtl_msb(&t2, &t2, id_dest->width);
   rtl_set_OF(&t2);
-  operand_write(id_dest, &t0);
   rtl_update_ZFSF(&id_dest->val,id_dest->width);
   // Log("id_dest->val is %x, id_src->val is %x, t0 is %x", id_dest->val, id_src->val, t0);
 
