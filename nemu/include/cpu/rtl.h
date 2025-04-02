@@ -204,9 +204,7 @@ static inline void rtl_pop(rtlreg_t* dest) {
   // dest <- M[esp]
   // esp <- esp + 4
   *dest = vaddr_read(cpu.esp, 4);
-  Log("Before esp is %x", cpu.esp);
   cpu.esp = cpu.esp + 4;
-  Log("After esp is %x", cpu.esp);
 }
 
 static inline void rtl_eq0(rtlreg_t* dest, const rtlreg_t* src1) {
