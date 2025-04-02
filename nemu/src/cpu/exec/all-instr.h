@@ -40,6 +40,8 @@ make_EHelper(shr);
 make_EHelper(sbb);
 make_EHelper(div);
 make_EHelper(mul);
+make_EHelper(in);
+make_EHelper(out);
 
 make_EHelper(operand_size);
 
