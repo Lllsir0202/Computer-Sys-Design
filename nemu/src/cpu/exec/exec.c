@@ -88,7 +88,7 @@ make_group(gp4,
   // 0x02 call r/m16
   // 0x00 inc
 make_group(gp5,
-    EX(inc), EMPTY, EX(call_rm), EMPTY,
+    EX(inc), EX(dec), EX(call_rm), EX(call_rm),
     EX(jmp_rm), EX(jmp_rm), EX(push), EMPTY)
 
   /* 0x0f 0x01*/
