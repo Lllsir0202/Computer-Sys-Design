@@ -70,9 +70,9 @@ make_EHelper(cmp) {
   // (+num) + (+num) -> - || (-num) + (-num) -> +
   rtl_xor(&t1, &id_dest->val, &id_src->val);
   rtl_xor(&t2, &t0, &id_dest->val);
-  rtl_and(&t0, &t1, &t2);
-  rtl_msb(&t0, &t0, id_dest->width);
-  rtl_set_OF(&t0);
+  rtl_and(&t3, &t1, &t2);
+  rtl_msb(&t3, &t3, id_dest->width);
+  rtl_set_OF(&t3);
   Log("id_dest->val is %x, id_src->val is %x, t0 is %x", id_dest->val, id_src->val, t0);
   rtl_update_ZFSF(&t0, id_dest->width);
 
