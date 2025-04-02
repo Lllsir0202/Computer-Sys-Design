@@ -106,8 +106,8 @@ opcode_entry opcode_table [512] = {
   /* 0x14 */	EMPTY, EMPTY, EMPTY, EMPTY,
   /* 0x18 */	EMPTY, EMPTY, EMPTY, EMPTY,
   /* 0x1c */	EMPTY, EMPTY, EMPTY, EMPTY,
-  /* 0x20 */	EMPTY, EMPTY, EMPTY, EMPTY,
-  /* 0x24 */	EMPTY, EMPTY, EMPTY, EMPTY,
+  /* 0x20 */	IDEXW(G2E, and, 1), IDEX(G2E, and), IDEXW(E2G, and, 1), IDEX(E2G, and), // 0x20-0x23 and
+  /* 0x24 */	EMPTY, EMPTY, EMPTY, EMPTY, // 0x24-0x25 and  
   /* 0x28 */	EMPTY, EMPTY, EMPTY, EMPTY,
   /* 0x2c */	EMPTY, EMPTY, EMPTY, EMPTY,
   /* 0x30 */	EMPTY, IDEX(G2E,xor), EMPTY, EMPTY, // 0x30-0x34 XOR
