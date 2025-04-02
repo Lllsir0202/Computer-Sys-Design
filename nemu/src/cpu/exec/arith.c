@@ -24,7 +24,7 @@ make_EHelper(add) {
   rtl_and(&t2, &t2, &t3);
   rtl_msb(&t2, &t2, id_dest->width);
   rtl_set_OF(&t2);
-  rtl_update_ZFSF(&id_dest->val,id_dest->width);
+  rtl_update_ZFSF(&t0,id_dest->width);
 
   print_asm_template2(add);
 }
@@ -52,7 +52,7 @@ make_EHelper(sub) {
   rtl_and(&t2, &t2, &t3);
   rtl_msb(&t2, &t2, id_dest->width);
   rtl_set_OF(&t2);
-  rtl_update_ZFSF(&id_dest->val,id_dest->width);
+  rtl_update_ZFSF(&t0,id_dest->width);
   Log("id_dest->val is %x, id_src->val is %x, t0 is %x", id_dest->val, id_src->val, t0);
 
   print_asm_template2(sub);
@@ -109,10 +109,10 @@ make_EHelper(inc) {
   rtl_xor(&t2, &id_dest->val, &id_src->val);
   rtl_not(&t2);
   rtl_xor(&t3, &id_dest->val, &t0);
-  rtl_and(&t0, &t2, &t3);
-  rtl_msb(&t0, &t0, id_dest->width);
-  rtl_set_OF(&t0);
-  rtl_update_ZFSF(&id_dest->val,id_dest->width);
+  rtl_and(&t2, &t2, &t3);
+  rtl_msb(&t2, &t2, id_dest->width);
+  rtl_set_OF(&t2);
+  rtl_update_ZFSF(&t0,id_dest->width);
 
   print_asm_template1(inc);
 }
@@ -141,11 +141,11 @@ make_EHelper(dec) {
   // 如果异或结果最高位为1,那么说明这两个数是同符号，
   rtl_xor(&t2, &id_dest->val, &id_src->val);
   rtl_xor(&t3, &id_dest->val, &t0);
-  rtl_and(&t0, &t2, &t3);
-  rtl_msb(&t0, &t0, id_dest->width);
-  rtl_set_OF(&t0);
+  rtl_and(&t2, &t2, &t3);
+  rtl_msb(&t2, &t2, id_dest->width);
+  rtl_set_OF(&t2);
   // Log("id_dest->val is %x",id_dest->val);
-  rtl_update_ZFSF(&id_dest->val,id_dest->width);
+  rtl_update_ZFSF(&t0,id_dest->width);
 
   print_asm_template1(dec);
 }
