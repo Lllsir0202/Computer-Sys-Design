@@ -114,8 +114,9 @@ make_EHelper(inc) {
 make_EHelper(dec) {
   t1 = 1;
   rtl_sub(&t0, &id_dest->val, &t1);
-  // Log("id_dest val is %x, after dec is %x", id_dest->val, t0);
+  Log("id_dest val is %x, after dec is %x", id_dest->val, t0);
   operand_write(id_dest, &t0);
+  Log("noow id_dest val is %x", id_dest->val);
 
   // 首先考虑CF，CF处理的是：本质上其实是无符号计算，
   // 这里的CF考虑这里无符号是否够减，不够就需要去借位，因为无符号，所以结果如果为负数，那么就是大数。
