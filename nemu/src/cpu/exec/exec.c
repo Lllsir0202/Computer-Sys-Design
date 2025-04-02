@@ -70,7 +70,7 @@ make_group(gp2,
   // 05 -> imul
 make_group(gp3,
     IDEX(test_I, test), EMPTY, EX(not), EMPTY,
-    EMPTY, EMPTY, EMPTY, EMPTY)
+    EMPTY, EMPTY, EMPTY, IDEX(I2a, idiv))
 
   /* 0xfe */
   // 00 -> inc
