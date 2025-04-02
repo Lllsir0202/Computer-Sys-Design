@@ -85,6 +85,8 @@ make_EHelper(inc) {
   rtl_add(&t0, &id_dest->val, &t1);
   // Log("id_dest val is %x, after inc is %x", id_dest->val, t0);
   operand_write(id_dest, &t0);
+  id_dest->val = t0;
+
 
   // 首先考虑CF，CF处理的是：本质上其实是无符号计算，
   // 不同于减法，这里的计算考虑是否会超出，那么其实就是，如果超出，那么相加后的数字小于相加前的，
@@ -114,10 +116,10 @@ make_EHelper(inc) {
 make_EHelper(dec) {
   t1 = 1;
   rtl_sub(&t0, &id_dest->val, &t1);
-  Log("id_dest val is %x, after dec is %x", id_dest->val, t0);
+  // Log("id_dest val is %x, after dec is %x", id_dest->val, t0);
   operand_write(id_dest, &t0);
   id_dest->val = t0;
-  Log("now id_dest val is %x", id_dest->val);
+  // Log("now id_dest val is %x", id_dest->val);
 
   // 首先考虑CF，CF处理的是：本质上其实是无符号计算，
   // 这里的CF考虑这里无符号是否够减，不够就需要去借位，因为无符号，所以结果如果为负数，那么就是大数。
@@ -138,7 +140,7 @@ make_EHelper(dec) {
   rtl_and(&t0, &t2, &t3);
   rtl_msb(&t0, &t0, id_dest->width);
   rtl_set_OF(&t0);
-  Log("id_dest->val is %x",id_dest->val);
+  // Log("id_dest->val is %x",id_dest->val);
   rtl_update_ZFSF(&id_dest->val,id_dest->width);
 
   print_asm_template1(dec);
