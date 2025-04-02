@@ -73,6 +73,7 @@ make_EHelper(cmp) {
   rtl_and(&t0, &t1, &t2);
   rtl_msb(&t0, &t0, id_dest->width);
   rtl_set_OF(&t0);
+  Log("id_dest->val is %x, id_src->val is %x, t0 is %x", id_dest->val, id_src->val, t0);
   rtl_update_ZFSF(&t0, id_dest->width);
 
   print_asm_template2(cmp);
