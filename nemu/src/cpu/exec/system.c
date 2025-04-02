@@ -45,9 +45,9 @@ uint32_t pio_read(ioaddr_t, int);
 void pio_write(ioaddr_t, int, uint32_t);
 
 make_EHelper(in) {
-  Log("id_src->val = %x, id_dest->width = %d", id_src->val, id_dest->width);
+  // Log("id_src->val = %x, id_dest->width = %d", id_src->val, id_dest->width);
   t0 = pio_read(id_src->val, id_dest->width);
-  Log("t0 = 0x%x", t0);
+  // Log("t0 = 0x%x", t0);
   operand_write(id_dest, &t0);
 
   print_asm_template2(in);
@@ -58,7 +58,7 @@ make_EHelper(in) {
 }
 
 make_EHelper(out) {
-  Log("id_dest->val = %x, id_src->width = %d, id_src->val = %d", id_dest->val, id_src->width, id_src->val);
+  // Log("id_dest->val = %x, id_src->width = %d, id_src->val = %d", id_dest->val, id_src->width, id_src->val);
   pio_write(id_dest->val, id_src->width, id_src->val);
 
   print_asm_template2(out);
