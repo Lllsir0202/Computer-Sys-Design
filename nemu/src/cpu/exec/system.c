@@ -48,7 +48,6 @@ make_EHelper(in) {
   Log("id_src->val = %x, id_dest->width = %d", id_src->val, id_dest->width);
   t0 = pio_read(id_src->val, id_dest->width);
   Log("t0 = 0x%x", t0);
-  operand_write(id_dest, &t0);
 
   print_asm_template2(in);
 
