@@ -26,7 +26,7 @@ typedef uint16_t ioaddr_t;
 #define false 0
 #define true 1
 
-#define DIFF_TEST
+// #define DIFF_TEST
 #define HAS_IOE
 
 #endif
