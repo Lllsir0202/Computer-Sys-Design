@@ -33,6 +33,7 @@ make_EHelper(imul1);
 make_EHelper(imul2);
 make_EHelper(inc);
 make_EHelper(call_rm);
+make_EHelper(not);
 
 
 make_EHelper(operand_size);

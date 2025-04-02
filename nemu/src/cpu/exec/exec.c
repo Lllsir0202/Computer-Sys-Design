@@ -64,12 +64,13 @@ make_group(gp2,
     EX(shl), EMPTY, EMPTY, EX(sar))
 
   /* 0xf6, 0xf7 */
-  // 00 -> test
+  // 00 -> test IDEX(test_I,test)
+  // 02 -> not
   // 07 -> idiv
   // 05 -> imul
 make_group(gp3,
-    IDEX(test_I,test), EMPTY, EMPTY, EMPTY,
-    EMPTY, EX(imul1), EMPTY, IDEX(I,idiv))
+    EMPTY, EMPTY, EX(not), EMPTY,
+    EMPTY, EMPTY, EMPTY, EMPTY)
 
   /* 0xfe */
   // 00 -> inc
