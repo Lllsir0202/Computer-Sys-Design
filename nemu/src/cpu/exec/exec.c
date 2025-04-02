@@ -98,7 +98,7 @@ make_group(gp7,
 // 在这里似乎应该就是使用opcode去索引 译码函数, 执行函数, 以及操作数宽度
 // 目前不懂如何去索引两个0xfc的数据
 opcode_entry opcode_table [512] = {
-  /* 0x00 */	EMPTY, IDEX(E2G,add), EMPTY, IDEX(E2G,add), // 0x01
+  /* 0x00 */	EMPTY, IDEX(G2E,add), EMPTY, IDEX(E2G,add), // 0x01
   /* 0x04 */	EMPTY, EMPTY, EMPTY, EMPTY,
   /* 0x08 */	IDEXW(G2E,or,1), IDEX(G2E,or), IDEXW(E2G,or,1), EMPTY, // 0x0a or
   /* 0x0c */	EMPTY, EMPTY, EMPTY, EX(2byte_esc),
