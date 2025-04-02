@@ -72,8 +72,10 @@ make_group(gp3,
     EMPTY, EX(imul1), EMPTY, IDEX(I,idiv))
 
   /* 0xfe */
+  // 00 -> inc
+  // 01 -> dec
 make_group(gp4,
-    EMPTY, EMPTY, EMPTY, EMPTY,
+    EX(inc), EX(dec), EMPTY, EMPTY,
     EMPTY, EMPTY, EMPTY, EMPTY)
 
   /* 0xff */
