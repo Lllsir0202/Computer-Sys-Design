@@ -17,7 +17,7 @@ make_EHelper(add) {
   // 其实本质上是因为无符号表示溢出后，最高位为0->1 OR 1->0
   
   // 如果异或结果最高位为1,那么说明这两个数是同符号，
-  
+
   rtl_xor(&t2, &id_dest->val, &id_src->val);
   rtl_not(&t2);
   rtl_xor(&t3, &id_dest->val, &t0);
@@ -53,7 +53,7 @@ make_EHelper(sub) {
   rtl_msb(&t2, &t2, id_dest->width);
   rtl_set_OF(&t2);
   rtl_update_ZFSF(&id_dest->val,id_dest->width);
-  // Log("id_dest->val is %x, id_src->val is %x, t0 is %x", id_dest->val, id_src->val, t0);
+  Log("id_dest->val is %x, id_src->val is %x, t0 is %x", id_dest->val, id_src->val, t0);
 
   print_asm_template2(sub);
 }
