@@ -136,6 +136,7 @@ make_EHelper(dec) {
   rtl_and(&t0, &t2, &t3);
   rtl_msb(&t0, &t0, id_dest->width);
   rtl_set_OF(&t0);
+  Log("id_dest->val is %x",id_dest->val);
   rtl_update_ZFSF(&id_dest->val,id_dest->width);
 
   print_asm_template1(dec);
