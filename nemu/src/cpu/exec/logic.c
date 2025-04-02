@@ -88,3 +88,29 @@ make_EHelper(not) {
 
   print_asm_template1(not);
 }
+
+make_EHelper(rol) {
+  // src -> count
+  // dest -> value
+  t1 = 1;
+  uint32_t count = id_src->val;
+
+  if(count == 1) {
+    rtl_msb(&t0, &id_dest->val, id_dest->width);
+    rtl_get_CF(&t2);
+    if(t0 != t2) {
+      rtl_set_OF(&t1);
+    } else {
+      rtl_set_OF(&tzero);
+    }
+  }
+
+  while(count != 0) {
+    rtl_msb(&t0, &id_dest->val, id_dest->width);
+    rtl_shl(&id_dest->val, &id_dest->val, &t1);
+    rtl_add(&id_dest->val, &id_dest->val, &t0);
+    count --;
+  }
+
+  print_asm_template1(rol);
+}
