@@ -253,9 +253,8 @@ static inline void rtl_update_ZF(const rtlreg_t* result, int width) {
 
 static inline void rtl_update_SF(const rtlreg_t* result, int width) {
   // eflags.SF <- is_sign(result[width * 8 - 1 .. 0])
-  uint32_t mask = (1U << ((width << 3) - 1));
-  // 如果是0，表示最高位是0,那么说明是无符号；反之则说明是有符号
-  cpu.EFLAGS.SF = (((*result) & mask) == 0) ? 0 : 1;
+  bool res = ((*result) >> ((width << 3) - 1)) & 1; 
+  cpu.EFLAGS.SF = (res) ? 1 : 0;
 }
 
 static inline void rtl_update_ZFSF(const rtlreg_t* result, int width) {
