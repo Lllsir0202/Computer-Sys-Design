@@ -36,7 +36,6 @@ make_EHelper(call_rm);
 make_EHelper(not);
 make_EHelper(leave);
 
-
 make_EHelper(operand_size);
 
 make_EHelper(inv);
