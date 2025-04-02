@@ -33,6 +33,55 @@ void diff_test_skip_nemu() { is_skip_nemu = true; }
     regs.eip = cpu.eip; \
   } while (0)
 
+static void test_regs(union gdb_regs *r, bool* diff) {
+  if (r->eax != cpu.eax) {
+    Log("eax: 0x%x, 0x%x", r->eax, cpu.eax);
+    *diff = true;
+    return;
+  }
+  if (r->ecx != cpu.ecx) {
+    Log("ecx: 0x%x, 0x%x", r->ecx, cpu.ecx);
+    *diff = true;
+    return;
+  }
+  if (r->edx != cpu.edx) {
+    Log("edx: 0x%x, 0x%x", r->edx, cpu.edx);
+    *diff = true;
+    return;
+  }
+  if (r->ebx != cpu.ebx) {
+    Log("ebx: 0x%x, 0x%x", r->ebx, cpu.ebx);
+    *diff = true;
+    return;
+  }
+  if (r->esp != cpu.esp) {
+    Log("esp: 0x%x, 0x%x", r->esp, cpu.esp);
+    *diff = true;
+    return;
+  }
+  if (r->ebp != cpu.ebp) {
+    Log("ebp: 0x%x, 0x%x", r->ebp, cpu.ebp);
+    *diff = true; 
+    return;
+  }
+  if (r->esi != cpu.esi) {
+    Log("esi: 0x%x, 0x%x", r->esi, cpu.esi);
+    *diff = true;
+    return;
+  }
+  if (r->edi != cpu.edi) {
+    Log("edi: 0x%x, 0x%x", r->edi, cpu.edi);
+    *diff = true;
+    return;
+  }
+  if (r->eip != cpu.eip) {
+    Log("eip: 0x%x, 0x%x", r->eip, cpu.eip);
+    *diff = true;
+    return;
+  }
+}
+  
+
 static uint8_t mbr[] = {
   // start16:
   0xfa,                           // cli
@@ -149,7 +198,7 @@ void difftest_step(uint32_t eip) {
 
   // TODO: Check the registers state with QEMU.
   // Set `diff` as `true` if they are not the same.
-  TODO();
+  test_regs(&r, &diff);
 
   if (diff) {
     nemu_state = NEMU_END;
