@@ -112,6 +112,7 @@ make_EHelper(rol) {
     rtl_set_CF(&t0);
     count --;
   }
+  operand_write(id_dest, &id_dest->val);
 
   print_asm_template1(rol);
 }
