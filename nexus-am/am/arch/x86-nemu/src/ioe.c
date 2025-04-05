@@ -35,10 +35,8 @@ void _draw_rect(const uint32_t *pixels, int x, int y, int w, int h) {
   // for (i = 0; i < _screen.width * _screen.height; i++) {
   //   fb[i] = pixels[i];
   // }
-  int i;
-  int j;
-  for(i = 0; i < h; i++) {
-    for(j = 0; j < w; j++) {
+  for(int i = 0; i < h; i++) {
+    for(int j = 0; j < w; j++) {
       if(x+j < _screen.width && y+i < _screen.height){
         fb[(y + i) * _screen.width + (x + j)] = pixels[i * w + j];
       }
