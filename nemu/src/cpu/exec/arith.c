@@ -106,7 +106,7 @@ make_EHelper(inc) {
   // 其实本质上是因为无符号表示溢出后，最高位为0->1 OR 1->0
   
   // 如果异或结果最高位为1,那么说明这两个数是同符号，
-  rtl_xor(&t2, &id_dest->val, &id_src->val);
+  rtl_xor(&t2, &id_dest->val, &t1);
   rtl_not(&t2);
   rtl_xor(&t3, &id_dest->val, &t0);
   rtl_and(&t2, &t2, &t3);
