@@ -89,7 +89,7 @@ make_EHelper(inc) {
   rtl_add(&t0, &id_dest->val, &t1);
   // Log("id_dest val is %x, after inc is %x", id_dest->val, t0);
   operand_write(id_dest, &t0);
-  id_dest->val = t0;
+  // id_dest->val = t0;
 
 
   // 首先考虑CF，CF处理的是：本质上其实是无符号计算，
@@ -122,7 +122,7 @@ make_EHelper(dec) {
   rtl_sub(&t0, &id_dest->val, &t1);
   // Log("id_dest val is %x, after dec is %x", id_dest->val, t0);
   operand_write(id_dest, &t0);
-  id_dest->val = t0;
+  // id_dest->val = t0;
   // Log("now id_dest val is %x", id_dest->val);
 
   // 首先考虑CF，CF处理的是：本质上其实是无符号计算，
