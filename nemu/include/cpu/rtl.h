@@ -8,10 +8,7 @@ extern const rtlreg_t tzero;
 
 /* RTL basic instructions */
 
-// static inline void rtl_li(rtlreg_t* dest, uint32_t imm) {
-//   *dest = imm;
-// }
-inline void rtl_li(rtlreg_t* dest, uint32_t imm) {
+static inline void rtl_li(rtlreg_t* dest, uint32_t imm) {
   *dest = imm;
 }
 
@@ -78,19 +75,31 @@ static inline void rtl_lr_w(rtlreg_t* dest, int r) {
   *dest = reg_w(r);
 }
 
-static inline void rtl_lr_l(rtlreg_t* dest, int r) {
+// static inline void rtl_lr_l(rtlreg_t* dest, int r) {
+//   *dest = reg_l(r);
+// }
+static void rtl_lr_l(rtlreg_t* dest, int r) {
   *dest = reg_l(r);
 }
 
-static inline void rtl_sr_b(int r, const rtlreg_t* src1) {
+// static inline void rtl_sr_b(int r, const rtlreg_t* src1) {
+//   reg_b(r) = *src1;
+// }
+static void rtl_sr_b(int r, const rtlreg_t* src1) {
   reg_b(r) = *src1;
 }
 
-static inline void rtl_sr_w(int r, const rtlreg_t* src1) {
+// static inline void rtl_sr_w(int r, const rtlreg_t* src1) {
+//   reg_w(r) = *src1;
+// }
+static void rtl_sr_w(int r, const rtlreg_t* src1) {
   reg_w(r) = *src1;
 }
 
-static inline void rtl_sr_l(int r, const rtlreg_t* src1) {
+// static inline void rtl_sr_l(int r, const rtlreg_t* src1) {
+//   reg_l(r) = *src1;
+// }
+static void rtl_sr_l(int r, const rtlreg_t* src1) {
   reg_l(r) = *src1;
 }
 
