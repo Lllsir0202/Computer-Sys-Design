@@ -95,8 +95,8 @@ make_EHelper(inc) {
   // 首先考虑CF，CF处理的是：本质上其实是无符号计算，
   // 不同于减法，这里的计算考虑是否会超出，那么其实就是，如果超出，那么相加后的数字小于相加前的，
   // 相对来说，sltu则是无符号数比较，t0 < id_dest->val，那么说明加法进位，则为1
-  rtl_sltu(&t1, &t0, &id_dest->val);
-  rtl_set_CF(&t1);
+  // rtl_sltu(&t1, &t0, &id_dest->val);
+  // rtl_set_CF(&t1);
 
   // 接下来考虑OF，OF处理的是：在有符号计算中，
   // 如果有符号加法出现了进位
@@ -128,8 +128,8 @@ make_EHelper(dec) {
   // 首先考虑CF，CF处理的是：本质上其实是无符号计算，
   // 这里的CF考虑这里无符号是否够减，不够就需要去借位，因为无符号，所以结果如果为负数，那么就是大数。
   // 相对来说，sltu则是无符号数比较，id_dest->val < t0，那么说明减法借位，则为1
-  rtl_sltu(&t1, &id_dest->val, &t0);
-  rtl_set_CF(&t1);
+  // rtl_sltu(&t1, &id_dest->val, &t0);
+  // rtl_set_CF(&t1);
 
   // 接下来考虑OF，OF处理的是：在有符号计算中，
   // 如果有符号减法出现了进位
