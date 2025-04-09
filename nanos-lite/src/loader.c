@@ -13,6 +13,6 @@ uintptr_t loader(_Protect *as, const char *filename) {
     panic("Failed to allocate memory for ramdisk buffer");
   }
   ramdisk_read(ramdisk_buf, ramdisk_start, len);
-  ramdisk_write(ramdisk_buf, 0x4000000, len);
+  memcpy(DEFAULT_ENTRY, ramdisk_buf, len);
   return (uintptr_t)DEFAULT_ENTRY;
 }
