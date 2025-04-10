@@ -10,7 +10,7 @@ make_EHelper(lidt) {
   uint32_t addr = id_dest->addr;
   Log("addr is %x", addr);
   cpu.IDTR.limit = vaddr_read(addr, 2);
-  Log("limit is %x", cpu.IDTR.limit);
+  Log("limit is %d", cpu.IDTR.limit);
   addr = addr + 2;
   cpu.IDTR.base = vaddr_read(addr, 4);
   Log("base is %x", cpu.IDTR.base);
