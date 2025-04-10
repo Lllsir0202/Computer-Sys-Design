@@ -41,10 +41,10 @@ void raise_intr(uint8_t NO, vaddr_t ret_addr) {
     uint16_t offset_31_16 = vaddr_read(idt_entry+6, 2);
     // Log("offset_31_16 is %x", offset_31_16);
     cpu.eip = (offset_31_16 << 16) | offset_15_0;
-    // Log("eip is %x", cpu.eip);
+    Log("eip is %x", cpu.eip);
     return;
   }
-  panic("Invalid intr");
+  panic("Invalid intr: P is 0");
 }
 
 void dev_raise_intr() {
