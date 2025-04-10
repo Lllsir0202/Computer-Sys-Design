@@ -22,16 +22,16 @@ make_EHelper(pop) {
 }
 
 make_EHelper(pusha) {
-  uint32_t temp = cpu.gpr[4]._32;
+  uint32_t temp = cpu.esp;
 
-  rtl_push(&cpu.gpr[0]._32);
-  rtl_push(&cpu.gpr[1]._32);
-  rtl_push(&cpu.gpr[2]._32);
-  rtl_push(&cpu.gpr[3]._32);
+  rtl_push(&cpu.eax);
+  rtl_push(&cpu.ecx);
+  rtl_push(&cpu.edx);
+  rtl_push(&cpu.ebx);
   rtl_push(&temp);
-  rtl_push(&cpu.gpr[5]._32);
-  rtl_push(&cpu.gpr[6]._32);
-  rtl_push(&cpu.gpr[7]._32);
+  rtl_push(&cpu.ebp);
+  rtl_push(&cpu.esi);
+  rtl_push(&cpu.edi);
 
   print_asm("pusha");
 }
