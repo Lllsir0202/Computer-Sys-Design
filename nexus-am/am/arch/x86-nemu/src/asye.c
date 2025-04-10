@@ -35,6 +35,8 @@ void _asye_init(_RegSet*(*h)(_Event, _RegSet*)) {
   // -------------------- system call --------------------------
   idt[0x80] = GATE(STS_TG32, KSEL(SEG_KCODE), vecsys, DPL_USER);
 
+  // idt表示的是table，记录下总字节长度，再设置IDTR
+  // 其实就是初始化设置idt
   set_idt(idt, sizeof(idt));
 
   // register event handler

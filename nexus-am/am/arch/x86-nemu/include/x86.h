@@ -100,8 +100,11 @@ static inline void set_cr0(uint32_t cr0) {
 
 static inline void set_idt(GateDesc *idt, int size) {
   volatile static uint16_t data[3];
+  // idt的大小在IDTR描述符中，以size-1的形式描述
   data[0] = size - 1;
+  // idt的32位，其实就是base_addr
   data[1] = (uint32_t)idt;
+  // idt的低16位,即limit_addr
   data[2] = (uint32_t)idt >> 16;
   asm volatile("lidt (%0)" : : "r"(data));
 }

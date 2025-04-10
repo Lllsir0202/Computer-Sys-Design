@@ -46,25 +46,29 @@ typedef struct {
 
   // Add:eflags registers
   // 我们先这样实现，因为目前不清楚是否真的需要32位全部实现
-  struct {
-    bool CF : 1;
-    bool const_1 : 1;
-    bool PF : 1;
-    bool reserve_0 : 1;
-    bool AF : 1;
-    bool reserve_1 : 1;
-    bool ZF : 1;
-    bool SF : 1;
-    bool TF : 1;
-    bool IF : 1;
-    bool DF : 1;
-    bool OF : 1;
-    uint8_t IOPL : 2;
-    bool NT : 1;
-    bool reserve_2 : 1;
-    bool RF : 1;
-    bool VM : 1;
-    uint16_t reserve_3 : 14;
+  // In pa3，修改下实现，因为不管32位的时候，没有指针，太难受了。
+  union {
+    rtlreg_t eflags;
+    struct {
+      bool CF : 1;
+      bool const_1 : 1;
+      bool PF : 1;
+      bool reserve_0 : 1;
+      bool AF : 1;
+      bool reserve_1 : 1;
+      bool ZF : 1;
+      bool SF : 1;
+      bool TF : 1;
+      bool IF : 1;
+      bool DF : 1;
+      bool OF : 1;
+      uint8_t IOPL : 2;
+      bool NT : 1;
+      bool reserve_2 : 1;
+      bool RF : 1;
+      bool VM : 1;
+      uint16_t reserve_3 : 14;
+    };
   } EFLAGS;
 
   // ADD in pa3
