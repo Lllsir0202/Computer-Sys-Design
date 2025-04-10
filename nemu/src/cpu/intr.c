@@ -40,7 +40,9 @@ void raise_intr(uint8_t NO, vaddr_t ret_addr) {
     // Log("offset_15_0 is %x", offset_15_0);
     uint16_t offset_31_16 = vaddr_read(idt_entry+6, 2);
     // Log("offset_31_16 is %x", offset_31_16);
-    cpu.eip = (offset_31_16 << 16) | offset_15_0;
+    // cpu.eip = (offset_31_16 << 16) | offset_15_0;
+    decoding.jmp_eip = (offset_31_16 << 16) | offset_15_0;
+    decoding.is_jmp = 1;
     // Log("eip is %x", cpu.eip);
     return;
   }
