@@ -38,6 +38,7 @@ make_EHelper(int) {
   // 我们传入的ret_addr应该是eip+4;
   uint8_t NO = (uint8_t)id_dest->val;
   raise_intr(NO, cpu.eip+4);
+  Log("In int intr , NO is %d", NO);
   print_asm("int %s", id_dest->str);
 
 #ifdef DIFF_TEST
