@@ -12,6 +12,7 @@ void raise_intr(uint8_t NO, vaddr_t ret_addr) {
 
   // 差点忘了，首先检查下NO
   assert(NO < cpu.IDTR.limit);
+  Log("NO is %d",NO);
 
   rtlreg_t *eflags_ptr = (rtlreg_t*)&cpu.EFLAGS.eflags;
   // 压栈eflags
