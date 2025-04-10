@@ -9,6 +9,10 @@ void raise_intr(uint8_t NO, vaddr_t ret_addr) {
   // 所以我们在这里需要读取NO号的中断，然后将ret_addr压站，因为它是返回地址
   // 懂了，其实就是push(ret_addr)，判断NO是否在limit之内，如果在就进行处理；
   // 反之我们就报问题，虽然i386应该是有特殊的单独处理的。
+
+  // 差点忘了，首先检查下NO
+  assert(NO < cpu.IDTR.limit);
+
   rtlreg_t *eflags_ptr = (rtlreg_t*)&cpu.EFLAGS.eflags;
   // 压栈eflags
   rtl_push(eflags_ptr);
