@@ -90,6 +90,9 @@ static inline void restart() {
   memcpy(&cpu.EFLAGS, &init_val, sizeof(init_val));
   // Log("EFLAGS init value is %x", test);
 
+  // ADD in pa3 : 对于CS寄存器进行初始化
+  cpu.cs = 0x8;
+
 #ifdef DIFF_TEST
   init_qemu_reg();
 #endif

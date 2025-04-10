@@ -67,6 +67,9 @@ typedef struct {
     uint16_t reserve_3 : 14;
   } EFLAGS;
 
+  // ADD in pa3
+  // need to add CS register
+  uint32_t cs;
 
 } CPU_state;
 
