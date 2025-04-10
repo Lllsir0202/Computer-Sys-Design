@@ -40,6 +40,8 @@ make_EHelper(int) {
   raise_intr(NO, cpu.eip+4);
   Log("In int inst , NO is %d", NO);
   Log("In in inst , cpu eip is %x", cpu.eip);
+  uint32_t data = vaddr_read(cpu.eip,4);
+  Log("data is %x", data);
   print_asm("int %s", id_dest->str);
 
 #ifdef DIFF_TEST
