@@ -9,9 +9,10 @@ make_EHelper(lidt) {
   //pa3-1 load base and limit
   uint32_t addr = id_dest->addr;
   cpu.IDTR.limit = vaddr_read(addr, 2);
+  Log("limit is %x", cpu.IDTR.limit);
   addr = addr + 2;
   cpu.IDTR.base = vaddr_read(addr, 4);
-
+  Log("base is %x", cpu.IDTR.base);
   print_asm_template1(lidt);
 }
 
