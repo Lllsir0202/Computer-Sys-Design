@@ -51,6 +51,8 @@ make_EHelper(rol);
 // Add: in pa3-1
 make_EHelper(lidt);
 make_EHelper(int);
+make_EHelper(pusha);
+make_EHelper(popa);
 
 make_EHelper(operand_size);
 
