@@ -8,6 +8,7 @@ void raise_intr(uint8_t NO, vaddr_t ret_addr);
 make_EHelper(lidt) {
   //pa3-1 load base and limit
   uint32_t addr = id_dest->addr;
+  Log("addr is %x", addr);
   cpu.IDTR.limit = vaddr_read(addr, 2);
   Log("limit is %x", cpu.IDTR.limit);
   addr = addr + 2;
