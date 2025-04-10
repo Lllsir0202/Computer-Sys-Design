@@ -28,13 +28,21 @@ void raise_intr(uint8_t NO, vaddr_t ret_addr) {
 
   // idt_entry表示所找的那个intr的地址
   uint32_t idt_entry = cpu.IDTR.base + (NO << 3);
-  Log("idt_entry is %x", idt_entry);
-  uint16_t offset_15_0 = vaddr_read(idt_entry, 2);
-  Log("offset_15_0 is %x", offset_15_0);
-  uint16_t offset_31_16 = vaddr_read(idt_entry+6, 2);
-  Log("offset_31_16 is %x", offset_31_16);
-  cpu.eip = (offset_31_16 << 16) | offset_15_0;
-  Log("eip is %x", cpu.eip);
+  
+  // 首先通过P判断中断是否有效
+  // 得到P
+  bool P = (vaddr_read(idt_entry+5, 1)) >> 7;
+  if(P){
+    // Log("idt_entry is %x", idt_entry);
+    uint16_t offset_15_0 = vaddr_read(idt_entry, 2);
+    // Log("offset_15_0 is %x", offset_15_0);
+    uint16_t offset_31_16 = vaddr_read(idt_entry+6, 2);
+    // Log("offset_31_16 is %x", offset_31_16);
+    cpu.eip = (offset_31_16 << 16) | offset_15_0;
+    // Log("eip is %x", cpu.eip);
+    return;
+  }
+  panic("Invalid intr");
 }
 
 void dev_raise_intr() {
