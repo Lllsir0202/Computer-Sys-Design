@@ -39,7 +39,7 @@ make_EHelper(int) {
   uint8_t NO = (uint8_t)id_dest->val;
   raise_intr(NO, cpu.eip+4);
   // Log("In int inst , NO is %d", NO);
-  Log("In in inst , cpu eip is %x", cpu.eip);
+  Log("In in inst , jmp eip is %x", decoding.jmp_eip);
   print_asm("int %s", id_dest->str);
 
 #ifdef DIFF_TEST
