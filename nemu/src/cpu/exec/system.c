@@ -4,7 +4,11 @@ void diff_test_skip_qemu();
 void diff_test_skip_nemu();
 
 make_EHelper(lidt) {
-  TODO();
+  //pa3-1 load base and limit
+  uint32_t addr = id_dest->addr;
+  cpu.IDTR.limit = vaddr_read(addr, 2);
+  addr = addr + 2;
+  cpu.IDTR.base = vaddr_read(addr, 4);
 
   print_asm_template1(lidt);
 }

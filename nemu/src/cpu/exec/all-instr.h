@@ -48,6 +48,10 @@ make_EHelper(cwtl);
 make_EHelper(neg);
 make_EHelper(rol);
 
+// Add: in pa3-1
+make_EHelper(lidt);
+make_EHelper(int);
+
 make_EHelper(operand_size);
 
 make_EHelper(inv);

@@ -93,8 +93,9 @@ make_group(gp5,
     EX(jmp_rm), EX(jmp_rm), EX(push), EMPTY)
 
   /* 0x0f 0x01*/
+  // 0x03 lidt -> 触发异常中断的
 make_group(gp7,
-    EMPTY, EMPTY, EMPTY, EMPTY,
+    EMPTY, EMPTY, EMPTY, EX(lidt),
     EMPTY, EMPTY, EMPTY, EMPTY)
 
 /* TODO: Add more instructions!!! */
@@ -152,7 +153,7 @@ opcode_entry opcode_table [512] = {
   /* 0xbc */	IDEX(mov_I2r, mov), IDEX(mov_I2r, mov), IDEX(mov_I2r, mov), IDEX(mov_I2r, mov),
   /* 0xc0 */	IDEXW(gp2_Ib2E, gp2, 1), IDEX(gp2_Ib2E, gp2), EMPTY, EX(ret), // 0xc3 ret
   /* 0xc4 */	EMPTY, EMPTY, IDEXW(mov_I2E, mov, 1), IDEX(mov_I2E, mov),
-  /* 0xc8 */	EMPTY, EX(leave), EMPTY, EMPTY, //0xc9 leave
+  /* 0xc8 */	EMPTY, EX(leave), EMPTY, IDEXW(I, int, 1), //0xc9 leave 0xcd int Ib
   /* 0xcc */	EMPTY, EMPTY, EMPTY, EMPTY,
   /* 0xd0 */	IDEXW(gp2_1_E, gp2, 1), IDEX(gp2_1_E, gp2), IDEXW(gp2_cl2E, gp2, 1), IDEX(gp2_cl2E, gp2),
   /* 0xd4 */	EMPTY, EMPTY, EX(nemu_trap), EMPTY,

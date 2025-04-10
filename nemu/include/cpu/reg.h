@@ -70,6 +70,11 @@ typedef struct {
   // ADD in pa3
   // need to add CS register
   uint32_t cs;
+  // need to add IDTR register
+  struct {
+    uint16_t limit;
+    uint32_t base;
+  } IDTR;
 
 } CPU_state;
 
