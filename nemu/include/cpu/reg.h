@@ -48,7 +48,7 @@ typedef struct {
   // 我们先这样实现，因为目前不清楚是否真的需要32位全部实现
   // In pa3，修改下实现，因为不管32位的时候，没有指针，太难受了。
   union {
-    rtlreg_t eflags;
+    uint32_t eflags;
     struct {
       bool CF : 1;
       bool const_1 : 1;
