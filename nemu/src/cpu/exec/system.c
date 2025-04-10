@@ -3,6 +3,8 @@
 void diff_test_skip_qemu();
 void diff_test_skip_nemu();
 
+void raise_intr(uint8_t NO, vaddr_t ret_addr);
+
 make_EHelper(lidt) {
   //pa3-1 load base and limit
   uint32_t addr = id_dest->addr;
@@ -30,8 +32,10 @@ make_EHelper(mov_cr2r) {
 }
 
 make_EHelper(int) {
-  TODO();
-
+  // 这里首先读到的id_dest->val表示的是NO
+  // 我们传入的ret_addr应该是eip+4;
+  uint8_t NO = (uint8_t)id_dest->val;
+  raise_intr(NO, cpu.eip+4);
   print_asm("int %s", id_dest->str);
 
 #ifdef DIFF_TEST
