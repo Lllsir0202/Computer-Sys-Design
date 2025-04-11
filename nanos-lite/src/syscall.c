@@ -7,7 +7,7 @@ static int sys_non(_RegSet *r) {
 
 static void sys_exit(_RegSet *r) {
   // 其实本质就是将push 1为例，传入eax，然后将其作为_halt的参数
-  _halt(1);
+  _halt(0);
 }
 
 _RegSet* do_syscall(_RegSet *r) {
