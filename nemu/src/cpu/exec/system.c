@@ -35,7 +35,7 @@ make_EHelper(mov_cr2r) {
 
 make_EHelper(int) {
   // 这里首先读到的id_dest->val表示的是NO
-  // 我们传入的ret_addr应该是指令的eip+4;
+  // 我们传入的ret_addr应该是指令的eip+4; -> eip+2 --> 因为int是2个字节
   uint8_t NO = (uint8_t)id_dest->val;
   raise_intr(NO, cpu.eip+2);
   // Log("In int inst , NO is %d", NO);
