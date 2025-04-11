@@ -127,7 +127,7 @@ opcode_entry opcode_table [512] = {
   /* 0x54 */	IDEX(r,push), IDEX(r,push), IDEX(r,push), IDEX(r,push), // 0x50-0x57  push r32
   /* 0x58 */	IDEX(pop_r, pop), IDEX(pop_r, pop), IDEX(pop_r, pop), IDEX(pop_r, pop), // 0x58-0x5F pop r32
   /* 0x5c */	IDEX(pop_r, pop), IDEX(pop_r, pop), IDEX(pop_r, pop), IDEX(pop_r, pop), // 0x58-0x5F pop r32
-  /* 0x60 */	EX(pusha), EMPTY, EMPTY, EMPTY, // 0x60 pusha
+  /* 0x60 */	EX(pusha), EX(popa), EMPTY, EMPTY, // 0x60 pusha 0x61 popa
   /* 0x64 */	EMPTY, EMPTY, EX(operand_size), EMPTY,
   /* 0x68 */	IDEX(push_SI, push), EMPTY, IDEXW(push_SI, push, 1), EMPTY, // 0x68 push imm16/imm32 0x6a push
   /* 0x6c */	EMPTY, EMPTY, EMPTY, EMPTY,
@@ -154,7 +154,7 @@ opcode_entry opcode_table [512] = {
   /* 0xc0 */	IDEXW(gp2_Ib2E, gp2, 1), IDEX(gp2_Ib2E, gp2), EMPTY, EX(ret), // 0xc3 ret
   /* 0xc4 */	EMPTY, EMPTY, IDEXW(mov_I2E, mov, 1), IDEX(mov_I2E, mov),
   /* 0xc8 */	EMPTY, EX(leave), EMPTY, EMPTY, //0xc9 leave 
-  /* 0xcc */	EMPTY, IDEXW(I, int, 1), EMPTY, EMPTY, // 0xcd int Ib 
+  /* 0xcc */	EMPTY, IDEXW(I, int, 1), EMPTY, EX(iret), // 0xcd int Ib 0xcf iret
   /* 0xd0 */	IDEXW(gp2_1_E, gp2, 1), IDEX(gp2_1_E, gp2), IDEXW(gp2_cl2E, gp2, 1), IDEX(gp2_cl2E, gp2),
   /* 0xd4 */	EMPTY, EMPTY, EX(nemu_trap), EMPTY,
   /* 0xd8 */	EMPTY, EMPTY, EMPTY, EMPTY,

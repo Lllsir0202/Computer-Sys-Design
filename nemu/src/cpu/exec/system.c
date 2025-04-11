@@ -48,7 +48,19 @@ make_EHelper(int) {
 }
 
 make_EHelper(iret) {
-  TODO();
+  // 栈顶到下分别是：eip->cs->eflags
+  // eip
+  rtl_pop(&t0);
+  decoding.jmp_eip = t0;
+  decoding.is_jmp = 1;
+
+  // cs
+  rtl_pop(&t0);
+  cpu.cs = t0;
+
+  // eflags
+  rtl_pop(&t0);
+  cpu.EFLAGS.eflags = t0;
 
   print_asm("iret");
 }

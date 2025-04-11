@@ -37,7 +37,16 @@ make_EHelper(pusha) {
 }
 
 make_EHelper(popa) {
-  TODO();
+  uint32_t temp;
+  rtl_pop(&cpu.edi);
+  rtl_pop(&cpu.esi);
+  rtl_pop(&cpu.ebp);
+  rtl_pop(&temp);
+  rtl_pop(&cpu.ebx);
+  rtl_pop(&cpu.edx);
+  rtl_pop(&cpu.ecx);
+  // eax已经被设置为了ret_val，所以不能恢复
+  rtl_pop(&temp);
 
   print_asm("popa");
 }
