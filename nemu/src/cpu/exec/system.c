@@ -52,6 +52,7 @@ make_EHelper(iret) {
   // eip
   rtl_pop(&t0);
   decoding.jmp_eip = t0;
+  Log("jmp_eip is %x", t0);
   decoding.is_jmp = 1;
 
   // cs
