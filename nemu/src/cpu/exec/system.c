@@ -37,8 +37,7 @@ make_EHelper(int) {
   // 这里首先读到的id_dest->val表示的是NO
   // 我们传入的ret_addr应该是指令的eip+4;
   uint8_t NO = (uint8_t)id_dest->val;
-  raise_intr(NO, cpu.eip+4);
-  Log("push eip is %x", cpu.eip+4);
+  raise_intr(NO, cpu.eip+2);
   // Log("In int inst , NO is %d", NO);
   // Log("In in inst , jmp eip is %x", decoding.jmp_eip);
   print_asm("int %s", id_dest->str);
