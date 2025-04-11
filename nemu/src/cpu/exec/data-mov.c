@@ -46,7 +46,7 @@ make_EHelper(popa) {
   rtl_pop(&cpu.edx);
   rtl_pop(&cpu.ecx);
   // eax已经被设置为了ret_val，所以不能恢复
-  rtl_pop(&temp);
+  rtl_pop(&cpu.eax);
 
   print_asm("popa");
 }
