@@ -5,10 +5,9 @@ static int sys_non(_RegSet *r) {
   return 1;
 }
 
-static void sys_exit(_RegSet *r) {
+static void sys_exit(uintptr_t param) {
   // 其实本质就是将push 1为例，传入eax，然后将其作为_halt的参数
-  Log("r->eax is %x, r->ebx is %x", r->eax, r->ebx);
-  _halt(0);
+  _halt(param);
 }
 
 _RegSet* do_syscall(_RegSet *r) {
@@ -21,7 +20,7 @@ _RegSet* do_syscall(_RegSet *r) {
       return r;
     }
     case SYS_exit:{
-      sys_exit(r);
+      sys_exit(SYSCALL_ARG2(r));
       return r;
     }
     default: panic("Unhandled syscall ID = %d", a[0]);
