@@ -16,6 +16,8 @@ _RegSet* do_syscall(_RegSet *r) {
 
   switch (a[0]) {
     case SYS_none:{
+      Log("arg2 is %x", SYSCALL_ARG2(r));
+      Log("arg3 is %x", SYSCALL_ARG3(r));
       SYSCALL_ARG1(r) = sys_non(r);
       return r;
     }
