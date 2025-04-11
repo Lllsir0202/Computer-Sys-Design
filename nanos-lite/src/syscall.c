@@ -20,6 +20,8 @@ _RegSet* do_syscall(_RegSet *r) {
       return r;
     }
     case SYS_exit:{
+      Log("arg2 is %x", SYSCALL_ARG2(r));
+      Log("arg3 is %x", SYSCALL_ARG3(r));
       sys_exit(SYSCALL_ARG2(r));
       return r;
     }
