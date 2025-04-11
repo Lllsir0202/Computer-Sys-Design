@@ -16,14 +16,12 @@ _RegSet* do_syscall(_RegSet *r) {
 
   switch (a[0]) {
     case SYS_none:{
-      Log("arg2 is %x", SYSCALL_ARG2(r));
-      Log("arg3 is %x", SYSCALL_ARG3(r));
       SYSCALL_ARG1(r) = sys_non(r);
       return r;
     }
     case SYS_exit:{
-      Log("arg2 is %x", SYSCALL_ARG2(r));
-      Log("arg3 is %x", SYSCALL_ARG3(r));
+      // 基于navy-apps/libs/libos/src/nanos.c中传递的参数，我们知道，
+      // 其实eax->类型，ebx--edx -> 参数，而_exit传递的status就是在ebx中的
       sys_exit(SYSCALL_ARG2(r));
       return r;
     }
