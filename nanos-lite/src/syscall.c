@@ -1,6 +1,9 @@
 #include "common.h"
 #include "syscall.h"
 
+extern char end;
+static uintptr_t program_break = (uintptr_t)&end;
+
 static int sys_non(_RegSet *r) {
   return 1;
 }
@@ -24,6 +27,10 @@ static int sys_write(int fd, const void *buf, size_t count) {
   }
 }
 
+static int sys_brk(void *addr) {
+  return 0;
+}
+
 _RegSet* do_syscall(_RegSet *r) {
   uintptr_t a[4];
   a[0] = SYSCALL_ARG1(r);
@@ -44,6 +51,20 @@ _RegSet* do_syscall(_RegSet *r) {
       int ret_value = sys_write(SYSCALL_ARG2(r), (void *)SYSCALL_ARG3(r), SYSCALL_ARG4(r));
       SYSCALL_ARG1(r) = ret_value;
       return r;
+    }
+    case SYS_brk: {
+      // 目前的理解是：其实就是ebx->increment，计算出地址addr，然后再那里设置res，如果成功则返回0,并返回旧的program_break
+      // 如果失败则返回-1
+      int increment = SYSCALL_ARG2(r);
+      uintptr_t addr = program_break + increment;
+      uintptr_t program_break_old = program_break;
+      int ret = sys_brk((void *)addr);
+      if(ret == 0) {
+        program_break = addr;
+        SYSCALL_ARG1(r) = program_break_old;
+      } else {
+        SYSCALL_ARG1(r) = -1;
+      }
     }
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
