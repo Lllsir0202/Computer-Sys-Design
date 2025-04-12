@@ -14,7 +14,7 @@ static int sys_write(int fd, const void *buf, size_t count) {
   if(fd == 1 || fd == 2){
     // 1: stdout, 2: stderr
     int i = 0;
-    Log("sys_write: %d", count);
+    // Log("sys_write: %d", count);
     for(i = 0; i < count; i++){
       _putc(((char *)buf)[i]);
     }
