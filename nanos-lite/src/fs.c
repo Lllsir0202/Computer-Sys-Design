@@ -1,9 +1,10 @@
 #include "fs.h"
 
 typedef struct {
-  char *name;
-  size_t size;
-  off_t disk_offset;
+  char *name;         // 文件名
+  size_t size;        // 文件大小
+  off_t disk_offset;  // 文件在ramdisk中的偏移
+  off_t open_offset;  // 文件被打开之后的读写指针
 } Finfo;
 
 enum {FD_STDIN, FD_STDOUT, FD_STDERR, FD_FB, FD_EVENTS, FD_DISPINFO, FD_NORMAL};
