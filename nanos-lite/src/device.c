@@ -25,7 +25,7 @@ int dispinfo_read(void *buf, off_t offset, size_t len) {
   }
   Log("len is %d", i+1);
   memcpy(buf, dispinfo + offset, i+1);
-  return i;
+  return i+1;
 }
 
 void fb_write(const void *buf, off_t offset, size_t len) {
