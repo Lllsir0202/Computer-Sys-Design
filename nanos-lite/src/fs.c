@@ -95,7 +95,7 @@ ssize_t fs_read(int fd, void *buf, size_t len) {
       return 0;
     }
     case FD_EVENTS: {
-      Log("???");
+      Log("???\n\n");
       return events_read(buf, len);
     }
     case FD_DISPINFO: {
