@@ -61,7 +61,7 @@ int fs_open(const char *pathname, int flags, int mode) {
 // read
 ssize_t fs_read(int fd, void *buf, size_t len) {
   #ifdef DEBUG
-  Log("fs_read!!!");
+  Log("fs_read!!! fd is %d", fd);
   #endif
   
   if(fd>= 0 && fd <= 2) {
@@ -109,7 +109,7 @@ int fs_close(int fd) {
 ssize_t fs_write(int fd, const void *buf, size_t len) {
   // 目前看来不太可能，正常来说
   #ifdef DEBUG
-  Log("fs_write!!!");
+  Log("fs_write!!! fd is %d", fd);
   #endif
   if(fd < 0 || fd >= NR_FILES) {
     panic("fd out of range");
@@ -120,20 +120,36 @@ ssize_t fs_write(int fd, const void *buf, size_t len) {
     panic("file not opened");
     return -1;
   }
-  // check if the file is overflow
-  // 如果当前的offset已经是文件尾了
-  if(offset >= fs_filesz(fd)) {
-    return 0;
+  switch (fd) {
+    case FD_STDOUT:
+    case FD_STDERR: {
+      // 1: stdout, 2: stderr
+      int i = 0;
+      // Log("sys_write: %d", count);
+      for(i = 0; i < len; i++){
+        _putc(((char *)buf)[i]);
+      }
+    } break;
+    case FD_FB: {
+      
+    } break;
+    default: {
+      // check if the file is overflow
+      // 如果当前的offset已经是文件尾了
+      if(offset >= fs_filesz(fd)) {
+        return 0;
+      }
+      // 我们处理是：如果当前的len加上openoffset超过了末尾，那么写入尽可能多的。
+      if(offset + len > fs_filesz(fd)) {
+        // 更新读取的len
+        len = fs_filesz(fd) - offset;
+      }
+      off_t ramdisk_offset = file_table[fd].disk_offset + offset;
+      // 进行读取
+      ramdisk_write((void *)buf, ramdisk_offset, len);
+      file_table[fd].open_offset += len;
+    } break;
   }
-  // 我们处理是：如果当前的len加上openoffset超过了末尾，那么写入尽可能多的。
-  if(offset + len > fs_filesz(fd)) {
-    // 更新读取的len
-    len = fs_filesz(fd) - offset;
-  }
-  off_t ramdisk_offset = file_table[fd].disk_offset + offset;
-  // 进行读取
-  ramdisk_write((void *)buf, ramdisk_offset, len);
-  file_table[fd].open_offset += len;
   return len;
 }
 

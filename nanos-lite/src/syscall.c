@@ -20,17 +20,20 @@ static void sys_exit(uintptr_t param) {
 }
 
 static ssize_t sys_write(int fd, const void *buf, size_t count) {
-  if(fd == 1 || fd == 2){
-    // 1: stdout, 2: stderr
-    int i = 0;
-    // Log("sys_write: %d", count);
-    for(i = 0; i < count; i++){
-      _putc(((char *)buf)[i]);
-    }
-    return count;
-  } else {
-    return fs_write(fd, buf, count);
-  }
+  // if(fd == 1 || fd == 2){
+  //   // 1: stdout, 2: stderr
+  //   int i = 0;
+  //   // Log("sys_write: %d", count);
+  //   for(i = 0; i < count; i++){
+  //     _putc(((char *)buf)[i]);
+  //   }
+  //   return count;
+  // } else {
+  //   return fs_write(fd, buf, count);
+  // }
+
+  // In pa3-3: Rewrite this function
+  return fs_write(fd, buf, count);
 }
 
 static int sys_brk(void *addr) {
