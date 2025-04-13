@@ -10,6 +10,7 @@ static const char *keyname[256] __attribute__((used)) = {
 
 size_t events_read(void *buf, size_t len) {
   int key_num = _read_key();
+  Log("keynum is %d", key_num);
   int real_len = strlen(keyname[key_num]);
   if(real_len > len) {
     real_len = len;
