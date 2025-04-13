@@ -119,12 +119,12 @@ ssize_t fs_write(int fd, const void *buf, size_t len) {
   // 我们处理是：如果当前的len加上openoffset超过了末尾，那么写入尽可能多的。
   if(offset + len > fs_filesz(fd)) {
     // 更新读取的len
-    Log("here");
     len = fs_filesz(fd) - offset;
   }
   off_t ramdisk_offset = file_table[fd].disk_offset + offset;
   // 进行读取
   ramdisk_write((void *)buf, ramdisk_offset, len);
+  Log("succeed write");
   file_table[fd].open_offset += len;
   return len;
 }
