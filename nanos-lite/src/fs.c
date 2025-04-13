@@ -94,13 +94,16 @@ ssize_t fs_read(int fd, void *buf, size_t len) {
       return 0;
     }
     case FD_DISPINFO: {
-      Log("offset is %d", offset);
+      // Log("offset is %d", offset);
       dispinfo_read(buf, offset, len);
-      Log("buf is %s",buf);
-      Log("len is %d", len);
-      Log("before add open_offset is %d", file_table[fd].open_offset);
+      // Log("buf is %s",buf);
+      // Log("len is %d", len);
+      // Log("before add open_offset is %d", file_table[fd].open_offset);
+      if(len > file_table[fd].size) {
+        len = file_table[fd].size;
+      }
       file_table[fd].open_offset += len;
-      Log("after add open_offset is %d", file_table[fd].open_offset);
+      // Log("after add open_offset is %d", file_table[fd].open_offset);
     } break;
     case FD_FB: {
       panic("Cannot be read!");
