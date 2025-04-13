@@ -28,7 +28,7 @@ int main() {
   init_irq();
 #endif
 
-  init_fs();
+  // init_fs();
 
   uint32_t entry = loader(NULL, "/bin/dummy");
   ((void (*)(void))entry)();
