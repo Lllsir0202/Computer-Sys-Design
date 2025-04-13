@@ -23,7 +23,7 @@ static ssize_t sys_write(int fd, const void *buf, size_t count) {
   if(fd == 1 || fd == 2){
     // 1: stdout, 2: stderr
     int i = 0;
-    // Log("sys_write: %d", count);
+    Log("sys_write: %d", count);
     for(i = 0; i < count; i++){
       _putc(((char *)buf)[i]);
     }
@@ -71,7 +71,6 @@ _RegSet* do_syscall(_RegSet *r) {
     }
     case SYS_write:{
       // 基于man 2 write可以知道，三个参数分别是fd, buf, count
-      Log("write herre");
       SYSCALL_ARG1(r) = sys_write(SYSCALL_ARG2(r), (void *)SYSCALL_ARG3(r), SYSCALL_ARG4(r));;
       return r;
     }
