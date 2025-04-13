@@ -147,7 +147,7 @@ ssize_t fs_write(int fd, const void *buf, size_t len) {
     panic("fd out of range");
   }
   off_t offset = file_table[fd].open_offset;
-
+  Log("fd is %d", fd);
   switch (fd) {
     case FD_STDOUT:
     case FD_STDERR: {
