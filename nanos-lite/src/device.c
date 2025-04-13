@@ -10,12 +10,10 @@ static const char *keyname[256] __attribute__((used)) = {
 
 size_t events_read(void *buf, size_t len) {
   int key_num = _read_key();
-  Log("keynum is %d", key_num);
-  int real_len = strlen(keyname[key_num]);
-  if(real_len > len) {
-    real_len = len;
+  int real_len = 0;
+  if(key_num == _KEY_NONE) {
+    
   }
-  memcpy(buf, keyname[key_num], real_len);
   return real_len;
 }
 
@@ -80,6 +78,6 @@ void init_device() {
 
   // TODO: print the string to array `dispinfo` with the format
   // described in the Navy-apps convention
-  sprintf(dispinfo, "WIDTH : %d\nHEIGHT : %d\0", _screen.width, _screen.height);
+  sprintf(dispinfo, "WIDTH : %d\nHEIGHT : %d", _screen.width, _screen.height);
   printf("%s\n",dispinfo);
 }
