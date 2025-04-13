@@ -120,5 +120,9 @@ make_EHelper(lea) {
 }
 
 make_EHelper(xchg) {
-  TODO();
+  rtl_li(&t0, id_dest->val);
+  rtl_li(&t1, id_src->val);
+  operand_write(id_dest, &t1);
+  operand_write(id_src, &t0);
+  print_asm_template2(xchg);
 }
