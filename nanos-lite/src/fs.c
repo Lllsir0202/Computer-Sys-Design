@@ -88,7 +88,7 @@ ssize_t fs_read(int fd, void *buf, size_t len) {
   if(fd < 0 || fd >= NR_FILES) {
     panic("fd out of range");
   }
-  Log("fd is %d", fd);
+  Log("fd is %d, event is %d", fd, FD_EVENTS);
   switch (fd) {
     case FD_STDOUT: 
     case FD_STDIN:
