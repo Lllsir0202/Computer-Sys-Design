@@ -39,23 +39,21 @@ void fb_write(const void *buf, off_t offset, size_t len) {
   // 第一行不完整部分的像素数
   int first_row_pixels = _screen.width - x;
   
-  // 1. 绘制第一行不完整部分
+  // 绘制第一行不完整部分
   _draw_rect((uint32_t*)buf, x, y, first_row_pixels, 1);
   
   // 剩余需要绘制的像素
   int remaining_pixels = pixels - first_row_pixels;
   
-  // 2. 绘制中间完整行
+  // 绘制中间完整行
   int full_rows = remaining_pixels / _screen.width;
   if (full_rows > 0) {
-    // 注意缓冲区指针偏移和正确的起始行
     _draw_rect((uint32_t*)buf + first_row_pixels, 0, y + 1, _screen.width, full_rows);
   }
   
-  // 3. 绘制最后一行不完整部分
+  // 绘制最后一行不完整部分
   int last_row_pixels = remaining_pixels % _screen.width;
   if (last_row_pixels > 0) {
-    // 注意缓冲区指针和行号的正确计算
     _draw_rect((uint32_t*)buf + first_row_pixels + full_rows * _screen.width, 
                0, y + 1 + full_rows, last_row_pixels, 1);
   }
