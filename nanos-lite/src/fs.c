@@ -7,7 +7,7 @@ typedef struct {
   char *name;         // 文件名
   size_t size;        // 文件大小
   off_t disk_offset;  // 文件在ramdisk中的偏移
-  off_t open_offset;  // 文件被打开之后的读写指针，我们先默认为-1
+  off_t open_offset;  // 文件被打开之后的读写指针，我们先默认为0
 } Finfo;
 
 enum {FD_STDIN, FD_STDOUT, FD_STDERR, FD_FB, FD_EVENTS, FD_DISPINFO, FD_NORMAL};
@@ -89,6 +89,6 @@ int fs_close(int fd) {
     panic("fd out of range");
     return -1;
   }
-  file_table[fd].open_offset = -1;
+  file_table[fd].open_offset = 0;
   return 0;
 }
