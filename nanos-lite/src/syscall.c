@@ -29,7 +29,7 @@ static ssize_t sys_write(int fd, const void *buf, size_t count) {
     }
     return count;
   } else {
-    return -1;
+    return fs_write(fd, buf, count);
   }
 }
 
