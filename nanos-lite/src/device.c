@@ -16,6 +16,7 @@ static char dispinfo[128] __attribute__((used));
 
 void dispinfo_read(void *buf, off_t offset, size_t len) {
   // 用于把字符串dispinfo中offset开始的len字节写到buf中.
+  Log("offset is %d, len is %d", offset, len);
   assert(offset + len < 128);
   memcpy(buf, dispinfo + offset, len);
 }
