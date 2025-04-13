@@ -71,6 +71,7 @@ _RegSet* do_syscall(_RegSet *r) {
     }
     case SYS_write:{
       // 基于man 2 write可以知道，三个参数分别是fd, buf, count
+      Log("write herre");
       SYSCALL_ARG1(r) = sys_write(SYSCALL_ARG2(r), (void *)SYSCALL_ARG3(r), SYSCALL_ARG4(r));;
       return r;
     }
