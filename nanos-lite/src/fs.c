@@ -2,7 +2,7 @@
 extern void ramdisk_read(void *buf, size_t offset, size_t len);
 extern void ramdisk_write(void *buf, size_t offset, size_t len);
 extern size_t get_ramdisk_size();
-
+extern size_t get_screen_size();
 // #define DEBUG
 
 typedef struct {
@@ -29,6 +29,14 @@ static Finfo file_table[] __attribute__((used)) = {
 
 void init_fs() {
   // TODO: initialize the size of /dev/fb
+  // 首先得到size
+  size_t size = get_screen_size();
+  file_table[FD_FB].size = size;
+  // 将后面的所有文件移动，避免交叉
+  for(int i = FD_EVENTS; i < NR_FILES; i++) {
+    file_table[i].disk_offset += size;
+  }
+  Log("fs initialize succeeds");
 }
 
 // ADD in pa3-2:实现文件系统的有关操作
@@ -139,6 +147,9 @@ ssize_t fs_write(int fd, const void *buf, size_t len) {
     } break;
     case FD_FB: {
       
+    } break;
+    case FD_STDIN: {
+      return 0;
     } break;
     default: {
       off_t offset = file_table[fd].open_offset;
