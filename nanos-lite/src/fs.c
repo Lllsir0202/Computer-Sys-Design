@@ -96,11 +96,11 @@ ssize_t fs_read(int fd, void *buf, size_t len) {
     case FD_DISPINFO: {
       // Log("offset is %d", offset);
       if(offset >= file_table[fd].size) {
-        Log("return! offset is %d", offset);
+        // Log("return! offset is %d", offset);
         return 0;
       }
       dispinfo_read(buf, offset, len);
-      Log("buf is %s",buf);
+      // Log("buf is %s",buf);
       // Log("len is %d", len);
       // Log("before add open_offset is %d", file_table[fd].open_offset);
       if(len > file_table[fd].size) {
@@ -171,7 +171,7 @@ ssize_t fs_write(int fd, const void *buf, size_t len) {
       }
     } break;
     case FD_FB: {
-      panic("here");
+      // panic("here");
       fb_write(buf, offset, len);
       file_table[fd].open_offset += len;
     } break;
