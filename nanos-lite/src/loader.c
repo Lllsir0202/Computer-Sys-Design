@@ -20,6 +20,7 @@ uintptr_t loader(_Protect *as, const char *filename) {
   // return (uintptr_t)DEFAULT_ENTRY;
 
   // -------Change in pa3-2--------
+  Log("file name is %s",filename);
   int fd = fs_open(filename, 0, 0);
   size_t len = fs_filesz(fd);
   if(len == 0) {
