@@ -4,7 +4,7 @@ extern void ramdisk_write(void *buf, size_t offset, size_t len);
 extern size_t get_ramdisk_size();
 extern size_t get_screen_size();
 extern size_t get_fb_start();
-#define DEBUG
+// #define DEBUG
 
 typedef struct {
   char *name;         // 文件名
