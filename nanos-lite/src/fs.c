@@ -3,7 +3,7 @@ extern void ramdisk_read(void *buf, size_t offset, size_t len);
 extern void ramdisk_write(void *buf, size_t offset, size_t len);
 extern size_t get_ramdisk_size();
 extern size_t get_screen_size();
-extern void dispinfo_read(void *buf, off_t offset, size_t len);
+extern int dispinfo_read(void *buf, off_t offset, size_t len);
 extern void fb_write(const void *buf, off_t offset, size_t len);
 // #define DEBUG
 
@@ -99,13 +99,10 @@ ssize_t fs_read(int fd, void *buf, size_t len) {
         // Log("return! offset is %d", offset);
         return 0;
       }
-      dispinfo_read(buf, offset, len);
+      len = dispinfo_read(buf, offset, len);
       // Log("buf is %s",buf);
       // Log("len is %d", len);
       // Log("before add open_offset is %d", file_table[fd].open_offset);
-      if(len > file_table[fd].size) {
-        len = file_table[fd].size;
-      }
       file_table[fd].open_offset += len;
       // Log("after add open_offset is %d", file_table[fd].open_offset);
     } break;

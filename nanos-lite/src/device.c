@@ -14,13 +14,18 @@ size_t events_read(void *buf, size_t len) {
 
 static char dispinfo[128] __attribute__((used));
 
-void dispinfo_read(void *buf, off_t offset, size_t len) {
+// 修改返回值，保证其能够记录下len
+int dispinfo_read(void *buf, off_t offset, size_t len) {
   // 用于把字符串dispinfo中offset开始的len字节写到buf中.
-  if(offset + len > 128) {
-    Log("Here invalid op");
+  int i;
+  for(i = offset; i < len; i++){
+    if(dispinfo[i] == '\n'){
+      break;
+    }
   }
   // Log("len is %d", len);
-  memcpy(buf, dispinfo + offset, len);
+  memcpy(buf, dispinfo + offset, i);
+  return i;
 }
 
 void fb_write(const void *buf, off_t offset, size_t len) {
