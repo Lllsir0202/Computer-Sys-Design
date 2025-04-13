@@ -15,6 +15,9 @@ size_t events_read(void *buf, size_t len) {
 static char dispinfo[128] __attribute__((used));
 
 void dispinfo_read(void *buf, off_t offset, size_t len) {
+  // 用于把字符串dispinfo中offset开始的len字节写到buf中.
+  assert(offset + len < 128);
+  memcpy(buf, dispinfo + offset, len);
 }
 
 void fb_write(const void *buf, off_t offset, size_t len) {
@@ -29,6 +32,7 @@ void fb_write(const void *buf, off_t offset, size_t len) {
 
   if(pixels <= _screen.width - x) {
     _draw_rect((uint32_t*)buf, x, y, pixels, 1);
+    return;
   }
   // 不能一行画完的话
   _draw_rect((uint32_t*)buf, x, y, _screen.width-x, 1);
@@ -38,9 +42,8 @@ void fb_write(const void *buf, off_t offset, size_t len) {
   int last_one = (pixels - (_screen.width-x)) - full_rows * _screen.width;
 
   // 绘制整行
-  _draw_rect((uint32_t*)buf, 0, y+full_rows, _screen.width, full_rows);
-  _draw_rect((uint32_t*)buf, 0, y+full_rows+1,last_one, 1);
-
+  _draw_rect((uint32_t*)buf, 0, y+full_rows+1, _screen.width, full_rows);
+  _draw_rect((uint32_t*)buf, 0, y+full_rows+2,last_one, 1);
 }
 
 void init_device() {
@@ -48,4 +51,5 @@ void init_device() {
 
   // TODO: print the string to array `dispinfo` with the format
   // described in the Navy-apps convention
+  sprintf(dispinfo, "WIDTH : %d\nHEIGHT : %d", _screen.width, _screen.height);
 }
