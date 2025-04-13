@@ -114,12 +114,12 @@ ssize_t fs_write(int fd, const void *buf, size_t len) {
   // check if the file is overflow
   // 如果当前的offset已经是文件尾了
   if(offset >= fs_filesz(fd)) {
-    Log("REACH END");
     return 0;
   }
   // 我们处理是：如果当前的len加上openoffset超过了末尾，那么写入尽可能多的。
   if(offset + len > fs_filesz(fd)) {
     // 更新读取的len
+    Log("here");
     len = fs_filesz(fd) - offset;
   }
   off_t ramdisk_offset = file_table[fd].disk_offset + offset;
