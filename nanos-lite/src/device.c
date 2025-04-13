@@ -23,7 +23,7 @@ int dispinfo_read(void *buf, off_t offset, size_t len) {
       break;
     }
   }
-  // Log("len is %d", len);
+  Log("len is %d", i);
   memcpy(buf, dispinfo + offset, i);
   return i;
 }
