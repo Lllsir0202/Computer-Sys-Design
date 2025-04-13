@@ -16,10 +16,10 @@ size_t events_read(void *buf, size_t len) {
     down = true;
   }
   if (key != _KEY_NONE) {
-    snprintf(buf, len, "%s %s", down ? "kd" : "ku" , keyname[key]);
+    snprintf(buf, len, "%s %s\n", down ? "kd" : "ku" , keyname[key]);
   }else{
     unsigned long ms = _uptime();
-    snprintf(buf, len, "t %u", ms);
+    snprintf(buf, len, "t %u\n", ms);
   }
   return strlen(buf);
 }
