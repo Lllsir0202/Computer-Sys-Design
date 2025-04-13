@@ -3,6 +3,8 @@ extern void ramdisk_read(void *buf, size_t offset, size_t len);
 extern void ramdisk_write(void *buf, size_t offset, size_t len);
 extern size_t get_ramdisk_size();
 
+#define DEBUG
+
 typedef struct {
   char *name;         // 文件名
   size_t size;        // 文件大小
@@ -42,7 +44,9 @@ size_t fs_filesz(int fd) {
 // open
 int fs_open(const char *pathname, int flags, int mode) {
   // loop circle to find pathname
+  #ifdef DEBUG
   Log("pathname is %s",pathname);
+  #endif
   for(int i = 0 ; i < NR_FILES ; i++) {
     if(strcmp(pathname, file_table[i].name) == 0) {
       // if the file is found, return the index
@@ -56,7 +60,10 @@ int fs_open(const char *pathname, int flags, int mode) {
 
 // read
 ssize_t fs_read(int fd, void *buf, size_t len) {
-  // Log("fs_read!!!");
+  #ifdef DEBUG
+  Log("fs_read!!!");
+  #endif
+  
   if(fd>= 0 && fd <= 2) {
     return 0;
   }
@@ -101,7 +108,9 @@ int fs_close(int fd) {
 // write
 ssize_t fs_write(int fd, const void *buf, size_t len) {
   // 目前看来不太可能，正常来说
-  // Log("fs_write!!!");
+  #ifdef DEBUG
+  Log("fs_write!!!");
+  #endif
   if(fd < 0 || fd >= NR_FILES) {
     panic("fd out of range");
   }
@@ -143,15 +152,21 @@ off_t fs_lseek(int fd, off_t offset, int whence) {
     case SEEK_SET: {
       // 设置
       file_table[fd].open_offset = offset;
+      #ifdef DEBUG
       Log("set offset(SET) is %d", file_table[fd].open_offset);
+      #endif
     } break;
     case SEEK_CUR: {
       file_table[fd].open_offset += offset;
+      #ifdef DEBUG
       Log("set offset(CUR) is %d", file_table[fd].open_offset);
+      #endif
     } break;
     case SEEK_END: {
       file_table[fd].open_offset = fs_filesz(fd) + offset;
+      #ifdef DEBUG
       Log("set offset(END) is %d", file_table[fd].open_offset);
+      #endif
     } break;
     default: {
       panic("Invalid whence!");
