@@ -114,12 +114,7 @@ ssize_t fs_write(int fd, const void *buf, size_t len) {
   if(fd < 0 || fd >= NR_FILES) {
     panic("fd out of range");
   }
-  off_t offset = file_table[fd].open_offset;
-  // check if the file is opened
-  if(offset < 0) {
-    panic("file not opened");
-    return -1;
-  }
+
   switch (fd) {
     case FD_STDOUT:
     case FD_STDERR: {
@@ -134,6 +129,12 @@ ssize_t fs_write(int fd, const void *buf, size_t len) {
       
     } break;
     default: {
+      off_t offset = file_table[fd].open_offset;
+      // check if the file is opened
+      if(offset < 0) {
+        panic("file not opened");
+        return -1;
+      }
       // check if the file is overflow
       // 如果当前的offset已经是文件尾了
       if(offset >= fs_filesz(fd)) {
