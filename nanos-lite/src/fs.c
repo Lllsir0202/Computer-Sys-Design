@@ -67,7 +67,6 @@ int fs_open(const char *pathname, int flags, int mode) {
     if(strcmp(pathname, file_table[i].name) == 0) {
       // if the file is found, return the index
       file_table[i].open_offset = 0;
-      Log("current fd is %d",i);
       return i;
     }
   }

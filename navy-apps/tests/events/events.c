@@ -4,6 +4,7 @@ int main(){
   FILE *fp = fopen("/dev/events", "r");
   volatile int j = 0;
   while(1){
+    printf("111");
     j ++;
     if (j == 1000000) {
       char buf[256];
