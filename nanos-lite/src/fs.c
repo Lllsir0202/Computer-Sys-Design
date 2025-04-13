@@ -95,6 +95,7 @@ ssize_t fs_read(int fd, void *buf, size_t len) {
     }
     case FD_DISPINFO: {
       dispinfo_read(buf, offset, len);
+      file_table[fd].open_offset += len;
     } break;
     case FD_FB: {
       panic("Cannot be read!");
@@ -157,11 +158,9 @@ ssize_t fs_write(int fd, const void *buf, size_t len) {
         _putc(((char *)buf)[i]);
       }
     } break;
-    case FD_DISPINFO: {
-      panic("?");
-    } break;
     case FD_FB: {
       fb_write(buf, offset, len);
+      file_table[fd].open_offset += len;
     } break;
     case FD_STDIN: {
       return 0;
