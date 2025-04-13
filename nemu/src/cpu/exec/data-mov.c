@@ -118,3 +118,7 @@ make_EHelper(lea) {
   operand_write(id_dest, &t2);
   print_asm_template2(lea);
 }
+
+make_EHelper(xchg) {
+  TODO();
+}
