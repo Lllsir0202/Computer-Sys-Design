@@ -3,6 +3,8 @@ extern void ramdisk_read(void *buf, size_t offset, size_t len);
 extern void ramdisk_write(void *buf, size_t offset, size_t len);
 extern size_t get_ramdisk_size();
 extern size_t get_screen_size();
+extern void dispinfo_read(void *buf, off_t offset, size_t len);
+extern void fb_write(const void *buf, off_t offset, size_t len);
 // #define DEBUG
 
 typedef struct {
@@ -91,8 +93,12 @@ ssize_t fs_read(int fd, void *buf, size_t len) {
     case FD_STDERR: {
       return 0;
     }
+    case FD_DISPINFO: {
+      dispinfo_read(buf, offset, len);
+    } break;
     case FD_FB: {
-      TODO();
+      panic("Cannot be read!");
+      return 0;
     } break;
     default: {
       // check if the file is opened
@@ -139,6 +145,7 @@ ssize_t fs_write(int fd, const void *buf, size_t len) {
   if(fd < 0 || fd >= NR_FILES) {
     panic("fd out of range");
   }
+  off_t offset = file_table[fd].open_offset;
 
   switch (fd) {
     case FD_STDOUT:
@@ -151,13 +158,12 @@ ssize_t fs_write(int fd, const void *buf, size_t len) {
       }
     } break;
     case FD_FB: {
-      TODO();
+      fb_write(buf, offset, len);
     } break;
     case FD_STDIN: {
       return 0;
     } break;
     default: {
-      off_t offset = file_table[fd].open_offset;
       // check if the file is opened
       if(offset < 0) {
         panic("file not opened");
