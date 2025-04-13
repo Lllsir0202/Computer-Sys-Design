@@ -19,6 +19,7 @@ void dispinfo_read(void *buf, off_t offset, size_t len) {
   if(offset + len > 128) {
     len = 128 - offset;
   }
+  Log("len is %d", len);
   memcpy(buf, dispinfo + offset, len);
 }
 
