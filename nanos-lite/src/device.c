@@ -44,7 +44,9 @@ void fb_write(const void *buf, off_t offset, size_t len) {
   int last_one = (pixels - (_screen.width-x)) - full_rows * _screen.width;
 
   // 绘制整行
-  _draw_rect((uint32_t*)buf, 0, y+full_rows+1, _screen.width, full_rows);
+  if(full_rows > 0){
+    _draw_rect((uint32_t*)buf, 0, y+full_rows+1, _screen.width, full_rows);
+  }
   _draw_rect((uint32_t*)buf, 0, y+full_rows+2,last_one, 1);
 }
 
