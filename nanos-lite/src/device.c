@@ -9,32 +9,7 @@ static const char *keyname[256] __attribute__((used)) = {
 };
 
 size_t events_read(void *buf, size_t len) {
-  // 读取按键信息
-  int key = _read_key();
-  size_t ret = 0;
-  
-  if (key != _KEY_NONE) {
-    // 有按键事件
-    if (key & 0x8000) {
-      // 按键释放（高位为1）
-      key ^= 0x8000;  // 清除高位
-      ret = snprintf(buf, len, "ku %s\n", keyname[key]);
-    } else {
-      // 按键按下
-      ret = snprintf(buf, len, "kd %s\n", keyname[key]);
-    }
-  } else {
-    // 没有按键事件，返回时间信息
-    uint32_t time_ms = _uptime();
-    ret = snprintf(buf, len, "t %d\n", time_ms);
-  }
-  
-  // 确保不超过缓冲区大小
-  if (ret >= len) {
-    return len - 1;  // 留一个字节给终止符
-  }
-  
-  return ret;
+  return -1;
 }
 
 static char dispinfo[128] __attribute__((used));
