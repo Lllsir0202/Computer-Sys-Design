@@ -72,26 +72,38 @@ ssize_t fs_read(int fd, void *buf, size_t len) {
   if(fd < 0 || fd >= NR_FILES) {
     panic("fd out of range");
   }
-  // check if the file is opened
-  if(offset < 0) {
-    panic("file not opened");
-    return -1;
+  switch (fd) {
+    case FD_STDOUT: 
+    case FD_STDIN:
+    case FD_STDERR: {
+      return 0;
+    }
+    case FD_FB: {
+
+    } break;
+    default: {
+      // check if the file is opened
+      if(offset < 0) {
+        panic("file not opened");
+        return -1;
+      }
+      // check if the file is overflow
+      // 如果当前的offset已经是文件尾了
+      // 返回0,不读取
+      if(offset >= fs_filesz(fd)) {
+        return 0;
+      }
+      // 我们处理是：如果当前的len加上openoffset超过了末尾，那么读取尽可能多的。
+      if(offset + len > fs_filesz(fd)) {
+        // 更新读取的len
+        len = fs_filesz(fd) - offset;
+      }
+      off_t ramdisk_offset = file_table[fd].disk_offset + offset;
+      // 进行读取
+      ramdisk_read((void *)buf, ramdisk_offset, len);
+      file_table[fd].open_offset += len;
+    } break;
   }
-  // check if the file is overflow
-  // 如果当前的offset已经是文件尾了
-  // 返回0,不读取
-  if(offset >= fs_filesz(fd)) {
-    return 0;
-  }
-  // 我们处理是：如果当前的len加上openoffset超过了末尾，那么读取尽可能多的。
-  if(offset + len > fs_filesz(fd)) {
-    // 更新读取的len
-    len = fs_filesz(fd) - offset;
-  }
-  off_t ramdisk_offset = file_table[fd].disk_offset + offset;
-  // 进行读取
-  ramdisk_read((void *)buf, ramdisk_offset, len);
-  file_table[fd].open_offset += len;
   return len;
 }
 
