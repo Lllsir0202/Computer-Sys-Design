@@ -143,15 +143,15 @@ off_t fs_lseek(int fd, off_t offset, int whence) {
     case SEEK_SET: {
       // 设置
       file_table[fd].open_offset = offset;
-      Log("set offset is %d", file_table[fd].open_offset);
+      Log("set offset(SET) is %d", file_table[fd].open_offset);
     } break;
     case SEEK_CUR: {
       file_table[fd].open_offset += offset;
-      Log("set offset is %d", file_table[fd].open_offset);
+      Log("set offset(CUR) is %d", file_table[fd].open_offset);
     } break;
     case SEEK_END: {
       file_table[fd].open_offset = fs_filesz(fd) + offset;
-      Log("set offset is %d", file_table[fd].open_offset);
+      Log("set offset(END) is %d", file_table[fd].open_offset);
     } break;
     default: {
       panic("Invalid whence!");
