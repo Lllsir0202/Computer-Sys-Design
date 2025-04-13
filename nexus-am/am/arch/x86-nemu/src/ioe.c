@@ -29,7 +29,7 @@ _Screen _screen = {
 };
 
 size_t get_screen_size() {
-  return _screen.width * _screen.height;
+  return _screen.width * _screen.height * sizeof(uint32_t);
 }
 
 extern void* memcpy(void *, const void *, int);
