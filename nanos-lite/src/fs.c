@@ -36,7 +36,9 @@ void init_fs() {
   // 将后面的所有文件移动，避免交叉
   for(int i = FD_EVENTS; i < NR_FILES; i++) {
     file_table[i].disk_offset += size;
+    #ifdef DEBUG
     Log("file_table[%d].disk_offset is %d", i, file_table[i].disk_offset);
+    #endif
   }
   Log("fs initialize succeeds");
 }
