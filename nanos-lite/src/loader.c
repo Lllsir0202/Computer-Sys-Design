@@ -29,5 +29,6 @@ uintptr_t loader(_Protect *as, const char *filename) {
   char buf[len];
   fs_read(fd, (void *)buf, len);
   fs_close(fd);
+  memcpy(DEFAULT_ENTRY, buf, len);
   return (uintptr_t)DEFAULT_ENTRY;
 }
