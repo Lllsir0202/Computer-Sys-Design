@@ -94,7 +94,6 @@ _RegSet* do_syscall(_RegSet *r) {
       return r;
     }
     case SYS_read: {
-      Log("read here");
       SYSCALL_ARG1(r) = sys_read(SYSCALL_ARG2(r), (void *)SYSCALL_ARG3(r), SYSCALL_ARG4(r));
       return r;
     }
