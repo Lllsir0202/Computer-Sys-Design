@@ -5,6 +5,7 @@ extern size_t get_ramdisk_size();
 extern size_t get_screen_size();
 extern int dispinfo_read(void *buf, off_t offset, size_t len);
 extern void fb_write(const void *buf, off_t offset, size_t len);
+extern int events_read(void *buf, size_t len);
 // #define DEBUG
 
 typedef struct {
@@ -92,6 +93,9 @@ ssize_t fs_read(int fd, void *buf, size_t len) {
     case FD_STDIN:
     case FD_STDERR: {
       return 0;
+    }
+    case FD_EVENTS: {
+      return events_read(buf, len);
     }
     case FD_DISPINFO: {
       // Log("offset is %d", offset);

@@ -9,7 +9,13 @@ static const char *keyname[256] __attribute__((used)) = {
 };
 
 size_t events_read(void *buf, size_t len) {
-  return 0;
+  int key_num = _read_key();
+  int real_len = strlen(keyname[key_num]);
+  if(real_len > len) {
+    real_len = len;
+  }
+  memcpy(buf, keyname[key_num], real_len);
+  return real_len;
 }
 
 static char dispinfo[128] __attribute__((used));
