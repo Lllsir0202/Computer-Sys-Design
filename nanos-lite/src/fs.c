@@ -94,7 +94,9 @@ ssize_t fs_read(int fd, void *buf, size_t len) {
       return 0;
     }
     case FD_DISPINFO: {
+      Log("offset is %d", offset);
       dispinfo_read(buf, offset, len);
+      Log("buf is %s",buf);
       file_table[fd].open_offset += len;
     } break;
     case FD_FB: {
