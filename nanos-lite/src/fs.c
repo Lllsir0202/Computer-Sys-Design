@@ -89,7 +89,7 @@ int fs_close(int fd) {
     panic("fd out of range");
     return -1;
   }
-  file_table[fd].open_offset = 0;
+  file_table[fd].open_offset = -1;
   return 0;
 }
 
