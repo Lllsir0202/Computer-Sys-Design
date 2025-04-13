@@ -19,7 +19,7 @@ int dispinfo_read(void *buf, off_t offset, size_t len) {
   // 用于把字符串dispinfo中offset开始的len字节写到buf中.
   int i;
   for(i = offset; i < len; i++){
-    if(dispinfo[i] == '\n'){
+    if(dispinfo[i] == '\n' || dispinfo[i] == '\0'){
       break;
     }
   }
@@ -70,6 +70,6 @@ void init_device() {
 
   // TODO: print the string to array `dispinfo` with the format
   // described in the Navy-apps convention
-  sprintf(dispinfo, "WIDTH : %d\nHEIGHT : %d", _screen.width, _screen.height);
+  sprintf(dispinfo, "WIDTH : %d\nHEIGHT : %d\0", _screen.width, _screen.height);
   printf("%s\n",dispinfo);
 }
