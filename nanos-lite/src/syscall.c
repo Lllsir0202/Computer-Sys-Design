@@ -19,7 +19,7 @@ static void sys_exit(uintptr_t param) {
   _halt(param);
 }
 
-static int sys_write(int fd, const void *buf, size_t count) {
+static ssize_t sys_write(int fd, const void *buf, size_t count) {
   if(fd == 1 || fd == 2){
     // 1: stdout, 2: stderr
     int i = 0;
@@ -37,10 +37,22 @@ static int sys_brk(void *addr) {
   return 0;
 }
 
-// static int sys_open(const char *pathname, int flags, int mode) {
-//   TODO();
-//   return -1;
-// }
+// ADD in pa3-3
+static int sys_open(const char *pathname, int flags, int mode) {
+  return fs_open(pathname, flags, mode);
+}
+
+static ssize_t sys_read(int fd, void *buf, size_t len) {
+  return fs_read(fd, buf, len);
+}
+
+static off_t sys_lseek(int fd, off_t offset, int whence) {
+  return fs_lseek(fd, offset, whence);
+}
+
+static int sys_close(int fd) {
+  return fs_close(fd);
+}
 
 _RegSet* do_syscall(_RegSet *r) {
   uintptr_t a[4];
@@ -59,8 +71,7 @@ _RegSet* do_syscall(_RegSet *r) {
     }
     case SYS_write:{
       // 基于man 2 write可以知道，三个参数分别是fd, buf, count
-      int ret_value = sys_write(SYSCALL_ARG2(r), (void *)SYSCALL_ARG3(r), SYSCALL_ARG4(r));
-      SYSCALL_ARG1(r) = ret_value;
+      SYSCALL_ARG1(r) = sys_write(SYSCALL_ARG2(r), (void *)SYSCALL_ARG3(r), SYSCALL_ARG4(r));;
       return r;
     }
     case SYS_brk: {
@@ -79,7 +90,19 @@ _RegSet* do_syscall(_RegSet *r) {
       return r;
     }
     case SYS_open: {
-      TODO();
+      SYSCALL_ARG1(r) = sys_open((char *)SYSCALL_ARG2(r), SYSCALL_ARG3(r), SYSCALL_ARG4(r));
+      return r;
+    }
+    case SYS_read: {
+      SYSCALL_ARG1(r) = sys_read(SYSCALL_ARG2(r), (void *)SYSCALL_ARG3(r), SYSCALL_ARG4(r));
+      return r;
+    }
+    case SYS_lseek: {
+      SYSCALL_ARG1(r) = sys_lseek(SYSCALL_ARG2(r), SYSCALL_ARG3(r), SYSCALL_ARG4(r));
+      return r;
+    }
+    case SYS_close: {
+      SYSCALL_ARG1(r) = sys_close(SYSCALL_ARG2(r));
       return r;
     }
     default: panic("Unhandled syscall ID = %d", a[0]);

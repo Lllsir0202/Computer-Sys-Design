@@ -56,13 +56,16 @@ int fs_open(const char *pathname, int flags, int mode) {
 
 // read
 ssize_t fs_read(int fd, void *buf, size_t len) {
+  if(fd>= 0 && fd <= 2) {
+    return 0;
+  }
   off_t offset = file_table[fd].open_offset;
   // 目前看来不太可能，正常来说
   if(fd < 0 || fd >= NR_FILES) {
     panic("fd out of range");
   }
   // check if the file is opened
-  if(offset == -1) {
+  if(offset < 0) {
     panic("file not opened");
     return -1;
   }
@@ -79,7 +82,7 @@ ssize_t fs_read(int fd, void *buf, size_t len) {
   }
   off_t ramdisk_offset = file_table[fd].disk_offset + offset;
   // 进行读取
-  ramdisk_read(buf, ramdisk_offset, len);
+  ramdisk_read((void *)buf, ramdisk_offset, len);
   return len;
 }
 
@@ -89,17 +92,63 @@ int fs_close(int fd) {
     panic("fd out of range");
     return -1;
   }
-  file_table[fd].open_offset = 0;
+  file_table[fd].open_offset = -1;
   return 0;
 }
 
 // write
 ssize_t fs_write(int fd, const void *buf, size_t len) {
+  // 目前看来不太可能，正常来说
   if(fd < 0 || fd >= NR_FILES) {
     panic("fd out of range");
+  }
+  off_t offset = file_table[fd].open_offset;
+  // check if the file is opened
+  if(offset < 0) {
+    panic("file not opened");
+    return -1;
+  }
+  // check if the file is overflow
+  // 如果当前的offset已经是文件尾了
+  if(offset >= fs_filesz(fd)) {
+    return 0;
+  }
+  // 我们处理是：如果当前的len加上openoffset超过了末尾，那么写入尽可能多的。
+  if(offset + len > fs_filesz(fd)) {
+    // 更新读取的len
+    len = fs_filesz(fd) - offset;
+  }
+  off_t ramdisk_offset = file_table[fd].disk_offset + offset;
+  // 进行读取
+  ramdisk_write((void *)buf, ramdisk_offset, len);
+  return len;
+}
+
+off_t fs_lseek(int fd, off_t offset, int whence) {
+  if(fd < 0 || fd > NR_FILES) {
+    panic("fd out of range");
+  }
+  off_t openoffset = file_table[fd].open_offset;
+  // 没有open
+  if(openoffset < 0) {
+    panic("file not open");
     return -1;
   }
 
-  return -1;
-
+  switch (whence){
+    case SEEK_SET: {
+      // 设置
+      file_table[fd].open_offset = offset;
+    } break;
+    case SEEK_CUR: {
+      file_table[fd].open_offset += offset;
+    } break;
+    case SEEK_END: {
+      file_table[fd].open_offset = fs_filesz(fd) + offset;
+    } break;
+    default: {
+      panic("Invalid whence!");
+    }
+  }
+  return file_table[fd].open_offset;
 }
