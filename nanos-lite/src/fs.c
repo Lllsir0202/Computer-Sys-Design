@@ -111,6 +111,7 @@ ssize_t fs_read(int fd, void *buf, size_t len) {
       return 0;
     } break;
     default: {
+      Log("here");
       // check if the file is opened
       if(offset < 0) {
         panic("file not opened");
