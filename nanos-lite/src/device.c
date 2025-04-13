@@ -16,6 +16,8 @@ size_t events_read(void *buf, size_t len) {
     snprintf(buf, len, "t %d\n", now_time);
     real_len = strlen(buf);
   }else {
+    snprintf(buf, len, "kd %s\n", keyname[key_num]);
+    real_len = strlen(buf);
   }
   return real_len;
 }
