@@ -4,6 +4,12 @@
 extern char end;
 static uintptr_t program_break = (uintptr_t)&end;
 
+extern int fs_open(const char *pathname, int flags, int mode);
+extern ssize_t fs_read(int fd, void *buf, size_t len);
+extern ssize_t fs_write(int fd, const void *buf, size_t len);
+extern off_t fs_lseek(int fd, off_t offset, int whence);
+extern int fs_close(int fd);
+
 static int sys_non(_RegSet *r) {
   return 1;
 }
@@ -17,7 +23,7 @@ static int sys_write(int fd, const void *buf, size_t count) {
   if(fd == 1 || fd == 2){
     // 1: stdout, 2: stderr
     int i = 0;
-    Log("sys_write: %d", count);
+    // Log("sys_write: %d", count);
     for(i = 0; i < count; i++){
       _putc(((char *)buf)[i]);
     }
@@ -30,6 +36,11 @@ static int sys_write(int fd, const void *buf, size_t count) {
 static int sys_brk(void *addr) {
   return 0;
 }
+
+// static int sys_open(const char *pathname, int flags, int mode) {
+//   TODO();
+//   return -1;
+// }
 
 _RegSet* do_syscall(_RegSet *r) {
   uintptr_t a[4];
@@ -65,6 +76,10 @@ _RegSet* do_syscall(_RegSet *r) {
       } else {
         SYSCALL_ARG1(r) = -1;
       }
+      return r;
+    }
+    case SYS_open: {
+      TODO();
       return r;
     }
     default: panic("Unhandled syscall ID = %d", a[0]);

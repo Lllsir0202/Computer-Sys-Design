@@ -1,10 +1,13 @@
 #include "fs.h"
+extern void ramdisk_read(void *buf, size_t offset, size_t len);
+extern void ramdisk_write(void *buf, size_t offset, size_t len);
+extern size_t get_ramdisk_size();
 
 typedef struct {
   char *name;         // 文件名
   size_t size;        // 文件大小
   off_t disk_offset;  // 文件在ramdisk中的偏移
-  off_t open_offset;  // 文件被打开之后的读写指针
+  off_t open_offset;  // 文件被打开之后的读写指针，我们先默认为-1
 } Finfo;
 
 enum {FD_STDIN, FD_STDOUT, FD_STDERR, FD_FB, FD_EVENTS, FD_DISPINFO, FD_NORMAL};
@@ -24,4 +27,67 @@ static Finfo file_table[] __attribute__((used)) = {
 
 void init_fs() {
   // TODO: initialize the size of /dev/fb
+}
+
+// ADD in pa3-2:实现文件系统的有关操作
+// 得到文件长度
+size_t fs_filesz(int fd) {
+  if(fd < 0 || fd >= NR_FILES) {
+    panic("fd out of range");
+    return -1;
+  }
+  return file_table[fd].size;
+}
+
+// open
+int fs_open(const char *pathname, int flags, int mode) {
+  // loop circle to find pathname
+  for(int i = 0 ; i < NR_FILES ; i++) {
+    if(strcmp(pathname, file_table[i].name) == 0) {
+      // if the file is found, return the index
+      file_table[i].open_offset = 0;
+      return i;
+    }
+  }
+  panic("file not found");
+  return -1;
+}
+
+// read
+ssize_t fs_read(int fd, void *buf, size_t len) {
+  off_t offset = file_table[fd].open_offset;
+  // 目前看来不太可能，正常来说
+  if(fd < 0 || fd >= NR_FILES) {
+    panic("fd out of range");
+  }
+  // check if the file is opened
+  if(offset == -1) {
+    panic("file not opened");
+    return -1;
+  }
+  // check if the file is overflow
+  // 如果当前的offset已经是文件尾了
+  // 返回0,不读取
+  if(offset >= fs_filesz(fd)) {
+    return 0;
+  }
+  // 我们处理是：如果当前的len加上openoffset超过了末尾，那么读取尽可能多的。
+  if(offset + len > fs_filesz(fd)) {
+    // 更新读取的len
+    len = fs_filesz(fd) - offset;
+  }
+  off_t ramdisk_offset = file_table[fd].disk_offset + offset;
+  // 进行读取
+  ramdisk_read(buf, ramdisk_offset, len);
+  return len;
+}
+
+// close
+int fs_close(int fd) {
+  if(fd < 0 || fd >= NR_FILES) {
+    panic("fd out of range");
+    return -1;
+  }
+  file_table[fd].open_offset = -1;
+  return 0;
 }
