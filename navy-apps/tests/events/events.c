@@ -3,6 +3,7 @@
 int main(){
   FILE *fp = fopen("/dev/events", "r");
   volatile int j = 0;
+  printf("hello");
   while(1){
     j ++;
     if (j == 1000000) {
