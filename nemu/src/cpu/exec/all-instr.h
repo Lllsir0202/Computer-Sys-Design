@@ -55,6 +55,9 @@ make_EHelper(pusha);
 make_EHelper(popa);
 make_EHelper(iret);
 
+// Add: in pa3-3
+make_EHelper(xchg);
+
 make_EHelper(operand_size);
 
 make_EHelper(inv);
