@@ -157,6 +157,9 @@ ssize_t fs_write(int fd, const void *buf, size_t len) {
         _putc(((char *)buf)[i]);
       }
     } break;
+    case FD_DISPINFO: {
+      panic("?");
+    } break;
     case FD_FB: {
       fb_write(buf, offset, len);
     } break;
