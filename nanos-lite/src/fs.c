@@ -3,6 +3,7 @@ extern void ramdisk_read(void *buf, size_t offset, size_t len);
 extern void ramdisk_write(void *buf, size_t offset, size_t len);
 extern size_t get_ramdisk_size();
 extern size_t get_screen_size();
+extern size_t get_fb_start();
 #define DEBUG
 
 typedef struct {
@@ -30,12 +31,14 @@ static Finfo file_table[] __attribute__((used)) = {
 void init_fs() {
   // TODO: initialize the size of /dev/fb
   // 首先得到size
+  size_t start = get_fb_start();
   size_t size = get_screen_size();
   Log("screen size is %d", size);
+  file_table[FD_FB].disk_offset = start;
   file_table[FD_FB].size = size;
   // 将后面的所有文件移动，避免交叉
   for(int i = FD_EVENTS; i < NR_FILES; i++) {
-    file_table[i].disk_offset += size;
+    file_table[i].disk_offset += (size+start);
     #ifdef DEBUG
     Log("file_table[%d].disk_offset is %d", i, file_table[i].disk_offset);
     #endif

@@ -28,6 +28,10 @@ _Screen _screen = {
   .height = 300,
 };
 
+size_t get_fb_start() {
+  return 0x40000;
+}
+// Bytes as unit
 size_t get_screen_size() {
   return _screen.width * _screen.height * sizeof(uint32_t);
 }
