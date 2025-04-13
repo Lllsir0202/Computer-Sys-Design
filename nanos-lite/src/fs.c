@@ -122,7 +122,7 @@ ssize_t fs_write(int fd, const void *buf, size_t len) {
   off_t ramdisk_offset = file_table[fd].disk_offset + offset;
   // 进行读取
   ramdisk_write((void *)buf, ramdisk_offset, len);
-  // file_table[fd].open_offset += len;
+  file_table[fd].open_offset += len;
   return len;
 }
 
