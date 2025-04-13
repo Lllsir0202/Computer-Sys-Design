@@ -31,6 +31,7 @@ void init_fs() {
   // TODO: initialize the size of /dev/fb
   // 首先得到size
   size_t size = get_screen_size();
+  Log("screen size is %d", size);
   file_table[FD_FB].size = size;
   // 将后面的所有文件移动，避免交叉
   for(int i = FD_EVENTS; i < NR_FILES; i++) {
