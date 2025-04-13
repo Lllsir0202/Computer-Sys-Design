@@ -17,9 +17,11 @@ size_t events_read(void *buf, size_t len) {
   }
   if (key != _KEY_NONE) {
     snprintf(buf, len, "%s %s\n", down ? "kd" : "ku" , keyname[key]);
+    Log("buf is %s", buf);
   }else{
     unsigned long ms = _uptime();
     snprintf(buf, len, "t %u\n", ms);
+    Log("buf is %s", buf);
   }
   return strlen(buf);
 }
