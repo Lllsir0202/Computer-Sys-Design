@@ -44,6 +44,14 @@ void init_fs() {
   //   Log("file_table[%d].disk_offset is %d", i, file_table[i].disk_offset);
   //   #endif
   // }
+  Log("NR_FILES = %d", NR_FILES);
+  for(int i = 0; i < NR_FILES && i < 10; i++) {  // 只打印前10个，避免日志过长
+    Log("file_table[%d].name = %s", i, file_table[i].name ? file_table[i].name : "NULL");
+  }
+  Log("file_table 包含 /bin/pal? %s", 
+      fs_open("/bin/pal", 0, 0) >= 0 ? "是" : "否");
+  
+  Log("fs initialize succeeds");
   Log("fs initialize succeeds");
 }
 
