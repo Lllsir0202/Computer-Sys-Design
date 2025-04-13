@@ -129,7 +129,6 @@ ssize_t fs_write(int fd, const void *buf, size_t len) {
 }
 
 off_t fs_lseek(int fd, off_t offset, int whence) {
-  Log("lseek here");
   if(fd < 0 || fd > NR_FILES) {
     panic("fd out of range");
   }
