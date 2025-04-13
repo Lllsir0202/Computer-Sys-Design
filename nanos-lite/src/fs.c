@@ -94,7 +94,7 @@ ssize_t fs_read(int fd, void *buf, size_t len) {
       return 0;
     }
     case FD_FB: {
-
+      panic("not implment");
     } break;
     default: {
       // check if the file is opened
@@ -153,7 +153,7 @@ ssize_t fs_write(int fd, const void *buf, size_t len) {
       }
     } break;
     case FD_FB: {
-      
+      panic("not implment");
     } break;
     case FD_STDIN: {
       return 0;
