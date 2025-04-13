@@ -47,6 +47,7 @@ static ssize_t sys_read(int fd, void *buf, size_t len) {
 }
 
 static off_t sys_lseek(int fd, off_t offset, int whence) {
+  TODO();
   return fs_lseek(fd, offset, whence);
 }
 
