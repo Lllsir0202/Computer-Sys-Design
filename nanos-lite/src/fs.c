@@ -96,11 +96,10 @@ ssize_t fs_read(int fd, void *buf, size_t len) {
     case FD_DISPINFO: {
       // Log("offset is %d", offset);
       if(offset >= file_table[fd].size) {
-        Log("return! offset is %d", offset);
         return 0;
       }
       len = dispinfo_read(buf, offset, len);
-      Log("buf is %s",buf);
+      // Log("buf is %s",buf);
       // Log("len is %d", len);
       // Log("before add open_offset is %d", file_table[fd].open_offset);
       file_table[fd].open_offset += len;

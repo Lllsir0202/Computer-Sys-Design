@@ -17,6 +17,9 @@ static char dispinfo[128] __attribute__((used));
 // 修改返回值，保证其能够记录下len
 int dispinfo_read(void *buf, off_t offset, size_t len) {
   // 用于把字符串dispinfo中offset开始的len字节写到buf中.
+  if(dispinfo[offset] == '\0') {
+    return 0;
+  }
   int i;
   for(i = offset; i < len; i++){
     if(dispinfo[i] == '\n' || dispinfo[i] == '\0'){
