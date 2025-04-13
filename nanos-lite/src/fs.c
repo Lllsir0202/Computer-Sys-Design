@@ -56,6 +56,7 @@ int fs_open(const char *pathname, int flags, int mode) {
 
 // read
 ssize_t fs_read(int fd, void *buf, size_t len) {
+  Log("fs_read!!!");
   if(fd>= 0 && fd <= 2) {
     return 0;
   }
@@ -100,6 +101,7 @@ int fs_close(int fd) {
 // write
 ssize_t fs_write(int fd, const void *buf, size_t len) {
   // 目前看来不太可能，正常来说
+  Log("fs_write!!!");
   if(fd < 0 || fd >= NR_FILES) {
     panic("fd out of range");
   }
