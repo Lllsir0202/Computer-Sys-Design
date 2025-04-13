@@ -12,9 +12,7 @@ int main() {
   fseek(fp, 500 * 5, SEEK_SET);
   int i, n;
   for (i = 500; i < 1000; i ++) {
-    printf("i is %d\n", i);
     fscanf(fp, "%d", &n);
-    printf("n is %d\n", n);
     assert(n == i + 1);
   }
 
@@ -25,6 +23,7 @@ int main() {
 
   for (i = 500; i < 1000; i ++) {
     fscanf(fp, "%d", &n);
+    printf("%d", n);
     assert(n == i + 1);
   }
 
