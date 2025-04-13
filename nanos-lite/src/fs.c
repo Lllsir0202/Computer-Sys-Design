@@ -88,7 +88,6 @@ ssize_t fs_read(int fd, void *buf, size_t len) {
   if(fd < 0 || fd >= NR_FILES) {
     panic("fd out of range");
   }
-  Log("fd is %d, event is %d", fd, FD_EVENTS);
   switch (fd) {
     case FD_STDOUT: 
     case FD_STDIN:
@@ -96,7 +95,6 @@ ssize_t fs_read(int fd, void *buf, size_t len) {
       return 0;
     }
     case FD_EVENTS: {
-      Log("???\n\n");
       return events_read(buf, len);
     }
     case FD_DISPINFO: {
@@ -136,6 +134,7 @@ ssize_t fs_read(int fd, void *buf, size_t len) {
       // 进行读取
       ramdisk_read((void *)buf, ramdisk_offset, len);
       file_table[fd].open_offset += len;
+      Log("success");
     } break;
   }
   return len;
