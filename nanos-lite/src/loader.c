@@ -22,7 +22,9 @@ uintptr_t loader(_Protect *as, const char *filename) {
   // -------Change in pa3-2--------
   Log("In load file name is %s",filename);
   int fd = fs_open(filename, 0, 0);
+  Log("here");
   size_t len = fs_filesz(fd);
+  Log("len is %d", len);
   if(len == 0) {
     panic("special file is read");
   }
