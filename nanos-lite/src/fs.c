@@ -84,6 +84,7 @@ ssize_t fs_read(int fd, void *buf, size_t len) {
     return 0;
   }
   off_t offset = file_table[fd].open_offset;
+  Log("offset is %d", offset);
   // 目前看来不太可能，正常来说
   if(fd < 0 || fd >= NR_FILES) {
     panic("fd out of range");
