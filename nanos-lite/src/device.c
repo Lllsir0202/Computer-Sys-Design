@@ -12,7 +12,10 @@ size_t events_read(void *buf, size_t len) {
   int key_num = _read_key();
   int real_len = 0;
   if(key_num == _KEY_NONE) {
-    
+    unsigned long now_time = _uptime();
+    snprintf(buf, len, "t %d\n", now_time);
+    real_len = strlen(buf);
+  }else {
   }
   return real_len;
 }
