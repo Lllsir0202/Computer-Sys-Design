@@ -90,7 +90,6 @@ _RegSet* do_syscall(_RegSet *r) {
       return r;
     }
     case SYS_open: {
-      TODO();
       SYSCALL_ARG1(r) = sys_open((char *)SYSCALL_ARG2(r), SYSCALL_ARG3(r), SYSCALL_ARG4(r));
       return r;
     }
