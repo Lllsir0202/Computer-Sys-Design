@@ -95,7 +95,7 @@ ssize_t fs_read(int fd, void *buf, size_t len) {
     }
     case FD_DISPINFO: {
       // Log("offset is %d", offset);
-      if(offset >= file_table[fd].disk_offset) {
+      if(offset >= file_table[fd].size) {
         Log("return! offset is %d", offset);
         return 0;
       }
