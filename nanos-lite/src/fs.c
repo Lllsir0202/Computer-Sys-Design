@@ -159,6 +159,7 @@ ssize_t fs_write(int fd, const void *buf, size_t len) {
       }
     } break;
     case FD_FB: {
+      panic("here");
       fb_write(buf, offset, len);
       file_table[fd].open_offset += len;
     } break;
