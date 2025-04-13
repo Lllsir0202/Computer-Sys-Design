@@ -28,11 +28,9 @@ uintptr_t loader(_Protect *as, const char *filename) {
   if(len == 0) {
     panic("special file is read");
   }
-  char buf[len];
   Log("here2");
-  fs_read(fd, (void *)buf, len);
+  fs_read(fd, DEFAULT_ENTRY, len);
   fs_close(fd);
-  memcpy(DEFAULT_ENTRY, buf, len);
   Log("file succeed to be load");
   return (uintptr_t)DEFAULT_ENTRY;
 }
