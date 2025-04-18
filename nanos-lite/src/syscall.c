@@ -81,6 +81,7 @@ _RegSet* do_syscall(_RegSet *r) {
       // 目前的理解是：其实就是ebx->increment，计算出地址addr，然后再那里设置res，如果成功则返回0,并返回旧的program_break
       // 如果失败则返回-1
       int increment = SYSCALL_ARG2(r);
+      Log("increment is %d", increment);
       uintptr_t addr = program_break + increment;
       uintptr_t program_break_old = program_break;
       int ret = sys_brk((void *)addr);
