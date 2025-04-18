@@ -162,7 +162,7 @@ ssize_t fs_write(int fd, const void *buf, size_t len) {
     case FD_STDERR: {
       // 1: stdout, 2: stderr
       int i = 0;
-      // Log("sys_write: %d", count);
+      Log("sys_write: %d", len);
       for(i = 0; i < len; i++){
         _putc(((char *)buf)[i]);
       }
