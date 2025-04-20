@@ -37,7 +37,7 @@ static inline paddr_t page_translate(vaddr_t addr, bool write) {
     panic("111");
   }
   PTE PTE_descripor;
-  data = paddr_read((PDE_descriptor.page_frame << 12) * PAGE_SIZE + PTE_index * 4, 4);
+  data = paddr_read(PDE_descriptor.page_frame * PAGE_SIZE + PTE_index * 4, 4);
   memcpy(&PTE_descripor, &data, sizeof(PTE));
   if(PTE_descripor.present == 0 && !write){
     // 页表项没有present，说明没有映射
