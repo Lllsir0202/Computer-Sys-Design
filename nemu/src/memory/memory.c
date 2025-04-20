@@ -14,12 +14,34 @@ uint8_t pmem[PMEM_SIZE];
 // ADD in pa4
 static inline paddr_t page_translate(vaddr_t addr) {
   // 现在不能够直接使用addr作为物理地址，因为需要进行页表的转换
-  // uint32_t PTD_addr = (addr >> 22) & 0x3FF;
-  // uint32_t PTE_addr = (addr >> 12) & 0x3FF;
-  // uint32_t offset = addr & 0xFFF;
+  uint32_t PTD_index = (addr >> 22) & 0x3FF;
+  uint32_t PTE_index = (addr >> 12) & 0x3FF;
+  uint32_t offset = addr & 0xFFF;
   // 接下来就是通过这里的PTD_addr和PTE_addr来进行页表的转换
   // 首先读取cr3
-  return addr;
+  // 找到页表的基地址
+  uint32_t directory_base = cpu.cr3;
+  // 读取base + PTD_index * sizeof(PTD)
+  // 即取到了页表目录项的PTD-> 低12位是乱七八糟的标志位，然后20位>>12加上PTE_index*4即为页表项的地址
+  uint32_t data = paddr_read(directory_base + PTD_index * 4, 4);
+  PDE PDE_descriptor;
+  memcpy(&PDE_descriptor, &data, sizeof(PDE));
+  if(PDE_descriptor.present == 0){
+    // 页表目录项没有present，说明没有映射
+    // 这里的处理方式是直接panic
+    panic("Page table descriptor not present");
+  }
+  PTE PTE_descripor;
+  data = paddr_read(PDE_descriptor.page_frame * PAGE_SIZE + PTE_index * 4, 4);
+  memcpy(&PTE_descripor, &data, sizeof(PTE));
+  if(PTE_descripor.present == 0){
+    // 页表项没有present，说明没有映射
+    // 这里的处理方式是直接panic
+    panic("Page table descriptor not present");
+  }
+  // 接下来即可拼接地址
+  return (PTE_descripor.page_frame << 12) | offset;
+  // 这里的offset是低12位，PTE_descripor.page_frame_number是高20位
 }
 
 /* Memory accessing interfaces */
