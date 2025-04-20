@@ -29,17 +29,15 @@ static inline paddr_t page_translate(vaddr_t addr, bool write) {
   uint32_t data = paddr_read(directory_base + PTD_index * 4, 4);
   PDE PDE_descriptor;
   memcpy(&PDE_descriptor, &data, sizeof(PDE));
-  if(!PDE_descriptor.present && !write){
+  if(!PDE_descriptor.present){
     // 页表目录项没有present，说明没有映射
     // 这里的处理方式是直接panic
     panic("Page entry descriptor not present");
-  }else if(!PDE_descriptor.present && write){
-    panic("111");
   }
   PTE PTE_descripor;
   data = paddr_read(PDE_descriptor.page_frame * PAGE_SIZE + PTE_index * 4, 4);
   memcpy(&PTE_descripor, &data, sizeof(PTE));
-  if(PTE_descripor.present == 0 && !write){
+  if(!PTE_descripor.present){
     // 页表项没有present，说明没有映射
     // 这里的处理方式是直接panic
     panic("Page table descriptor not present");
