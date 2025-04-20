@@ -58,6 +58,9 @@ make_EHelper(iret);
 // Add: in pa3-3
 make_EHelper(xchg);
 
+// Add: in pa4-1
+make_EHelper(mov_r2cr);
+
 make_EHelper(operand_size);
 
 make_EHelper(inv);

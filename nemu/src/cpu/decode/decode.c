@@ -118,6 +118,8 @@ make_DHelper(G2E) {
 
 make_DHelper(mov_G2E) {
   decode_op_rm(eip, id_dest, false, id_src, true);
+  Log("id_dest is %d", id_dest->reg);
+  Log("id_src is %d", id_src->val);
 }
 
 /* Gb <- Eb
