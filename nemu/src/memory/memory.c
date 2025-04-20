@@ -8,11 +8,14 @@
     guest_to_host(addr); \
     })
 
+// ADD in pa4
+#define CR0_PG    0x80000000  // Paging
+
 // pmem是数组，表示128MB的大内存RAM
 uint8_t pmem[PMEM_SIZE];
 
 // ADD in pa4
-static inline paddr_t page_translate(vaddr_t addr) {
+static inline paddr_t page_translate(vaddr_t addr, bool write) {
   // 现在不能够直接使用addr作为物理地址，因为需要进行页表的转换
   uint32_t PTD_index = (addr >> 22) & 0x3FF;
   uint32_t PTE_index = (addr >> 12) & 0x3FF;
@@ -65,25 +68,34 @@ void paddr_write(paddr_t addr, int len, uint32_t data) {
 
 uint32_t vaddr_read(vaddr_t addr, int len) {
   // ADD in pa4
-  // 首先需要考虑是否出现跨页的情况，其实就是offset+len又没有>PG_SIZE的情况
-  uintptr_t offset = addr & (PAGE_MASK);
-  if(offset + len > PAGE_SIZE) {
-    // 出现跨页，但是在指导书中的说法是只有跨页，但是不一定(?)，可能会有更多页？
-    panic("Cross page");
-  }else {
-    paddr_t paddr = page_translate(addr);
-    // 这里的addr是虚拟地址，paddr是物理地址
-    return paddr_read(paddr, len);
+  // 其实需要考虑下是否开启了保护机制
+  if(cpu.cr0 & CR0_PG) {
+    // 首先需要考虑是否出现跨页的情况，其实就是offset+len又没有>PG_SIZE的情况
+    uintptr_t offset = addr & (PAGE_MASK);
+    if(offset + len > PAGE_SIZE) {
+      // 出现跨页，但是在指导书中的说法是只有跨页，但是不一定(?)，可能会有更多页？
+      panic("Cross page");
+    }else {
+      paddr_t paddr = page_translate(addr, false);
+      // 这里的addr是虚拟地址，paddr是物理地址
+      return paddr_read(paddr, len);
+    }
+  } else {
+    return paddr_read(addr, len);
   }
 }
 
 void vaddr_write(vaddr_t addr, int len, uint32_t data) {
-  uintptr_t offset = addr & (PAGE_MASK);
-  if(offset + len > PAGE_SIZE) {
-    panic("Cross page");
+  if(cpu.cr0 & CR0_PG) {
+    uintptr_t offset = addr & (PAGE_MASK);
+    if(offset + len > PAGE_SIZE) {
+      panic("Cross page");
+    }else {
+      paddr_t paddr = page_translate(addr, true);
+      // 这里的addr是虚拟地址，paddr是物理地址
+      paddr_write(paddr, len, data);
+    }
   }else {
-    paddr_t paddr = page_translate(addr);
-    // 这里的addr是虚拟地址，paddr是物理地址
-    paddr_write(paddr, len, data);
+    paddr_write(addr, len, data);
   }
 }
