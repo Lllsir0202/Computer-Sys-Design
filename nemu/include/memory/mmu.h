@@ -34,6 +34,7 @@ typedef union CR3 {
 
 
 /* the 32bit Page Directory(first level page table) data structure */
+// 由于x86是小端序，所以这里present是最低位，那么我们初始化页表就好理解了
 typedef union PageDirectoryEntry {
   struct {
     uint32_t present             : 1;

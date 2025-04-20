@@ -3,6 +3,8 @@
 #define PG_ALIGN __attribute((aligned(PGSIZE)))
 
 static PDE kpdirs[NR_PDE] PG_ALIGN;
+// 这里的kptabs是一个物理页表，实际上是一个物理页表的数组
+// 由于一个PDE可能需要1024个PTE，所以其实需要1024x1024个PTE，所以这里是PMEM_SIZE/PGSIZE
 static PTE kptabs[PMEM_SIZE / PGSIZE] PG_ALIGN;
 static void* (*palloc_f)();
 static void (*pfree_f)(void*);
@@ -25,6 +27,8 @@ void _pte_init(void* (*palloc)(), void (*pfree)(void*)) {
   }
 
   PTE *ptab = kptabs;
+  // 这里其实就是因为，我们并没有实现分段机制，但是框架还是保留了分段的部分
+  // 所以这里我们只有一个段，故需要使用NR_KSEG_MAP进行记录
   for (i = 0; i < NR_KSEG_MAP; i ++) {
     uint32_t pdir_idx = (uintptr_t)segments[i].start / (PGSIZE * NR_PTE);
     uint32_t pdir_idx_end = (uintptr_t)segments[i].end / (PGSIZE * NR_PTE);

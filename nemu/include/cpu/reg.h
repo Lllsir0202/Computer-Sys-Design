@@ -80,6 +80,10 @@ typedef struct {
     uint32_t base;
   } IDTR;
 
+  // ADD in pa4
+  uint32_t cr0;
+  uint32_t cr3;
+
 } CPU_state;
 
 extern CPU_state cpu;

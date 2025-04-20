@@ -93,6 +93,9 @@ static inline void restart() {
   // ADD in pa3 : 对于CS寄存器进行初始化
   cpu.cs = 0x8;
 
+  // ADD in pa4 : 对于CR0寄存器进行初始化
+  cpu.cr0 = 0x60000011;
+
 #ifdef DIFF_TEST
   init_qemu_reg();
 #endif
