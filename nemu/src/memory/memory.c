@@ -53,7 +53,7 @@ static inline paddr_t page_translate(vaddr_t addr, bool write) {
     panic("error in write(PTE)");
   }
   // 接下来即可拼接地址
-  return (PTE_descriptor.page_frame << 12) | offset;
+  return (PDE_descriptor.page_frame << 12) | offset;
   // 这里的offset是低12位，PTE_descripor.page_frame_number是高20位
 }
 
