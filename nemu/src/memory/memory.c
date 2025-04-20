@@ -34,7 +34,7 @@ static inline paddr_t page_translate(vaddr_t addr, bool write) {
     // 这里的处理方式是直接panic
     panic("Page entry descriptor not present");
   }else if(!PDE_descriptor.present && write){
-    panic("error in write(PDE)");
+    // panic("error in write(PDE)");
   }
   PTE PTE_descriptor;
   data = paddr_read(PDE_descriptor.page_frame * PAGE_SIZE + PTE_index * sizeof(PTE), sizeof(PDE));
@@ -44,7 +44,7 @@ static inline paddr_t page_translate(vaddr_t addr, bool write) {
     // 这里的处理方式是直接panic
     panic("Page table descriptor not present");
   } else if(!PTE_descriptor.present && write){
-    panic("error in write(PTE)");
+    // panic("error in write(PTE)");
   }
   // 接下来即可拼接地址
   return (PTE_descriptor.page_frame << 12) | offset;
