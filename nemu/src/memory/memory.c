@@ -51,7 +51,7 @@ static inline paddr_t page_translate(vaddr_t addr, bool write) {
     panic("Page table descriptor not present");
   }
   // 接下来即可拼接地址
-  return (PTE_descripor.page_frame >> 12) | offset;
+  return (PTE_descripor.page_frame << 12) | offset;
   // 这里的offset是低12位，PTE_descripor.page_frame_number是高20位
 }
 
@@ -93,7 +93,7 @@ uint32_t vaddr_read(vaddr_t addr, int len) {
       paddr = page_translate(addr + first_page, false);
       uint32_t data2 = paddr_read(paddr, second_page);
       // 这里的data是第一页的数据，data2是第二页的数据
-      return data >> (8 * first_page) | data2;
+      return data << (8 * first_page) | data2;
     }else {
       paddr_t paddr = page_translate(addr, false);
       // 这里的addr是虚拟地址，paddr是物理地址
