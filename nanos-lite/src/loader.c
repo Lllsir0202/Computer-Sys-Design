@@ -31,6 +31,6 @@ uintptr_t loader(_Protect *as, const char *filename) {
   Log("here2");
   fs_read(fd, DEFAULT_ENTRY, len);
   fs_close(fd);
-  // Log("file succeed to be load");
+  Log("file succeed to be load");
   return (uintptr_t)DEFAULT_ENTRY;
 }
