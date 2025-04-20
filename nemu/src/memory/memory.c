@@ -32,13 +32,12 @@ static inline paddr_t page_translate(vaddr_t addr, bool write) {
   if(!PDE_descriptor.present && !write){
     // 页表目录项没有present，说明没有映射
     // 这里的处理方式是直接panic
-    Log("PDE_descriptor is %x", PDE_descriptor.val);
     panic("Page entry descriptor not present");
   }else if(!PDE_descriptor.present && write){
     // panic("error in write(PDE)");
   }
   PTE PTE_descriptor;
-  data = paddr_read(PDE_descriptor.page_frame * PAGE_SIZE + PTE_index * sizeof(PTE), sizeof(PDE));
+  data = paddr_read(PDE_descriptor.page_frame * PAGE_SIZE + PTE_index * sizeof(PTE), sizeof(PTE));
   memcpy(&PTE_descriptor, &data, sizeof(PTE));
   if(!PTE_descriptor.present && !write){
     // 页表项没有present，说明没有映射
