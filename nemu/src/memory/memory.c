@@ -15,9 +15,7 @@
 uint8_t pmem[PMEM_SIZE];
 
 // ADD in pa4
-static int cnt = 0;
 static inline paddr_t page_translate(vaddr_t addr, bool write) {
-  ++cnt;
   // 现在不能够直接使用addr作为物理地址，因为需要进行页表的转换
   uint32_t PDE_index = (addr >> 22) & 0x3FF;
   uint32_t PTE_index = (addr >> 12) & 0x3FF;
@@ -34,18 +32,16 @@ static inline paddr_t page_translate(vaddr_t addr, bool write) {
   if(!PDE_descriptor.present && !write){
     // 页表目录项没有present，说明没有映射
     // 这里的处理方式是直接panic
-    Log("circulation is %d", cnt);
     panic("Page entry descriptor not present");
   }else if(!PDE_descriptor.present && write){
     // panic("error in write(PDE)");
   }
   PTE PTE_descriptor;
-  data = paddr_read(PDE_descriptor.page_frame + PTE_index * sizeof(PTE), sizeof(PTE));
+  data = paddr_read(PDE_descriptor.page_frame * PAGE_SIZE + PTE_index * sizeof(PTE), sizeof(PTE));
   memcpy(&PTE_descriptor, &data, sizeof(PTE));
   if(!PTE_descriptor.present && !write){
     // 页表项没有present，说明没有映射
     // 这里的处理方式是直接panic
-    Log("circulation is %d", cnt);
     panic("Page table descriptor not present");
   } else if(!PTE_descriptor.present && write){
     // panic("error in write(PTE)");
