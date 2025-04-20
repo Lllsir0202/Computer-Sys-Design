@@ -77,9 +77,6 @@ void paddr_write(paddr_t addr, int len, uint32_t data) {
 uint32_t vaddr_read(vaddr_t addr, int len) {
   // ADD in pa4
   // 其实需要考虑下是否开启了保护机制
-  if(addr == 0x9d6fc00){
-    panic("here");
-  }
   if(cpu.cr0 & CR0_PG) {
     // 首先需要考虑是否出现跨页的情况，其实就是offset+len又没有>PG_SIZE的情况
     uintptr_t offset = addr & (PAGE_MASK);
@@ -111,6 +108,9 @@ uint32_t vaddr_read(vaddr_t addr, int len) {
 }
 
 void vaddr_write(vaddr_t addr, int len, uint32_t data) {
+  if(addr == 0x9d6fc00){
+    panic("here");
+  }
   if(cpu.cr0 & CR0_PG) {
     uintptr_t offset = addr & (PAGE_MASK);
     if(offset + len > PAGE_SIZE) {
