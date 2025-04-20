@@ -38,7 +38,7 @@ static inline paddr_t page_translate(vaddr_t addr, bool write) {
     Log("addr is %x", addr);
     Log("directory_base is %x", directory_base);
     Log("current PDE_index is %d", PDE_index);
-    Log("current PDE_index is %d", PDE_descriptor.val);
+    Log("current PDE_descriptor is %d", PDE_descriptor.val);
     panic("Page entry descriptor not present");
   }
   PTE PTE_descripor;
