@@ -63,7 +63,7 @@ static inline paddr_t page_translate(vaddr_t addr, bool write) {
 uint32_t paddr_read(paddr_t addr, int len) {
   int mmio_num = is_mmio(addr);
   if(mmio_num != -1){
-    Log("here");
+    // Log("here");
     return mmio_read(mmio_num, addr, len);
   }
   return pmem_rw(addr, uint32_t) & (~0u >> ((4 - len) << 3));
@@ -72,7 +72,7 @@ uint32_t paddr_read(paddr_t addr, int len) {
 void paddr_write(paddr_t addr, int len, uint32_t data) {
   int mmio_num = is_mmio(addr);
   if(mmio_num != -1){
-    Log("here");
+    // Log("here");
     mmio_write(addr, len, data, mmio_num);
     return;
   }
