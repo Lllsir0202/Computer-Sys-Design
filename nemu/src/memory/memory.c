@@ -14,10 +14,8 @@
 // pmem是数组，表示128MB的大内存RAM
 uint8_t pmem[PMEM_SIZE];
 
-static int cnt = 0;
 // ADD in pa4
 static inline paddr_t page_translate(vaddr_t addr, bool write) {
-  cnt++;
   // 现在不能够直接使用addr作为物理地址，因为需要进行页表的转换
   uint32_t PDE_index = (addr >> 22) & 0x3FF;
   uint32_t PTE_index = (addr >> 12) & 0x3FF;
@@ -44,7 +42,6 @@ static inline paddr_t page_translate(vaddr_t addr, bool write) {
   if(!PTE_descriptor.present && !write){
     // 页表项没有present，说明没有映射
     // 这里的处理方式是直接panic
-    Log("cnt is %d", cnt);
     panic("Page table descriptor not present");
   } else if(!PTE_descriptor.present && write){
     panic("error in write(PTE)");
