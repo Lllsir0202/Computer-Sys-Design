@@ -96,7 +96,9 @@ uint32_t vaddr_read(vaddr_t addr, int len) {
     }else {
       paddr_t paddr = page_translate(addr, false);
       // 这里的addr是虚拟地址，paddr是物理地址
-      Log("paddr is %x", paddr);
+      // if(addr == ){
+      //   Log("paddr is %x", paddr);
+      // }
       return paddr_read(paddr, len);
     }
   } else {
