@@ -69,9 +69,8 @@ uint32_t vaddr_read(vaddr_t addr, int len) {
   uintptr_t offset = addr & (PAGE_MASK);
   if(offset + len > PAGE_SIZE) {
     // 出现跨页，但是在指导书中的说法是只有跨页，但是不一定(?)，可能会有更多页？
-    panic("Corss page");
-  }
-  else{
+    panic("Cross page");
+  }else {
     paddr_t paddr = page_translate(addr);
     // 这里的addr是虚拟地址，paddr是物理地址
     return paddr_read(paddr, len);
@@ -79,5 +78,12 @@ uint32_t vaddr_read(vaddr_t addr, int len) {
 }
 
 void vaddr_write(vaddr_t addr, int len, uint32_t data) {
-  paddr_write(addr, len, data);
+  uintptr_t offset = addr & (PAGE_MASK);
+  if(offset + len > PAGE_SIZE) {
+    panic("Cross page");
+  }else {
+    paddr_t paddr = page_translate(addr);
+    // 这里的addr是虚拟地址，paddr是物理地址
+    paddr_write(paddr, len, data);
+  }
 }
