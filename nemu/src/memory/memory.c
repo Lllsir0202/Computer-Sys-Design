@@ -35,6 +35,7 @@ static inline paddr_t page_translate(vaddr_t addr, bool write) {
     // 页表目录项没有present，说明没有映射
     // 这里的处理方式是直接panic
     Log("cnt is %d", cnt);
+    Log("addr is %x", addr);
     Log("addr is %x", directory_base + PDE_index * sizeof(PDE));
     Log("current PDE_index is %d", PDE_index);
     Log("current PDE_descriptor is %d", PDE_descriptor.val);
