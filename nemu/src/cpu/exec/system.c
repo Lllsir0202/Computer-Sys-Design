@@ -20,7 +20,7 @@ make_EHelper(lidt) {
 make_EHelper(mov_r2cr) {
   // 通过print_asm可以看到，其实cr0-cr3使用id_dest->reg来表示的
   Log("id_dest->reg is %d, id_dest->val is %x", id_dest->reg, id_dest->val);
-  Log("id_src->reg is %%%s, id_src->val is %x", reg_name(id_src->reg, 4), id_src->val);
+  Log("id_src->reg is %d, id_src->val is %x", id_src->reg, id_src->val);
   TODO();
 
   print_asm("movl %%%s,%%cr%d", reg_name(id_src->reg, 4), id_dest->reg);
