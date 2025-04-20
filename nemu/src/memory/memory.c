@@ -37,7 +37,7 @@ static inline paddr_t page_translate(vaddr_t addr, bool write) {
     // panic("error in write(PDE)");
   }
   PTE PTE_descriptor;
-  data = paddr_read(PDE_descriptor.page_frame * PAGE_SIZE + PTE_index * sizeof(PTE), sizeof(PTE));
+  data = paddr_read(PDE_descriptor.page_frame + PTE_index * sizeof(PTE), sizeof(PTE));
   memcpy(&PTE_descriptor, &data, sizeof(PTE));
   if(!PTE_descriptor.present && !write){
     // 页表项没有present，说明没有映射
