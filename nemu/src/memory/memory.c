@@ -31,15 +31,14 @@ static inline paddr_t page_translate(vaddr_t addr, bool write) {
   uint32_t data = paddr_read(directory_base + PDE_index * sizeof(PDE), sizeof(PDE));
   PDE PDE_descriptor;
   memcpy(&PDE_descriptor, &data, sizeof(PDE));
-  if(!PDE_descriptor.present){
+  if(!PDE_descriptor.present && !write){
     // 页表目录项没有present，说明没有映射
     // 这里的处理方式是直接panic
-    Log("cnt is %d", cnt);
-    Log("addr is %x", addr);
-    Log("addr is %x", directory_base + PDE_index * sizeof(PDE));
-    Log("current PDE_index is %d", PDE_index);
-    Log("current PDE_descriptor is %d", PDE_descriptor.val);
     panic("Page entry descriptor not present");
+  }else if(!PDE_descriptor.present && write){
+    // 页表目录项没有present，说明没有映射
+    // 这里的处理方式是直接panic
+    panic("In write");
   }
   PTE PTE_descripor;
   data = paddr_read(PDE_descriptor.page_frame * PAGE_SIZE + PTE_index * sizeof(PTE), sizeof(PDE));
@@ -95,9 +94,6 @@ uint32_t vaddr_read(vaddr_t addr, int len) {
       // 这里的data是第一页的数据，data2是第二页的数据
       return data << (8 * first_page) | data2;
     }else {
-      if(addr == 0x9d6fc00){
-        panic("here");
-      }
       paddr_t paddr = page_translate(addr, false);
       // 这里的addr是虚拟地址，paddr是物理地址
       return paddr_read(paddr, len);
@@ -108,9 +104,6 @@ uint32_t vaddr_read(vaddr_t addr, int len) {
 }
 
 void vaddr_write(vaddr_t addr, int len, uint32_t data) {
-  if(addr == 0x9d6fc00){
-    panic("here");
-  }
   if(cpu.cr0 & CR0_PG) {
     uintptr_t offset = addr & (PAGE_MASK);
     if(offset + len > PAGE_SIZE) {
