@@ -38,16 +38,20 @@ static inline paddr_t page_translate(vaddr_t addr, bool write) {
   }else if(!PDE_descriptor.present && write){
     // 页表目录项没有present，说明没有映射
     // 这里的处理方式是直接panic
-    panic("In write");
+    // 写的时候如果没有对应的页，那么就需要考虑   ->   分配这个页目录
+    PDE_descriptor.present = 1;
+    // 由于我们其实分配好了，所以可以直接使用
   }
   PTE PTE_descripor;
   data = paddr_read(PDE_descriptor.page_frame * PAGE_SIZE + PTE_index * sizeof(PTE), sizeof(PDE));
   memcpy(&PTE_descripor, &data, sizeof(PTE));
-  if(!PTE_descripor.present){
+  if(!PTE_descripor.present && !write){
     // 页表项没有present，说明没有映射
     // 这里的处理方式是直接panic
     Log("cnt is %d", cnt);
     panic("Page table descriptor not present");
+  } else if(!PTE_descripor.present && write){
+    PTE_descripor.present = 1;
   }
   // 接下来即可拼接地址
   return (PTE_descripor.page_frame << 12) | offset;
