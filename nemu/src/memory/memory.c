@@ -74,7 +74,17 @@ uint32_t vaddr_read(vaddr_t addr, int len) {
     uintptr_t offset = addr & (PAGE_MASK);
     if(offset + len > PAGE_SIZE) {
       // 出现跨页，但是在指导书中的说法是只有跨页，但是不一定(?)，可能会有更多页？
-      panic("Cross page");
+      // 第一页先读取
+      int first_page = PAGE_SIZE - offset;
+      paddr_t paddr = page_translate(addr, false);
+      uint32_t data = paddr_read(paddr, first_page);
+      // 读取第二页
+      int second_page = len - first_page;
+      paddr = page_translate(addr + first_page, false);
+      uint32_t data2 = paddr_read(paddr, second_page);
+      // 这里的data是第一页的数据，data2是第二页的数据
+      return data >> (8 * first_page) | data2;
+      
     }else {
       paddr_t paddr = page_translate(addr, false);
       // 这里的addr是虚拟地址，paddr是物理地址
