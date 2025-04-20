@@ -95,11 +95,11 @@ uint32_t vaddr_read(vaddr_t addr, int len) {
       // 这里的data是第一页的数据，data2是第二页的数据
       return data << (8 * first_page) | data2;
     }else {
+      if(addr == 0x9d6fc00){
+        panic("here");
+      }
       paddr_t paddr = page_translate(addr, false);
       // 这里的addr是虚拟地址，paddr是物理地址
-      if(addr == 0x9d6fc00){
-        Log("paddr is %x", paddr);
-      }
       return paddr_read(paddr, len);
     }
   } else {
