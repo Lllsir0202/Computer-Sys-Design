@@ -32,6 +32,7 @@ static inline paddr_t page_translate(vaddr_t addr, bool write) {
   if(!PDE_descriptor.present && !write){
     // 页表目录项没有present，说明没有映射
     // 这里的处理方式是直接panic
+    Log("PDE_descriptor is %x", PDE_descriptor.val);
     panic("Page entry descriptor not present");
   }else if(!PDE_descriptor.present && write){
     // panic("error in write(PDE)");
