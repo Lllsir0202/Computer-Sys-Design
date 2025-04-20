@@ -88,6 +88,8 @@ uint32_t vaddr_read(vaddr_t addr, int len) {
     if(offset + len > PAGE_SIZE) {
       // 出现跨页，但是在指导书中的说法是只有跨页，但是不一定(?)，可能会有更多页？
       // 第一页先读取
+      assert(len < 8);
+
       int first_page = PAGE_SIZE - offset;
       // Log("first_page is %d", first_page);
       paddr_t paddr = page_translate(addr, false);
@@ -98,7 +100,6 @@ uint32_t vaddr_read(vaddr_t addr, int len) {
       paddr = page_translate(addr + first_page, false);
       uint32_t data2 = paddr_read(paddr, second_page);
       // 这里的data是第一页的数据，data2是第二页的数据
-      Log("result is %d", data << (8 * first_page) | data2);
       return data << (8 * first_page) | data2;
     }else {
       paddr_t paddr = page_translate(addr, false);
