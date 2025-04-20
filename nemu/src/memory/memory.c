@@ -36,7 +36,6 @@ static inline paddr_t page_translate(vaddr_t addr, bool write) {
     // 这里的处理方式是直接panic
     Log("cnt is %d", cnt);
     Log("current PDE_index is %d", PTD_index);
-    Log("data is %d", data);
     Log("current PTE_index is %d", PDE_descriptor.val);
     panic("Page entry descriptor not present");
   }
@@ -82,6 +81,7 @@ uint32_t vaddr_read(vaddr_t addr, int len) {
     if(offset + len > PAGE_SIZE) {
       // 出现跨页，但是在指导书中的说法是只有跨页，但是不一定(?)，可能会有更多页？
       // 第一页先读取
+      panic("stop");
       int first_page = PAGE_SIZE - offset;
       paddr_t paddr = page_translate(addr, false);
       uint32_t data = paddr_read(paddr, first_page);
