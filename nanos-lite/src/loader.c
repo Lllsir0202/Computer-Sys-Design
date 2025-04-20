@@ -7,7 +7,7 @@ extern ssize_t fs_read(int fd, void *buf, size_t len);
 extern int fs_close(int fd);
 extern size_t fs_filesz(int fd);
 
-#define DEFAULT_ENTRY ((void *)0x4000000)
+#define DEFAULT_ENTRY ((void *)0x8048000)
 
 uintptr_t loader(_Protect *as, const char *filename) {
   // size_t len = get_ramdisk_size();
