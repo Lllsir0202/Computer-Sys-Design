@@ -178,7 +178,10 @@ opcode_entry opcode_table [512] = {
   /* 0x14 */	EMPTY, EMPTY, EMPTY, EMPTY,
   /* 0x18 */	EMPTY, EMPTY, EMPTY, EMPTY,
   /* 0x1c */	EMPTY, EMPTY, EMPTY, EMPTY,
-  /* 0x20 */	EMPTY, EMPTY, IDEXW(mov_E2G, mov_r2cr, 4), EMPTY, // 0x0f22 MOVRS MOV CR0/CR2/CR3,r32 -> 其实是因为：G2E不读rm的寄存器，而是读reg字节，所以这里G2E会将reg给到rm中
+  /* 0x20 */	IDEXW(mov_G2E, mov_cr2r, 4), EMPTY, IDEXW(mov_E2G, mov_r2cr, 4), EMPTY, 
+  // 0x0f20 MOVRS MOV r32, CR0/CR2/CR3 -> 与下面相反
+  // 0x0f22 MOVRS MOV CR0/CR2/CR3,r32 -> 其实是因为：G2E不读rm的寄存器，而是读reg字节，所以这里G2E会将reg给到rm中
+  
   /* 0x24 */	EMPTY, EMPTY, EMPTY, EMPTY,
   /* 0x28 */	EMPTY, EMPTY, EMPTY, EMPTY,
   /* 0x2c */	EMPTY, EMPTY, EMPTY, EMPTY,

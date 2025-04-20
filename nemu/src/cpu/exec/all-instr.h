@@ -60,6 +60,7 @@ make_EHelper(xchg);
 
 // Add: in pa4-1
 make_EHelper(mov_r2cr);
+make_EHelper(mov_cr2r);
 
 make_EHelper(operand_size);
 

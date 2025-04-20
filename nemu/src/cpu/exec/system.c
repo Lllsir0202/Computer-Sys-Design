@@ -33,13 +33,26 @@ make_EHelper(mov_r2cr) {
   else {
     panic("Invalid register mov cr%d", id_dest->reg);
   }
-  Log("cpu.cr0 is %x", cpu.cr0);
-  Log("cpu.cr3 is %x", cpu.cr3);
+  // Log("cpu.cr0 is %x", cpu.cr0);
+  // Log("cpu.cr3 is %x", cpu.cr3);
   print_asm("movl %%%s,%%cr%d", reg_name(id_src->reg, 4), id_dest->reg);
 }
 
 make_EHelper(mov_cr2r) {
-  TODO();
+  // TODO();
+  if(id_src->reg == 0) {
+    // Log("mov cr0");
+    t0 = cpu.cr0;
+  }
+  else if(id_src->reg == 3) {
+    // Log("mov cr3");
+    t0 = cpu.cr3;
+  }
+  else {
+    panic("Invalid register mov cr%d", id_src->reg);
+  }
+  // Log("t0 is %x", t0);
+  operand_write(id_dest, &t0);
 
   print_asm("movl %%cr%d,%%%s", id_src->reg, reg_name(id_dest->reg, 4));
 
