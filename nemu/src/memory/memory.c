@@ -51,7 +51,7 @@ static inline paddr_t page_translate(vaddr_t addr, bool write) {
     panic("Page table descriptor not present");
   }
   // 接下来即可拼接地址
-  return (PTE_descripor.page_frame << 12) | offset;
+  return (PTE_descripor.page_frame >> 12) | offset;
   // 这里的offset是低12位，PTE_descripor.page_frame_number是高20位
 }
 
@@ -84,12 +84,12 @@ uint32_t vaddr_read(vaddr_t addr, int len) {
       // 出现跨页，但是在指导书中的说法是只有跨页，但是不一定(?)，可能会有更多页？
       // 第一页先读取
       int first_page = PAGE_SIZE - offset;
-      Log("first_page is %d", first_page);
+      // Log("first_page is %d", first_page);
       paddr_t paddr = page_translate(addr, false);
       uint32_t data = paddr_read(paddr, first_page);
       // 读取第二页
       int second_page = len - first_page;
-      Log("second_page is %d", second_page);
+      // Log("second_page is %d", second_page);
       paddr = page_translate(addr + first_page, false);
       uint32_t data2 = paddr_read(paddr, second_page);
       // 这里的data是第一页的数据，data2是第二页的数据
