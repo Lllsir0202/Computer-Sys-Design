@@ -98,6 +98,7 @@ uint32_t vaddr_read(vaddr_t addr, int len) {
       paddr = page_translate(addr + first_page, false);
       uint32_t data2 = paddr_read(paddr, second_page);
       // 这里的data是第一页的数据，data2是第二页的数据
+      Log("result is %d", data << (8 * first_page) | data2);
       return data << (8 * first_page) | data2;
     }else {
       paddr_t paddr = page_translate(addr, false);
