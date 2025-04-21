@@ -37,16 +37,17 @@ uintptr_t loader(_Protect *as, const char *filename) {
       panic("Failed to allocate memory for page");
     }
     Log("page is %p", page);
+    fs_read(fd, page, PGSIZE);
     _map(as, DEFAULT_ENTRY + i * PGSIZE, page);
-    fs_read(fd, DEFAULT_ENTRY + i * PGSIZE, PGSIZE);
+
   }
   if(len % PGSIZE != 0) {
     void *page = new_page();
     if(page == NULL) {
       panic("Failed to allocate memory for page");
     }
+    fs_read(fd, page, len % PGSIZE);
     _map(as, DEFAULT_ENTRY + page_num * PGSIZE, page);
-    fs_read(fd, DEFAULT_ENTRY + page_num * PGSIZE, len % PGSIZE);
   }
   // // 首先获取一张空闲物理页
   // void *page = new_page();
