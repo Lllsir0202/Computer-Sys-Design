@@ -6,6 +6,7 @@ static void *pf = NULL;
 void* new_page(void) {
   assert(pf < (void *)_heap.end);
   void *p = pf;
+  assert(((uintptr_t)p & (PGSIZE-1)) == 0);
   pf += PGSIZE;
   return p;
 }
