@@ -38,9 +38,7 @@ static ssize_t sys_write(int fd, const void *buf, size_t count) {
 }
 
 static int sys_brk(void *addr) {
-  int res = mm_brk((uint32_t)addr);
-  Log("res is %d", res);
-  return res;
+  return mm_brk((uintptr_t)addr);
 }
 
 // ADD in pa3-3
