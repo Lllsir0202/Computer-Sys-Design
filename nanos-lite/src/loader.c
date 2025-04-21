@@ -40,7 +40,7 @@ uintptr_t loader(_Protect *as, const char *filename) {
     _map(as, DEFAULT_ENTRY + i * PGSIZE, page);
     fs_read(fd, DEFAULT_ENTRY + i * PGSIZE, PGSIZE);
   }
-  if(len / PGSIZE != 0) {
+  if(len % PGSIZE != 0) {
     void *page = new_page();
     if(page == NULL) {
       panic("Failed to allocate memory for page");

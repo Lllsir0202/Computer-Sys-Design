@@ -80,7 +80,7 @@ void _map(_Protect *p, void *va, void *pa) {
   PDE *updir = p->ptr;
   PTE data = updir[PDE_index];
   PTE *upte = NULL;
-  if(data & PTE_P) {
+  if(!(data & PTE_P)) {
     // 如果没有这个物理页表
     // 获取一个页表项
     upte = (PTE*)palloc_f();
@@ -103,7 +103,7 @@ void _unmap(_Protect *p, void *va) {
   uint32_t PTE_index = PTX(vaddr);
   PDE *updir = p->ptr;
   PTE data = updir[PDE_index];
-  if(data & PTE_P) {
+  if(!(data & PTE_P)) {
     // 如果没有这个物理页表
     // 就不需要释放了
     return;
