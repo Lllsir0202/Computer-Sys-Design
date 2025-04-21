@@ -32,13 +32,13 @@ void raise_intr(uint8_t NO, vaddr_t ret_addr) {
   // Log("idt_entry is %x", idt_entry);
   // 首先通过P判断中断是否有效
   // 得到P
-  bool P = (paddr_read(idt_entry+5, 1)) >> 7;
+  bool P = (vaddr_read(idt_entry+5, 1)) >> 7;
   // Log("P is %d", P);
   if(P){
     // Log("idt_entry is %x", idt_entry);
-    uint16_t offset_15_0 = paddr_read(idt_entry, 2);
+    uint16_t offset_15_0 = vaddr_read(idt_entry, 2);
     // Log("offset_15_0 is %x", offset_15_0);
-    uint16_t offset_31_16 = paddr_read(idt_entry+6, 2);
+    uint16_t offset_31_16 = vaddr_read(idt_entry+6, 2);
     // Log("offset_31_16 is %x", offset_31_16);
     // cpu.eip = (offset_31_16 << 16) | offset_15_0;
     decoding.jmp_eip = (offset_31_16 << 16) | offset_15_0;
