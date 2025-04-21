@@ -22,13 +22,13 @@ uintptr_t loader(_Protect *as, const char *filename) {
   // -------Change in pa3-2--------
   Log("In load file name is %s",filename);
   int fd = fs_open(filename, 0, 0);
-  // Log("here1");
+  Log("here1");
   size_t len = fs_filesz(fd);
   // Log("len is %d", len);
   if(len == 0) {
     panic("special file is read");
   }
-  // Log("here2");
+  Log("here2");
   fs_read(fd, DEFAULT_ENTRY, len);
   fs_close(fd);
   Log("file succeed to be load");
