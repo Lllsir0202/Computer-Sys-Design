@@ -47,7 +47,6 @@ static inline paddr_t page_translate(vaddr_t addr, bool write) {
     // 页表项没有present，说明没有映射
     // 这里的处理方式是直接panic
     // Log("cnt is %d", cnt);
-    Log("PDE_index is %d", PDE_index);
     panic("Page table descriptor not present");
   } else if(!PTE_descriptor.present && write){
     // Log("cnt is %d", cnt);
