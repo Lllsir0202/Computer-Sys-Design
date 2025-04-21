@@ -61,7 +61,7 @@ static int sys_close(int fd) {
 _RegSet* do_syscall(_RegSet *r) {
   uintptr_t a[4];
   a[0] = SYSCALL_ARG1(r);
-
+  Log("syscall is %d", a[0]);
   switch (a[0]) {
     case SYS_none:{
       SYSCALL_ARG1(r) = sys_non(r);
