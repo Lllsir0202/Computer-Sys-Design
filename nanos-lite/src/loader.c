@@ -6,6 +6,7 @@ extern int fs_open(const char *pathname, int flags, int mode);
 extern ssize_t fs_read(int fd, void *buf, size_t len);
 extern int fs_close(int fd);
 extern size_t fs_filesz(int fd);
+extern void* new_page(void);
 
 #define DEFAULT_ENTRY ((void *)0x8048000)
 
@@ -22,13 +23,16 @@ uintptr_t loader(_Protect *as, const char *filename) {
   // -------Change in pa3-2--------
   Log("In load file name is %s",filename);
   int fd = fs_open(filename, 0, 0);
-  Log("here1");
+  // Log("here1");
   size_t len = fs_filesz(fd);
   // Log("len is %d", len);
   if(len == 0) {
     panic("special file is read");
   }
-  Log("here2");
+  // Log("here2");
+  // 首先获取一张空闲物理页
+  void *page = new_page();
+  _map(as, DEFAULT_ENTRY, page);
   fs_read(fd, DEFAULT_ENTRY, len);
   fs_close(fd);
   Log("file succeed to be load");
