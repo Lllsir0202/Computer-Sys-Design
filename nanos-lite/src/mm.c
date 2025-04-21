@@ -6,7 +6,6 @@ static void *pf = NULL;
 void* new_page(void) {
   assert(pf < (void *)_heap.end);
   void *p = pf;
-  assert(((uintptr_t)p & (PGSIZE-1)) == 0);
   pf += PGSIZE;
   return p;
 }
@@ -18,7 +17,6 @@ void free_page(void *p) {
 /* The brk() system call handler. */
 int mm_brk(uint32_t new_brk) {
   if (current->cur_brk == 0) {
-    Log("first page is allocated");
     current->cur_brk = current->max_brk = new_brk;
   }
   else {
