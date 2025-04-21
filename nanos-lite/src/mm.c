@@ -31,6 +31,7 @@ int mm_brk(uint32_t new_brk) {
           panic("No available pages");
           return -1;
         }
+        Log("page is %p", p);
         _map(&(current->as), (void *)(current->max_brk + i * PGSIZE), p);
         i++;
       }
