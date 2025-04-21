@@ -29,6 +29,7 @@ int mm_brk(uint32_t new_brk) {
       while(current->max_brk + i * PGSIZE < new_brk) {
         void *p = new_page();
         Log("new page %p", p);
+        assert(((uintptr_t)p & (PGSIZE - 1)) == 0);
         if (p == NULL) {
           panic("No available pages");
           return -1;
