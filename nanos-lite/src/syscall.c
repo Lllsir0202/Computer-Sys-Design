@@ -9,6 +9,7 @@ extern ssize_t fs_read(int fd, void *buf, size_t len);
 extern ssize_t fs_write(int fd, const void *buf, size_t len);
 extern off_t fs_lseek(int fd, off_t offset, int whence);
 extern int fs_close(int fd);
+extern int mm_brk(uint32_t new_brk);
 
 static int sys_non(_RegSet *r) {
   return 1;
@@ -37,7 +38,7 @@ static ssize_t sys_write(int fd, const void *buf, size_t count) {
 }
 
 static int sys_brk(void *addr) {
-  return 0;
+  return mm_brk((uint32_t)addr);
 }
 
 // ADD in pa3-3

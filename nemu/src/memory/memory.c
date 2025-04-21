@@ -97,6 +97,7 @@ uint32_t vaddr_read(vaddr_t addr, int len) {
       paddr = page_translate(addr + first_page, false);
       uint32_t data2 = paddr_read(paddr, second_page);
       // 这里的data是第一页的数据，data2是第二页的数据
+      // NOTE!!!->小端序
       return data2 << (8 * first_page) | data;
     }else {
       paddr_t paddr = page_translate(addr, false);
