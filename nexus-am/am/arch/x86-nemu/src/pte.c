@@ -81,12 +81,14 @@ void _map(_Protect *p, void *va, void *pa) {
   // 这个数组是物理页表的基址，然后我们可以通过PDE_index来找到对应的PTE
   PDE *updir = p->ptr;
   PTE data = updir[PDE_index];
+  PTE *upte = NULL;
   if(data & PTE_P) {
     // 如果没有这个物理页表
     // 获取一个页表项
-    updir = (PTE*)palloc_f();
+    upte = (PTE*)palloc_f();
+    *upte = (uintptr_t)upte;
   }
-  PTE *upte = (PTE*)PTE_ADDR(updir[PDE_index]);
+  upte = (PTE*)PTE_ADDR(updir[PDE_index]);
   // 这里的upte是一个物理页表的基址，然后我们可以通过PTE_index来找到对应的PTE
   PTE *pte = upte + PTE_index;
   *pte = (PTE)paddr | PTE_P;
