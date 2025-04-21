@@ -33,6 +33,7 @@ int mm_brk(uint32_t new_brk) {
         }
         _map(&(current->as), (void *)(current->max_brk + i * PGSIZE), p);
         Log("map %p to %p", (void *)(current->max_brk + i * PGSIZE), p);
+        Log("p is %p", p);
         i++;
       }
 
