@@ -5,7 +5,6 @@ extern _RegSet* do_syscall(_RegSet* r);
 static _RegSet* do_event(_Event e, _RegSet* r) {
   switch (e.event) {
     case _EVENT_SYSCALL:{
-      TODO();
       return do_syscall(r);
     }
     default: panic("Unhandled event ID = %d", e.event);
