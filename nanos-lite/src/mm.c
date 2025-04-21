@@ -24,6 +24,16 @@ int mm_brk(uint32_t new_brk) {
       // TODO: map memory region [current->max_brk, new_brk)
       // into address space current->as
 
+      int i = 0;
+      while(current->max_brk + i * PGSIZE < new_brk) {
+        void *p = new_page();
+        if (p == NULL) {
+          panic("No available pages");
+          return -1;
+        }
+        _map(&(current->as), (void *)(current->max_brk + i * PGSIZE), p);
+        i++;
+      }
 
       current->max_brk = new_brk;
     }
