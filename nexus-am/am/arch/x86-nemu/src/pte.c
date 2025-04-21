@@ -85,6 +85,9 @@ void _map(_Protect *p, void *va, void *pa) {
     // 获取一个页表项
     upte = (PTE*)palloc_f();
     updir[PDE_index] = (uintptr_t)upte | PTE_P;
+    for (int i = 0; i < NR_PTE; i ++) {
+      upte[i] = 0;
+    }
   }
   else {
     upte = (PTE*)PTE_ADDR(data);
