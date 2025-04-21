@@ -29,11 +29,11 @@ void raise_intr(uint8_t NO, vaddr_t ret_addr) {
 
   // idt_entry表示所找的那个intr的地址
   uint32_t idt_entry = cpu.IDTR.base + (NO << 3);
-  // Log("idt_entry is %x", idt_entry);
+  Log("idt_entry is %x", idt_entry);
   // 首先通过P判断中断是否有效
   // 得到P
   bool P = (vaddr_read(idt_entry+5, 1)) >> 7;
-  // Log("P is %d", P);
+  Log("P is %d", P);
   if(P){
     // Log("idt_entry is %x", idt_entry);
     uint16_t offset_15_0 = vaddr_read(idt_entry, 2);
