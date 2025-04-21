@@ -8,8 +8,6 @@ static PDE kpdirs[NR_PDE] PG_ALIGN;
 static PTE kptabs[PMEM_SIZE / PGSIZE] PG_ALIGN;
 static void* (*palloc_f)();
 static void (*pfree_f)(void*);
-// ADD IN pa4-1
-#define PAGE_SHIFT 12 // shift 2^12
 
 
 _Area segments[] = {      // Kernel memory mappings
@@ -86,12 +84,22 @@ void _map(_Protect *p, void *va, void *pa) {
     // 如果没有这个物理页表
     // 获取一个页表项
     upte = (PTE*)palloc_f();
-    *upte = (uintptr_t)upte;
+    updir[PDE_index] = (uintptr_t)upte | PTE_P;
+    for (int i = 0; i < NR_PTE; i ++) {
+      upte[i] = 0;
+    }
   }
-  upte = (PTE*)PTE_ADDR(updir[PDE_index]);
+  else {
+    upte = (PTE*)PTE_ADDR(data);
+  }
   // 这里的upte是一个物理页表的基址，然后我们可以通过PTE_index来找到对应的PTE
   PTE *pte = upte + PTE_index;
-  *pte = (PTE)paddr | PTE_P;
+  if(*pte & PTE_P) {
+    // 如果这个物理页表已经存在了
+    // 这里的pte是一个物理页表的基址，然后我们可以通过PTE_index来找到对应的PTE
+    return;
+  }
+  *pte = paddr | PTE_P;
 }
 
 void _unmap(_Protect *p, void *va) {
