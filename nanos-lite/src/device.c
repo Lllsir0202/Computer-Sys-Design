@@ -48,7 +48,6 @@ int dispinfo_read(void *buf, off_t offset, size_t len) {
 }
 
 void fb_write(const void *buf, off_t offset, size_t len) {
-  TODO();
   // 用于把buf中的len字节写到屏幕上offset处. 你需要先从offset计算出屏幕上的坐标, 然后调用IOE的_draw_rect()接口.
   int x = (offset / 4) % _screen.width;
   int y = (offset / 4) / _screen.width;
