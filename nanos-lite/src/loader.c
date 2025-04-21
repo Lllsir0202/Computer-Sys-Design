@@ -30,10 +30,28 @@ uintptr_t loader(_Protect *as, const char *filename) {
     panic("special file is read");
   }
   // Log("here2");
-  // 首先获取一张空闲物理页
-  void *page = new_page();
-  _map(as, DEFAULT_ENTRY, page);
-  fs_read(fd, DEFAULT_ENTRY, len);
+  int page_num = len/PGSIZE;
+  for(int i = 0; i < page_num; i++) {
+    void *page = new_page();
+    if(page == NULL) {
+      panic("Failed to allocate memory for page");
+    }
+    // Log("page is %p", page);
+    _map(as, DEFAULT_ENTRY + i * PGSIZE, page);
+    fs_read(fd, DEFAULT_ENTRY + i * PGSIZE, PGSIZE);
+  }
+  if(len / PGSIZE != 0) {
+    void *page = new_page();
+    if(page == NULL) {
+      panic("Failed to allocate memory for page");
+    }
+    _map(as, DEFAULT_ENTRY + page_num * PGSIZE, page);
+    fs_read(fd, DEFAULT_ENTRY + page_num * PGSIZE, len % PGSIZE);
+  }
+  // // 首先获取一张空闲物理页
+  // void *page = new_page();
+  // _map(as, DEFAULT_ENTRY, page);
+  // fs_read(fd, DEFAULT_ENTRY, len);
   fs_close(fd);
   Log("file succeed to be load");
   return (uintptr_t)DEFAULT_ENTRY;
