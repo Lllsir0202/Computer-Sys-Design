@@ -29,6 +29,7 @@ int mm_brk(uint32_t new_brk) {
       for(uint32_t addr = start; addr < end; addr += PGSIZE) {
         void *p = new_page();
         if (p == NULL) {
+          panic("no free page");
           return -1;
         }
 
