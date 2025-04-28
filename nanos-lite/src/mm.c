@@ -23,9 +23,22 @@ int mm_brk(uint32_t new_brk) {
     if (new_brk > current->max_brk) {
       // TODO: map memory region [current->max_brk, new_brk)
       // into address space current->as
+      // Log("brk: %p -> %p", current->cur_brk, new_brk);
+      // Log("start is %p, end is %p", PGROUNDUP(current->max_brk), PGROUNDUP(new_brk));
+      uint32_t start = PGROUNDUP(current->max_brk);
+      uint32_t end = PGROUNDUP(new_brk);
 
-      // 把current->as.area.start的虚拟空间映射到物理空间
-      
+      for(uint32_t addr = start; addr < end; addr += PGSIZE) {
+        // Log("mapping %p", addr);
+        void *p = new_page();
+        if (p == NULL) {
+          panic("no free page");
+          return -1;
+        }
+
+        // Map the page into the address space
+        _map(&(current->as), (void *)addr, p);
+      }
 
       current->max_brk = new_brk;
     }
