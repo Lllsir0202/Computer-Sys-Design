@@ -24,7 +24,7 @@ int mm_brk(uint32_t new_brk) {
       // TODO: map memory region [current->max_brk, new_brk)
       // into address space current->as
       Log("brk: %p -> %p", current->cur_brk, new_brk);
-      Log("start is %p, end is %p", PGROUNDDOWN(current->max_brk), PGROUNDUP(new_brk));
+      Log("start is %p, end is %p", PGROUNDUP(current->max_brk), PGROUNDUP(new_brk));
       uint32_t start = PGROUNDUP(current->max_brk);
       uint32_t end = PGROUNDUP(new_brk);
 
