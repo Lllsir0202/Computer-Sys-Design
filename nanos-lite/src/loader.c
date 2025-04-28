@@ -39,7 +39,7 @@ uintptr_t loader(_Protect *as, const char *filename) {
     }
     // Log("page is %p", page);
     fs_read(fd, page, PGSIZE);
-    // Log("page is %p", page);
+    Log("page is %p", page);
     _map(as, DEFAULT_ENTRY + i * PGSIZE, page);
 
   }
@@ -49,7 +49,7 @@ uintptr_t loader(_Protect *as, const char *filename) {
       panic("Failed to allocate memory for page");
     }
     fs_read(fd, page, len % PGSIZE);
-    // Log("page is %p", page);
+    Log("page is %p", page);
     _map(as, DEFAULT_ENTRY + page_num * PGSIZE, page);
   }
   // // 首先获取一张空闲物理页
