@@ -14,6 +14,8 @@ void load_prog(const char *filename) {
   _protect(&pcb[i].as);
   // Log("here");
   uintptr_t entry = loader(&pcb[i].as, filename);
+  // 在load_prog函数中添加调试信息
+  printf("Program loaded at virtual address: %p\n", entry);
   // Log("reach here2");
 
   // TODO: remove the following three lines after you have implemented _umake()
