@@ -12,7 +12,7 @@ void load_prog(const char *filename) {
   int i = nr_proc ++;
   // Log("reach here1");
   _protect(&pcb[i].as);
-
+  Log("here");
   uintptr_t entry = loader(&pcb[i].as, filename);
   // Log("reach here2");
 
