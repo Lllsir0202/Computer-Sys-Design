@@ -18,9 +18,8 @@ void load_prog(const char *filename) {
 
   // TODO: remove the following three lines after you have implemented _umake()
   _switch(&pcb[i].as);
-  Log("switch to %s", filename);
-  
   current = &pcb[i];
+  Log("current: %p", current);
   ((void (*)(void))entry)();
 
   _Area stack;
