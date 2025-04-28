@@ -19,6 +19,9 @@ uint8_t pmem[PMEM_SIZE];
 static inline paddr_t page_translate(vaddr_t addr, bool write) {
   // ++cnt;
   // 现在不能够直接使用addr作为物理地址，因为需要进行页表的转换
+  if(addr == 0x8048a1c){
+    panic("here");
+  }
   uint32_t PDE_index = (addr >> 22) & 0x3FF;
   uint32_t PTE_index = (addr >> 12) & 0x3FF;
   uint32_t offset = addr & 0xFFF;
@@ -53,7 +56,7 @@ static inline paddr_t page_translate(vaddr_t addr, bool write) {
     panic("error in write(PTE)");
   }
   // 接下来即可拼接地址
-  Log("paddr is %08x", (PTE_descriptor.page_frame << 12) | offset);
+  // Log("paddr is %08x", (PTE_descriptor.page_frame << 12) | offset);
   return (PTE_descriptor.page_frame << 12) | offset;
   // 这里的offset是低12位，PTE_descripor.page_frame_number是高20位
 }
