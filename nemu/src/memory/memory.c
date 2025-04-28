@@ -105,7 +105,9 @@ uint32_t vaddr_read(vaddr_t addr, int len) {
       return data2 << (8 * first_page) | data;
     }else {
       paddr_t paddr = page_translate(addr, false);
-      Log("paddr is %08x", paddr);
+      if(addr == 0x8048a1c){
+        Log("paddr is %08x", paddr);
+      }
       // 这里的addr是虚拟地址，paddr是物理地址
       return paddr_read(paddr, len);
     }
