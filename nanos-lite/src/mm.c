@@ -29,8 +29,9 @@ int mm_brk(uint32_t new_brk) {
       uint32_t end = PGROUNDUP(new_brk);
 
       for(uint32_t addr = start; addr < end; addr += PGSIZE) {
-        Log("start is %p, end is %p", addr, end);
         void *p = new_page();
+        Log("addr is %p", addr);
+        Log("p is %p", p);
         if (p == NULL) {
           panic("no free page");
           return -1;
