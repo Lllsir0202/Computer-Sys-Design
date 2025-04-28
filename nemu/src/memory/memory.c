@@ -84,9 +84,6 @@ uint32_t vaddr_read(vaddr_t addr, int len) {
   // 其实需要考虑下是否开启了保护机制
   if(cpu.cr0 & CR0_PG) {
     // 首先需要考虑是否出现跨页的情况，其实就是offset+len又没有>PG_SIZE的情况
-    if(addr == 0x8048a1c){
-      Log("here");
-    }
     uintptr_t offset = addr & (PAGE_MASK);
     if(offset + len > PAGE_SIZE) {
       // 出现跨页，但是在指导书中的说法是只有跨页，但是不一定(?)，可能会有更多页？-> 不会有很多页的
@@ -102,11 +99,16 @@ uint32_t vaddr_read(vaddr_t addr, int len) {
       uint32_t data2 = paddr_read(paddr, second_page);
       // 这里的data是第一页的数据，data2是第二页的数据
       // NOTE!!!->小端序
+      if(paddr == 0x1d92a1c){
+        Log("in cross page read len is %d, data is %08x", len, data);
+      }
       return data2 << (8 * first_page) | data;
     }else {
       paddr_t paddr = page_translate(addr, false);
-      if(addr == 0x8048a1c){
+      if(paddr == 0x01d92a1c){
+        Log("in read virtual addr is %08x", addr);
         Log("paddr is %08x", paddr);
+        Log("read len is %d", len);
       }
       // 这里的addr是虚拟地址，paddr是物理地址
       return paddr_read(paddr, len);
