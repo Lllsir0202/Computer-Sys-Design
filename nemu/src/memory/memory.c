@@ -20,7 +20,7 @@ static inline paddr_t page_translate(vaddr_t addr, bool write) {
   // ++cnt;
   // 现在不能够直接使用addr作为物理地址，因为需要进行页表的转换
   if(addr == 0x8048a1c){
-    Log("here");
+    Log("here, write is %d", write);
   }
   uint32_t PDE_index = (addr >> 22) & 0x3FF;
   uint32_t PTE_index = (addr >> 12) & 0x3FF;
