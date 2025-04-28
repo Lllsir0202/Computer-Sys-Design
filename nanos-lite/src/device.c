@@ -57,9 +57,9 @@ void fb_write(const void *buf, off_t offset, size_t len) {
   // 像素数目
   int pixels = len / 4;
 
+  Log("reach here");
   if(pixels <= _screen.width - x) {
     _draw_rect((uint32_t*)buf, x, y, pixels, 1);
-    Log("draw rect at %d %d %d %d", x, y, pixels, 1);
     return;
   }
   // 第一行不完整部分的像素数
