@@ -98,21 +98,21 @@ void _map(_Protect *p, void *va, void *pa) {
 }
 
 void _unmap(_Protect *p, void *va) {
-  uintptr_t vaddr = (uintptr_t)va;
-  uint32_t PDE_index = PDX(vaddr);
-  uint32_t PTE_index = PTX(vaddr);
-  PDE *updir = p->ptr;
-  PTE data = updir[PDE_index];
-  if(!(data & PTE_P)) {
-    // 如果没有这个物理页表
-    // 就不需要释放了
-    return;
-  }
-  PTE *upte = (PTE*)PTE_ADDR(updir[PDE_index]);
-  // 这里的upte是一个物理页表的基址，然后我们可以通过PTE_index来找到对应的PTE
-  PTE *pte = upte + PTE_index;
-  // 这里的pte是一个物理页表的基址，然后我们可以通过PTE_index来找到对应的PTE
-  *pte = 0;
+  // uintptr_t vaddr = (uintptr_t)va;
+  // uint32_t PDE_index = PDX(vaddr);
+  // uint32_t PTE_index = PTX(vaddr);
+  // PDE *updir = p->ptr;
+  // PTE data = updir[PDE_index];
+  // if(!(data & PTE_P)) {
+  //   // 如果没有这个物理页表
+  //   // 就不需要释放了
+  //   return;
+  // }
+  // PTE *upte = (PTE*)PTE_ADDR(updir[PDE_index]);
+  // // 这里的upte是一个物理页表的基址，然后我们可以通过PTE_index来找到对应的PTE
+  // PTE *pte = upte + PTE_index;
+  // // 这里的pte是一个物理页表的基址，然后我们可以通过PTE_index来找到对应的PTE
+  // *pte = 0;
 }
 
 _RegSet *_umake(_Protect *p, _Area ustack, _Area kstack, void *entry, char *const argv[], char *const envp[]) {
