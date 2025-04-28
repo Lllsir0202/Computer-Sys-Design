@@ -116,16 +116,19 @@ void vaddr_write(vaddr_t addr, int len, uint32_t data) {
       // 出现跨页，但是在指导书中的说法是只有跨页，但是不一定(?)，可能会有更多页？-> 不会有很多页的
       // 第一页先找到
       int first_page = PAGE_SIZE - offset;
-      
+      uint32_t data1 = data & (~0u >> (first_page << 3));
+      Log("data1 is %x", data1);
       // Log("first_page is %d", first_page);
       paddr_t paddr = page_translate(addr, false);
       // 写入第一页
-      paddr_write(paddr, first_page, (data & (~0u >> (first_page << 3))));
+      paddr_write(paddr, first_page, data1);
       // 读取第二页
       int second_page = len - first_page;
+      uint32_t data2 = data >> (first_page << 3);
+      Log("data2 is %x", data2);
       // Log("second_page is %d", second_page);
       paddr = page_translate(addr + first_page, false);
-      paddr_write(paddr, second_page, data >> (first_page << 3));
+      paddr_write(paddr, second_page, data2);
     }else {
       paddr_t paddr = page_translate(addr, true);
       // 这里的addr是虚拟地址，paddr是物理地址
