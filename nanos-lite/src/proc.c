@@ -10,11 +10,11 @@ uintptr_t loader(_Protect *as, const char *filename);
 
 void load_prog(const char *filename) {
   int i = nr_proc ++;
-  Log("reach here1");
+  // Log("reach here1");
   _protect(&pcb[i].as);
 
   uintptr_t entry = loader(&pcb[i].as, filename);
-  Log("reach here2");
+  // Log("reach here2");
 
   // TODO: remove the following three lines after you have implemented _umake()
   _switch(&pcb[i].as);
@@ -24,7 +24,7 @@ void load_prog(const char *filename) {
   _Area stack;
   stack.start = pcb[i].stack;
   stack.end = stack.start + sizeof(pcb[i].stack);
-  Log("reach here3");
+  // Log("reach here3");
 
   pcb[i].tf = _umake(&pcb[i].as, stack, stack, (void *)entry, NULL, NULL);
 }
