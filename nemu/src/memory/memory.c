@@ -136,7 +136,7 @@ void vaddr_write(vaddr_t addr, int len, uint32_t data) {
       // Log("second_page is %d", second_page);
       paddr = page_translate(addr + first_page, false);
       if(paddr == 0x01d92a1c){
-        Log("write len is %d, data is %08x", len, data);
+        Log("in cross page write len is %d, data is %08x", len, data);
       }
       paddr_write(paddr, second_page, data2);
     }else {
