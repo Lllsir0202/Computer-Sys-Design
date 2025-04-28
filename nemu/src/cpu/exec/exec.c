@@ -90,7 +90,7 @@ make_group(gp4,
   // 0x00 inc
 make_group(gp5,
     EX(inc), EX(dec), EX(call_rm), EX(call_rm),
-    EX(jmp_rm), EX(jmp_rm), EX(push), EX(nop))
+    EX(jmp_rm), EX(jmp_rm), EX(push), EMPTY)
 
   /* 0x0f 0x01*/
   // 0x03 lidt -> 触发异常中断的
