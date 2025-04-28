@@ -29,7 +29,7 @@ int mm_brk(uint32_t new_brk) {
       // uint32_t end = PGROUNDUP(new_brk);
 
       // 把current->as->area->start的虚拟空间映射到物理空间
-      Log("current-as is %p", current->as);
+      Log("current-as is %p", current->as.area.start);
 
       current->max_brk = new_brk;
     }
