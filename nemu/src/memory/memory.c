@@ -114,9 +114,9 @@ void vaddr_write(vaddr_t addr, int len, uint32_t data) {
     uintptr_t offset = addr & (PAGE_MASK);
     if(offset + len > PAGE_SIZE) {
       // 出现跨页，但是在指导书中的说法是只有跨页，但是不一定(?)，可能会有更多页？-> 不会有很多页的
-
       // 第一页先找到
       int first_page = PAGE_SIZE - offset;
+      
       // Log("first_page is %d", first_page);
       paddr_t paddr = page_translate(addr, false);
       // 写入第一页
