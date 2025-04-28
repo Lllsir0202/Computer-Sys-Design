@@ -143,7 +143,7 @@ void vaddr_write(vaddr_t addr, int len, uint32_t data) {
       paddr_t paddr = page_translate(addr, true);
       // 这里的addr是虚拟地址，paddr是物理地址
       if(paddr == 0x01d92a1c){
-        Log("addr is %08x", addr);
+        Log("in write virtual addr is %08x", addr);
         Log("write len is %d, data is %08x", len, data);
       }
       paddr_write(paddr, len, data);
