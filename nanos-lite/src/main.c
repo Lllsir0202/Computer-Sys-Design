@@ -31,6 +31,8 @@ int main() {
 
   init_fs();
 
+  Log("finish fs");
+
   // uint32_t entry = loader(NULL, "/bin/pal");
   // ((void (*)(void))entry)();
   load_prog("/bin/text");
