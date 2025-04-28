@@ -94,6 +94,11 @@ void _map(_Protect *p, void *va, void *pa) {
   }
   // 这里的upte是一个物理页表的基址，然后我们可以通过PTE_index来找到对应的PTE
   PTE *pte = upte + PTE_index;
+  if(*pte & PTE_P) {
+    // 如果这个PTE已经存在了
+    // 这里的pte是一个物理页表的基址，然后我们可以通过PTE_index来找到对应的PTE
+    pfree_f((void*)PTE_ADDR(*pte));
+  }
   *pte = paddr | PTE_P;
 }
 
