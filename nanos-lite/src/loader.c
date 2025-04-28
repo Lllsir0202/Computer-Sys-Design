@@ -26,31 +26,32 @@ uintptr_t loader(_Protect *as, const char *filename) {
   Log("In load file name is %s",filename);
   int fd = fs_open(filename, 0, 0);
   // Log("here1");
-  size_t len = fs_filesz(fd);
-  // Log("len is %d", len);
-  if(len == 0) {
-    panic("special file is read");
-  }
-  // Log("here2");
-  int page_num = len/PGSIZE;
-  for(int i = 0; i < page_num; i++) {
-    void *page = new_page();
-    if(page == NULL) {
-      panic("Failed to allocate memory for page");
-    }
-    // Log("page is %p", page);
-    fs_read(fd, page, PGSIZE);
-    _map(as, DEFAULT_ENTRY + i * PGSIZE, page);
+  // size_t len = fs_filesz(fd);
+  // // Log("len is %d", len);
+  // if(len == 0) {
+  //   panic("special file is read");
+  // }
+  // // Log("here2");
+  // int page_num = len/PGSIZE;
+  // for(int i = 0; i < page_num; i++) {
+  //   void *page = new_page();
+  //   if(page == NULL) {
+  //     panic("Failed to allocate memory for page");
+  //   }
+  //   // Log("page is %p", page);
+  //   fs_read(fd, page, PGSIZE);
+  //   _map(as, DEFAULT_ENTRY + i * PGSIZE, page);
 
-  }
-  if(len % PGSIZE != 0) {
-    void *page = new_page();
-    if(page == NULL) {
-      panic("Failed to allocate memory for page");
-    }
-    fs_read(fd, page, len % PGSIZE);
-    _map(as, DEFAULT_ENTRY + page_num * PGSIZE, page);
-  }
+  // }
+  // if(len % PGSIZE != 0) {
+  //   void *page = new_page();
+  //   if(page == NULL) {
+  //     panic("Failed to allocate memory for page");
+  //   }
+  //   fs_read(fd, page, len % PGSIZE);
+  //   _map(as, DEFAULT_ENTRY + page_num * PGSIZE, page);
+  // }
+  fs_read(fd, DEFAULT_ENTRY, PGSIZE);
   // // 首先获取一张空闲物理页
   // void *page = new_page();
   // _map(as, DEFAULT_ENTRY, page);
