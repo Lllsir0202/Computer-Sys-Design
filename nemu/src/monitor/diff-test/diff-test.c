@@ -31,6 +31,7 @@ void diff_test_skip_nemu() { is_skip_nemu = true; }
     regs.esi = cpu.esi; \
     regs.edi = cpu.edi; \
     regs.eip = cpu.eip; \
+    regs.cs = cpu.cs; \
   } while (0)
 
 static void test_regs(union gdb_regs *r, bool* diff) {
@@ -76,6 +77,10 @@ static void test_regs(union gdb_regs *r, bool* diff) {
   }
   if (r->eip != cpu.eip) {
     Log("gdb eip: 0x%x, nemu: 0x%x", r->eip, cpu.eip);
+    *diff = true;
+  }
+  if (r->cs != cpu.cs) {
+    Log("gdb cs: 0x%x, nemu: 0x%x", r->cs, cpu.cs);
     *diff = true;
   }
 }
