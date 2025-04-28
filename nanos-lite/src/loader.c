@@ -38,6 +38,7 @@ uintptr_t loader(_Protect *as, const char *filename) {
     }
     // Log("page is %p", page);
     fs_read(fd, page, PGSIZE);
+    Log("page is %p", page);
     _map(as, DEFAULT_ENTRY + i * PGSIZE, page);
 
   }
