@@ -117,7 +117,7 @@ void vaddr_write(vaddr_t addr, int len, uint32_t data) {
       // 第一页先找到
       int first_page = PAGE_SIZE - offset;
       uint32_t data1 = data & (~0u >> (first_page << 3));
-      Log("data1 is %x", data1);
+      // Log("data1 is %x", data1);
       // Log("first_page is %d", first_page);
       paddr_t paddr = page_translate(addr, false);
       // 写入第一页
@@ -125,7 +125,7 @@ void vaddr_write(vaddr_t addr, int len, uint32_t data) {
       // 读取第二页
       int second_page = len - first_page;
       uint32_t data2 = data >> (first_page << 3);
-      Log("data2 is %x", data2);
+      // Log("data2 is %x", data2);
       // Log("second_page is %d", second_page);
       paddr = page_translate(addr + first_page, false);
       paddr_write(paddr, second_page, data2);
