@@ -84,6 +84,8 @@ _RegSet* do_syscall(_RegSet *r) {
       int increment = SYSCALL_ARG2(r);
       // Log("increment is %d", increment);
       uintptr_t addr = program_break + increment;
+      Log("program_break is %p", program_break);
+      Log("addr is %p", addr);
       uintptr_t program_break_old = program_break;
       int ret = sys_brk((void *)addr);
       if(ret == 0) {
