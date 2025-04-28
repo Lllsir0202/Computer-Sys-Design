@@ -25,21 +25,11 @@ int mm_brk(uint32_t new_brk) {
       // into address space current->as
       // Log("brk: %p -> %p", current->cur_brk, new_brk);
       // Log("start is %p, end is %p", PGROUNDUP(current->max_brk), PGROUNDUP(new_brk));
-      uint32_t start = PGROUNDUP(current->max_brk);
-      uint32_t end = PGROUNDUP(new_brk);
+      // uint32_t start = PGROUNDUP(current->max_brk);
+      // uint32_t end = PGROUNDUP(new_brk);
 
-      for(uint32_t addr = start; addr < end; addr += PGSIZE) {
-        void *p = new_page();
-        Log("addr is %p", addr);
-        Log("p is %p", p);
-        if (p == NULL) {
-          panic("no free page");
-          return -1;
-        }
-
-        // Map the page into the address space
-        _map(&(current->as), (void *)addr, p);
-      }
+      // 把current->as->area->start的虚拟空间映射到物理空间
+      Log("current-as is %p", current->as);
 
       current->max_brk = new_brk;
     }
