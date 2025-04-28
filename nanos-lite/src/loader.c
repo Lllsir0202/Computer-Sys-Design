@@ -44,7 +44,6 @@ uintptr_t loader(_Protect *as, const char *filename) {
   }
   if(len % PGSIZE != 0) {
     void *page = new_page();
-    memset(page, 0, PGSIZE);
     if(page == NULL) {
       panic("Failed to allocate memory for page");
     }
