@@ -22,6 +22,7 @@ uintptr_t loader(_Protect *as, const char *filename) {
 
   // -------Change in pa3-2--------
   Log("In load file name is %s",filename);
+  Log("current as is %p",as);
   int fd = fs_open(filename, 0, 0);
   // Log("here1");
   size_t len = fs_filesz(fd);
