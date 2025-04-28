@@ -99,17 +99,9 @@ uint32_t vaddr_read(vaddr_t addr, int len) {
       uint32_t data2 = paddr_read(paddr, second_page);
       // 这里的data是第一页的数据，data2是第二页的数据
       // NOTE!!!->小端序
-      if(paddr == 0x1d92a1c){
-        Log("in cross page read len is %d, data is %08x", len, data);
-      }
       return data2 << (8 * first_page) | data;
     }else {
       paddr_t paddr = page_translate(addr, false);
-      if(paddr == 0x01d92a1c){
-        Log("in read virtual addr is %08x", addr);
-        Log("paddr is %08x", paddr);
-        Log("read len is %d", len);
-      }
       // 这里的addr是虚拟地址，paddr是物理地址
       return paddr_read(paddr, len);
     }
@@ -137,18 +129,10 @@ void vaddr_write(vaddr_t addr, int len, uint32_t data) {
       // Log("data2 is %x", data2);
       // Log("second_page is %d", second_page);
       paddr = page_translate(addr + first_page, false);
-      if(paddr == 0x01d92a1c){
-        Log("in cross page write len is %d, data is %08x", len, data);
-      }
       paddr_write(paddr, second_page, data2);
     }else {
       paddr_t paddr = page_translate(addr, true);
       // 这里的addr是虚拟地址，paddr是物理地址
-      if(paddr == 0x01d92a1c){
-        Log("in write virtual addr is %08x", addr);
-        Log("paddr is %08x", paddr);
-        Log("write len is %d, data is %08x", len, data);
-      }
       paddr_write(paddr, len, data);
     }
   }else {
