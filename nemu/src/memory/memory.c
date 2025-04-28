@@ -19,9 +19,6 @@ uint8_t pmem[PMEM_SIZE];
 static inline paddr_t page_translate(vaddr_t addr, bool write) {
   // ++cnt;
   // 现在不能够直接使用addr作为物理地址，因为需要进行页表的转换
-  if(addr == 0x8048a1c){
-    Log("here, write is %d", write);
-  }
   uint32_t PDE_index = (addr >> 22) & 0x3FF;
   uint32_t PTE_index = (addr >> 12) & 0x3FF;
   uint32_t offset = addr & 0xFFF;
@@ -87,6 +84,9 @@ uint32_t vaddr_read(vaddr_t addr, int len) {
   // 其实需要考虑下是否开启了保护机制
   if(cpu.cr0 & CR0_PG) {
     // 首先需要考虑是否出现跨页的情况，其实就是offset+len又没有>PG_SIZE的情况
+    if(addr == 0x8048a1c){
+      Log("here");
+    }
     uintptr_t offset = addr & (PAGE_MASK);
     if(offset + len > PAGE_SIZE) {
       // 出现跨页，但是在指导书中的说法是只有跨页，但是不一定(?)，可能会有更多页？-> 不会有很多页的
