@@ -91,6 +91,9 @@ uint32_t vaddr_read(vaddr_t addr, int len) {
     if(offset + len > PAGE_SIZE) {
       // 出现跨页，但是在指导书中的说法是只有跨页，但是不一定(?)，可能会有更多页？-> 不会有很多页的
       // 第一页先读取
+      if(addr == 0x8048a1c){
+        Log("here2");
+      }
       int first_page = PAGE_SIZE - offset;
       // Log("first_page is %d", first_page);
       paddr_t paddr = page_translate(addr, false);
