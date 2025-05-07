@@ -54,6 +54,7 @@ static inline paddr_t page_translate(vaddr_t addr, bool write) {
   }
   // 接下来即可拼接地址
   if(((PTE_descriptor.page_frame << 12) | offset) == 0x1d93a1c) {
+    Log("addr is %x", addr);
     Log("translate addr is %x", (PTE_descriptor.page_frame << 12) | offset);
     Log("PDE_index is %x", PDE_index);
     Log("PTE_index is %x", PTE_index);
