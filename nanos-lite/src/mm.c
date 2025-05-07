@@ -37,16 +37,13 @@ int mm_brk(uint32_t new_brk) {
           panic("no free page");
           return -1;
         }
-        if(addr == 0x1d93000) {
-          Log("mapping %p", addr);
-          Log("new page %p", p);
-        }
         // Map the page into the address space
-        uint32_t test = _map(&(current->as), (void *)addr, p);
-        Log("[重要2]pa = 0x%08x,va = 0x%08x", p, addr);
-        if(test != 0) {
-          Log("test %x", test);
-        }
+        // uint32_t test = 
+        _map(&(current->as), (void *)addr, p);
+        // Log("[重要2]pa = 0x%08x,va = 0x%08x", p, addr);
+        // if(test != 0) {
+        //   Log("test %x", test);
+        // }
       }
 
       current->max_brk = new_brk;

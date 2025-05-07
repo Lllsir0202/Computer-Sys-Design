@@ -69,7 +69,7 @@ void _switch(_Protect *p) {
   set_cr3(p->ptr);
 }
 
-uint32_t _map(_Protect *p, void *va, void *pa) {
+void _map(_Protect *p, void *va, void *pa) {
   uintptr_t vaddr = (uintptr_t)va;
   uintptr_t paddr = (uintptr_t)pa;
   // 这里的va是虚拟地址，pa是物理地址
@@ -96,17 +96,17 @@ uint32_t _map(_Protect *p, void *va, void *pa) {
   PTE *pte = upte + PTE_index;
   if(*pte & PTE_P) {
     // 说明有多个va映射到同一个pa了
-    // _halt(-1);
+    _halt(-1);
   }
   // 因为是按页对齐的，所以我们不需要清空低12位
   *pte = paddr | PTE_P;
   // if((PDE_index<<22 | PTE_index<<12) == 0x1d93000) {
   //   return *pte;
   // }
-  if(vaddr == 0x8048000) {
-    return 0x1d93000;
-  }
-  return 0;
+  // if(vaddr == 0x8048000) {
+  //   return 0x1d93000;
+  // }
+  // return 0;
 }
 
 void _unmap(_Protect *p, void *va) {

@@ -37,16 +37,17 @@ uintptr_t loader(_Protect *as, const char *filename) {
     if(page == NULL) {
       panic("Failed to allocate memory for page");
     }
-    if(i == 0) {
-      Log("page is %p", page);
-      Log("vaddr is %p", DEFAULT_ENTRY);
-    }
-    Log("page is %p", page);
-    uint32_t test = _map(as, DEFAULT_ENTRY + i * PGSIZE, page);
-    Log("[重要]pa = 0x%08x,va = 0x%08x", page, DEFAULT_ENTRY + i * PGSIZE);
-    if(test != 0) {
-      Log("test %x", test);
-    }
+    // if(i == 0) {
+    //   Log("page is %p", page);
+    //   Log("vaddr is %p", DEFAULT_ENTRY);
+    // }
+    // Log("page is %p", page);
+    // uint32_t test = 
+    _map(as, DEFAULT_ENTRY + i * PGSIZE, page);
+    // Log("[重要]pa = 0x%08x,va = 0x%08x", page, DEFAULT_ENTRY + i * PGSIZE);
+    // if(test != 0) {
+    //   Log("test %x", test);
+    // }
     fs_read(fd, page, PGSIZE);
     // Log("vaddr is %p", DEFAULT_ENTRY + i * PGSIZE);
     // Log("page is %p", page);
