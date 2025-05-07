@@ -96,8 +96,7 @@ void _map(_Protect *p, void *va, void *pa) {
   PTE *pte = upte + PTE_index;
   if(*pte & PTE_P) {
     // 说明有多个va映射到同一个pa了
-    _putc('f');
-    _halt(-1);
+    // _halt(-1);
   }
   // 因为是按页对齐的，所以我们不需要清空低12位
   *pte = paddr | PTE_P;
