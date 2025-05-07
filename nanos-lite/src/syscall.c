@@ -1,9 +1,6 @@
 #include "common.h"
 #include "syscall.h"
 
-extern char end;
-static uintptr_t program_break = (uintptr_t)&end;
-
 extern int fs_open(const char *pathname, int flags, int mode);
 extern ssize_t fs_read(int fd, void *buf, size_t len);
 extern ssize_t fs_write(int fd, const void *buf, size_t len);
@@ -81,17 +78,9 @@ _RegSet* do_syscall(_RegSet *r) {
     case SYS_brk: {
       // 目前的理解是：其实就是ebx->increment，计算出地址addr，然后再那里设置res，如果成功则返回0,并返回旧的program_break
       // 如果失败则返回-1
-      int increment = SYSCALL_ARG2(r);
+      uintptr_t addr = SYSCALL_ARG2(r);
       // Log("increment is %d", increment);
-      uintptr_t addr = program_break + increment;
-      uintptr_t program_break_old = program_break;
-      int ret = sys_brk((void *)addr);
-      if(ret == 0) {
-        program_break = addr;
-        SYSCALL_ARG1(r) = program_break_old;
-      } else {
-        SYSCALL_ARG1(r) = -1;
-      }
+      SYSCALL_ARG1(r) = sys_brk((void *)addr);
       return r;
     }
     case SYS_open: {
