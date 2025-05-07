@@ -38,7 +38,7 @@ int mm_brk(uint32_t new_brk) {
           return -1;
         }
         if((uintptr_t)p == 0x1d93000) {
-          Log("addr is %p", addr);
+          Log("here is %p", addr);
         }
         // Map the page into the address space
         _map(&(current->as), (void *)addr, p);
