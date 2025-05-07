@@ -69,7 +69,7 @@ void _switch(_Protect *p) {
   set_cr3(p->ptr);
 }
 
-void _map(_Protect *p, void *va, void *pa) {
+uint32_t _map(_Protect *p, void *va, void *pa) {
   uintptr_t vaddr = (uintptr_t)va;
   uintptr_t paddr = (uintptr_t)pa;
   // 这里的va是虚拟地址，pa是物理地址
@@ -100,6 +100,7 @@ void _map(_Protect *p, void *va, void *pa) {
   }
   // 因为是按页对齐的，所以我们不需要清空低12位
   *pte = paddr | PTE_P;
+  return *pte;
 }
 
 void _unmap(_Protect *p, void *va) {
