@@ -43,6 +43,7 @@ int mm_brk(uint32_t new_brk) {
         }
         // Map the page into the address space
         uint32_t test = _map(&(current->as), (void *)addr, p);
+        Log("[重要2]pa = 0x%08x,va = 0x%08x", p, addr);
         if(test != 0) {
           Log("test %x", test);
         }
