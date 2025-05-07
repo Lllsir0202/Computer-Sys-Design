@@ -103,9 +103,6 @@ uint32_t _map(_Protect *p, void *va, void *pa) {
   // if((PDE_index<<22 | PTE_index<<12) == 0x1d93000) {
   //   return *pte;
   // }
-  if(paddr == 0x1d93000) {
-    return PDE_index<<22 | PTE_index<<12;
-  }
   if(vaddr == 0x8048000) {
     return 0x1d93000;
   }
