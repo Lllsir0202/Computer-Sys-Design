@@ -11,6 +11,7 @@ uintptr_t loader(_Protect *as, const char *filename);
 void load_prog(const char *filename) {
   int i = nr_proc ++;
   // Log("reach here1");
+  Log("before protect %p", &pcb[i].as);
   _protect(&pcb[i].as);
   Log("protect %p", &pcb[i].as);
   // Log("here");
