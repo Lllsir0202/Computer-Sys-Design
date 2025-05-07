@@ -43,7 +43,7 @@ int mm_brk(uint32_t new_brk) {
         }
         // Map the page into the address space
         uint32_t test = _map(&(current->as), (void *)addr, p);
-        Log("test %d", test);
+        Log("test %x", test);
       }
 
       current->max_brk = new_brk;
