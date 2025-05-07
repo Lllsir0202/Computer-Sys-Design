@@ -100,7 +100,10 @@ uint32_t _map(_Protect *p, void *va, void *pa) {
   }
   // 因为是按页对齐的，所以我们不需要清空低12位
   *pte = paddr | PTE_P;
-  if((PDE_index<<22 | PTE_index<<12) == 0x1d93000) {
+  // if((PDE_index<<22 | PTE_index<<12) == 0x1d93000) {
+  //   return *pte;
+  // }
+  if(*pte == 0x1d93001) {
     return *pte;
   }
   return 0;
