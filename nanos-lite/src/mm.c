@@ -32,7 +32,7 @@ int mm_brk(uint32_t new_brk) {
       for(uint32_t addr = start; addr < end; addr += PGSIZE) {
         // Log("mapping %p", addr);
         void *p = new_page();
-        Log("new page %p", p);
+        // Log("new page %p", p);
         if (p == NULL) {
           panic("no free page");
           return -1;
