@@ -93,10 +93,11 @@ void _map(_Protect *p, void *va, void *pa) {
     upte = (PTE*)PTE_ADDR(data);
   }
   // 这里的upte是一个物理页表的基址，然后我们可以通过PTE_index来找到对应的PTE
-  PTE *pte = &(upte[PTE_index]);
+  PTE *pte = upte + PTE_index;
   if(*pte & PTE_P) {
     // 说明有多个va映射到同一个pa了
-    // _halt(-1);
+    _putc('f');
+    _halt(-1);
   }
   // 因为是按页对齐的，所以我们不需要清空低12位
   *pte = paddr | PTE_P;
