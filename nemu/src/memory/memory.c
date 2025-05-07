@@ -26,7 +26,7 @@ static inline paddr_t page_translate(vaddr_t addr, bool write) {
   // 首先读取cr3
   // 找到页表的基地址
   uint32_t directory_base = cpu.cr3;
-  Log("directory_base is %x", directory_base);
+  // Log("directory_base is %x", directory_base);
 
   // 读取base + PTD_index * sizeof(PTD)
   // 即取到了页表目录项的PTD-> 低12位是乱七八糟的标志位，然后20位>>12加上PTE_index*4即为页表项的地址
