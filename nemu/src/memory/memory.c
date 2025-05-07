@@ -119,7 +119,7 @@ void vaddr_write(vaddr_t addr, int len, uint32_t data) {
       uint32_t data1 = data & (~0u >> (first_page << 3));
       // Log("data1 is %x", data1);
       // Log("first_page is %d", first_page);
-      paddr_t paddr = page_translate(addr, false);
+      paddr_t paddr = page_translate(addr, true);
       // 写入第一页
       paddr_write(paddr, first_page, data1);
       // 读取第二页
@@ -127,7 +127,7 @@ void vaddr_write(vaddr_t addr, int len, uint32_t data) {
       uint32_t data2 = data >> (first_page << 3);
       // Log("data2 is %x", data2);
       // Log("second_page is %d", second_page);
-      paddr = page_translate(addr + first_page, false);
+      paddr = page_translate(addr + first_page, true);
       paddr_write(paddr, second_page, data2);
     }else {
       paddr_t paddr = page_translate(addr, true);
