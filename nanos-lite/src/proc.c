@@ -22,7 +22,7 @@ void load_prog(const char *filename) {
   _switch(&pcb[i].as);
   // Log("switch to new process %p", pcb[i].as);
   current = &pcb[i];
-  Log("switch to new process %p", current->as);
+  Log("switch to new process %p", current->as.ptr);
   ((void (*)(void))entry)();
 
   _Area stack;
