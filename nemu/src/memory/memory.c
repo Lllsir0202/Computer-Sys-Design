@@ -128,6 +128,10 @@ void vaddr_write(vaddr_t addr, int len, uint32_t data) {
       // Log("data2 is %x", data2);
       // Log("second_page is %d", second_page);
       paddr = page_translate(addr + first_page, true);
+      if(addr == 0x8048a1c) {
+        Log("data is %x", data);
+        Log("paddr is %x", paddr);
+      }
       paddr_write(paddr, second_page, data2);
     }else {
       paddr_t paddr = page_translate(addr, true);
