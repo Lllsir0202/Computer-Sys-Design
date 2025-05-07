@@ -53,6 +53,12 @@ static inline paddr_t page_translate(vaddr_t addr, bool write) {
     panic("error in write(PTE)");
   }
   // 接下来即可拼接地址
+  if(((PTE_descriptor.page_frame << 12) | offset) == 0x1d93a1c) {
+    Log("translate addr is %x", (PTE_descriptor.page_frame << 12) | offset);
+    Log("PDE_index is %x", PDE_index);
+    Log("PTE_index is %x", PTE_index);
+    Log("offset is %x", offset);
+  }
   return (PTE_descriptor.page_frame << 12) | offset;
   // 这里的offset是低12位，PTE_descripor.page_frame_number是高20位
 }
@@ -111,9 +117,6 @@ uint32_t vaddr_read(vaddr_t addr, int len) {
       return paddr_read(paddr, len);
     }
   } else {
-    if(addr == 0x1d93a1c) {
-      Log("in paddr is %x", addr);
-    }
     return paddr_read(addr, len);
   }
 }
@@ -150,9 +153,6 @@ void vaddr_write(vaddr_t addr, int len, uint32_t data) {
       paddr_write(paddr, len, data);
     }
   }else {
-    if(addr == 0x1d93a1c) {
-      Log("in paddr is %x", addr);
-    }
     paddr_write(addr, len, data);
   }
 }
