@@ -54,10 +54,10 @@ static inline paddr_t page_translate(vaddr_t addr, bool write) {
     panic("error in write(PTE)");
   }
   // 接下来即可拼接地址
-  if(((PTE_descriptor.page_frame << 12) | offset) == 0x1d93a1c) {
-    Log("addr is %x", addr);
-    Log("translate addr is %x\n", (PTE_descriptor.page_frame << 12) | offset);
-  }
+  // if(((PTE_descriptor.page_frame << 12) | offset) == 0x1d93a1c) {
+  //   Log("addr is %x", addr);
+  //   Log("translate addr is %x\n", (PTE_descriptor.page_frame << 12) | offset);
+  // }
   return (PTE_descriptor.page_frame << 12) | offset;
   // 这里的offset是低12位，PTE_descripor.page_frame_number是高20位
 }
