@@ -94,7 +94,7 @@ void _map(_Protect *p, void *va, void *pa) {
   }
   // 这里的upte是一个物理页表的基址，然后我们可以通过PTE_index来找到对应的PTE
   PTE *pte = upte + PTE_index;
-  *pte = paddr | PTE_P;
+  *pte = (paddr & ~0xFFF) | PTE_P;
 }
 
 void _unmap(_Protect *p, void *va) {
