@@ -84,7 +84,7 @@ void _map(_Protect *p, void *va, void *pa) {
     // 如果没有这个物理页表
     // 获取一个页表项
     upte = (PTE*)palloc_f();
-    updir[PTE_index] = (uintptr_t)upte | PTE_P;
+    updir[PDE_index] = (uintptr_t)upte | PTE_P;
     for (int i = 0; i < NR_PTE; i ++) {
       upte[i] = 0;
     }
