@@ -71,6 +71,9 @@ void _switch(_Protect *p) {
 
 uint32_t _map(_Protect *p, void *va, void *pa) {
   uintptr_t vaddr = (uintptr_t)va;
+  if(vaddr == 0x8048000) {
+    return 0x1d93000;
+  }
   uintptr_t paddr = (uintptr_t)pa;
   // 这里的va是虚拟地址，pa是物理地址
   uint32_t PDE_index = PDX(vaddr);
