@@ -33,7 +33,7 @@ int mm_brk(uint32_t new_brk) {
         // Log("mapping %p", addr);
         void *p = new_page();
         if((uintptr_t)p == 0x1d93000) {
-          Log("addr is %p", addr);
+          panic("addr is %p", addr);
         }
         // Log("new page %p", p);
         if (p == NULL) {
