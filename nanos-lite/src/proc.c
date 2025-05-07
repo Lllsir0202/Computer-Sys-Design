@@ -14,6 +14,7 @@ void load_prog(const char *filename) {
   _protect(&pcb[i].as);
   // Log("here");
   uintptr_t entry = loader(&pcb[i].as, filename);
+  Log("entry = %p", entry);
   // Log("reach here2");
 
   // TODO: remove the following three lines after you have implemented _umake()
