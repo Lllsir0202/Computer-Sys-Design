@@ -31,7 +31,7 @@ uintptr_t loader(_Protect *as, const char *filename) {
     panic("special file is read");
   }
   // Log("here2");
-  int page_num = len/PGSIZE;
+  int page_num = len / PGSIZE;
   for(int i = 0; i < page_num; i++) {
     void *page = new_page();
     if(page == NULL) {
