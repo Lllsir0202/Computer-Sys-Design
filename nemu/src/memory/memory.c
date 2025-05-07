@@ -26,7 +26,7 @@ static inline paddr_t page_translate(vaddr_t addr, bool write) {
   // 首先读取cr3
   // 找到页表的基地址
   uint32_t directory_base = cpu.cr3;
-  if(directory_base != 0x1d90000) {
+  if(directory_base != 0x1d92000) {
     Log("directory_base is %x", directory_base);
   }
 
