@@ -19,6 +19,7 @@ void load_prog(const char *filename) {
 
   // TODO: remove the following three lines after you have implemented _umake()
   _switch(&pcb[i].as);
+  Log("switch to new process %p", pcb[i].as);
   current = &pcb[i];
   Log("switch to new process %p", current->as);
   ((void (*)(void))entry)();
