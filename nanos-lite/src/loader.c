@@ -52,6 +52,9 @@ uintptr_t loader(_Protect *as, const char *filename) {
     if(page == NULL) {
       panic("Failed to allocate memory for page");
     }
+    if(*((uint32_t*)(page)) != 0){
+      panic("page is not empty");
+    }
     fs_read(fd, page, len % PGSIZE);
     Log("vaddr is %p", DEFAULT_ENTRY + page_num * PGSIZE);
     Log("page is %p", page);
