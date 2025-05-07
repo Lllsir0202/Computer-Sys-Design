@@ -38,7 +38,7 @@ uintptr_t loader(_Protect *as, const char *filename) {
       panic("Failed to allocate memory for page");
     }
     if((uintptr_t)page == 0x1d93000) {
-      Log("addr is %d", i);
+      Log("in loader !!!!!!addr is %d", i);
     }
     // Log("page is %p", page);
     fs_read(fd, page, PGSIZE);
