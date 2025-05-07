@@ -104,7 +104,7 @@ uint32_t _map(_Protect *p, void *va, void *pa) {
   //   return *pte;
   // }
   if(*pte == 0x1d93001) {
-    return *pte;
+    return paddr;
   }
   return 0;
 }
