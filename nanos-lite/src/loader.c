@@ -43,6 +43,7 @@ uintptr_t loader(_Protect *as, const char *filename) {
     }
     Log("page is %p", page);
     uint32_t test = _map(as, DEFAULT_ENTRY + i * PGSIZE, page);
+    Log("[重要]pa = 0x%8x,va = 0x%8x", page, DEFAULT_ENTRY + i * PGSIZE);
     if(test != 0) {
       Log("test %x", test);
     }
