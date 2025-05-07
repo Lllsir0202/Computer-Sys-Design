@@ -42,7 +42,10 @@ uintptr_t loader(_Protect *as, const char *filename) {
       Log("vaddr is %p", DEFAULT_ENTRY);
     }
     Log("page is %p", page);
-    _map(as, DEFAULT_ENTRY + i * PGSIZE, page);
+    uint32_t test = _map(as, DEFAULT_ENTRY + i * PGSIZE, page);
+    if(test != 0) {
+      Log("test %x", test);
+    }
     fs_read(fd, page, PGSIZE);
     // Log("vaddr is %p", DEFAULT_ENTRY + i * PGSIZE);
     // Log("page is %p", page);
