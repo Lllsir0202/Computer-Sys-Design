@@ -111,6 +111,9 @@ uint32_t vaddr_read(vaddr_t addr, int len) {
       return paddr_read(paddr, len);
     }
   } else {
+    if(addr == 0x1d93a1c) {
+      Log("in paddr is %x", addr);
+    }
     return paddr_read(addr, len);
   }
 }
@@ -147,6 +150,9 @@ void vaddr_write(vaddr_t addr, int len, uint32_t data) {
       paddr_write(paddr, len, data);
     }
   }else {
+    if(addr == 0x1d93a1c) {
+      Log("in paddr is %x", addr);
+    }
     paddr_write(addr, len, data);
   }
 }
