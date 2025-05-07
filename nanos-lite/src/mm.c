@@ -21,7 +21,6 @@ int mm_brk(uint32_t new_brk) {
     current->cur_brk = current->max_brk = new_brk;
   }
   else {
-    panic("111");
     if (new_brk > current->max_brk) {
       // TODO: map memory region [current->max_brk, new_brk)
       // into address space current->as
@@ -33,9 +32,6 @@ int mm_brk(uint32_t new_brk) {
       for(uint32_t addr = start; addr < end; addr += PGSIZE) {
         // Log("mapping %p", addr);
         void *p = new_page();
-        if((uintptr_t)p == 0x1d93000) {
-          panic("addr is %p", addr);
-        }
         // Log("new page %p", p);
         if (p == NULL) {
           panic("no free page");
