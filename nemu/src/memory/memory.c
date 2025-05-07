@@ -136,14 +136,14 @@ void vaddr_write(vaddr_t addr, int len, uint32_t data) {
       paddr = page_translate(addr + first_page, true);
       if(paddr == 0x1d93a1c) {
         Log("data is %x", data);
-        Log("paddr is %x", addr);
+        Log("addr is %x", addr);
       }
       paddr_write(paddr, second_page, data2);
     }else {
       paddr_t paddr = page_translate(addr, true);
       if(paddr == 0x1d93a1c) {
         Log("data is %x", data);
-        Log("paddr is %x", addr);
+        Log("addr is %x", addr);
       }
       // 这里的addr是虚拟地址，paddr是物理地址
       paddr_write(paddr, len, data);
