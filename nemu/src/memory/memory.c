@@ -57,7 +57,7 @@ static inline paddr_t page_translate(vaddr_t addr, bool write) {
   // 接下来即可拼接地址
   if(((PTE_descriptor.page_frame << 12) | offset) == 0x1d93a1c) {
     Log("addr is %x", addr);
-    Log("translate addr is %x\n", (PTE_descriptor.page_frame << 12) | offset);
+    Log("translate addr is %x", (PTE_descriptor.page_frame << 12) | offset);
   }
   return (PTE_descriptor.page_frame << 12) | offset;
   // 这里的offset是低12位，PTE_descripor.page_frame_number是高20位
@@ -102,7 +102,7 @@ uint32_t vaddr_read(vaddr_t addr, int len) {
       // Log("second_page is %d", second_page);
       paddr = page_translate(addr + first_page, false);
       if(paddr == 0x1d93a1c) {
-        Log("in cross page!addr is %x", addr);
+        Log("in cross page!addr is %x\n", addr);
       }
       uint32_t data2 = paddr_read(paddr, second_page);
       // 这里的data是第一页的数据，data2是第二页的数据
@@ -111,7 +111,7 @@ uint32_t vaddr_read(vaddr_t addr, int len) {
     }else {
       paddr_t paddr = page_translate(addr, false);
       if(paddr == 0x1d93a1c) {
-        Log("addr is %x", addr);
+        Log("addr is %x\n", addr);
       }
       // 这里的addr是虚拟地址，paddr是物理地址
       return paddr_read(paddr, len);
@@ -141,13 +141,13 @@ void vaddr_write(vaddr_t addr, int len, uint32_t data) {
       // Log("second_page is %d", second_page);
       paddr = page_translate(addr + first_page, true);
       if(paddr == 0x1d93a1c) {
-        Log("in cross page!addr is %x", addr);
+        Log("in cross page!addr is %x\n", addr);
       }
       paddr_write(paddr, second_page, data2);
     }else {
       paddr_t paddr = page_translate(addr, true);
       if(paddr == 0x1d93a1c) {
-        Log("addr is %x", addr);
+        Log("addr is %x\n", addr);
       }
       // 这里的addr是虚拟地址，paddr是物理地址
       paddr_write(paddr, len, data);
