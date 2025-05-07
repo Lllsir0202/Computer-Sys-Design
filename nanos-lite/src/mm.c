@@ -37,7 +37,9 @@ int mm_brk(uint32_t new_brk) {
           panic("no free page");
           return -1;
         }
-
+        if((uintptr_t)p == 0x1d93000) {
+          Log("addr is %p", addr);
+        }
         // Map the page into the address space
         _map(&(current->as), (void *)addr, p);
       }

@@ -37,6 +37,9 @@ uintptr_t loader(_Protect *as, const char *filename) {
     if(page == NULL) {
       panic("Failed to allocate memory for page");
     }
+    if((uintptr_t)page == 0x1d93000) {
+      Log("here is %p", DEFAULT_ENTRY + i * PGSIZE);
+    }
     // Log("page is %p", page);
     fs_read(fd, page, PGSIZE);
     // Log("vaddr is %p", DEFAULT_ENTRY + i * PGSIZE);
