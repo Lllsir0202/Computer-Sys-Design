@@ -42,21 +42,20 @@ uintptr_t loader(_Protect *as, const char *filename) {
       Log("vaddr is %p", DEFAULT_ENTRY);
     }
     // Log("page is %p", page);
+    _map(as, DEFAULT_ENTRY + i * PGSIZE, page);
     fs_read(fd, page, PGSIZE);
     // Log("vaddr is %p", DEFAULT_ENTRY + i * PGSIZE);
     // Log("page is %p", page);
-    _map(as, DEFAULT_ENTRY + i * PGSIZE, page);
-
   }
   if(len % PGSIZE != 0) {
     void *page = new_page();
     if(page == NULL) {
       panic("Failed to allocate memory for page");
     }
+    _map(as, DEFAULT_ENTRY + page_num * PGSIZE, page);
     fs_read(fd, page, len % PGSIZE);
     // Log("vaddr is %p", DEFAULT_ENTRY + page_num * PGSIZE);
     // Log("page is %p", page);
-    _map(as, DEFAULT_ENTRY + page_num * PGSIZE, page);
   }
   // // 首先获取一张空闲物理页
   // void *page = new_page();
