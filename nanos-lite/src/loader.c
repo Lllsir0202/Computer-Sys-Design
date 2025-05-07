@@ -37,9 +37,6 @@ uintptr_t loader(_Protect *as, const char *filename) {
     if(page == NULL) {
       panic("Failed to allocate memory for page");
     }
-    if((uintptr_t)page == 0x1d93000) {
-      Log("in loader !!!!!!addr is %d", i);
-    }
     // Log("page is %p", page);
     fs_read(fd, page, PGSIZE);
     // Log("vaddr is %p", DEFAULT_ENTRY + i * PGSIZE);
@@ -51,9 +48,6 @@ uintptr_t loader(_Protect *as, const char *filename) {
     void *page = new_page();
     if(page == NULL) {
       panic("Failed to allocate memory for page");
-    }
-    if((uintptr_t)page == 0x1d93000) {
-      Log("in loader !!!!!!addr");
     }
     fs_read(fd, page, len % PGSIZE);
     // Log("vaddr is %p", DEFAULT_ENTRY + page_num * PGSIZE);
