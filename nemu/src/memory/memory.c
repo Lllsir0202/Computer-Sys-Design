@@ -131,6 +131,10 @@ void vaddr_write(vaddr_t addr, int len, uint32_t data) {
       paddr_write(paddr, second_page, data2);
     }else {
       paddr_t paddr = page_translate(addr, true);
+      if(addr == 0x8048a1c) {
+        Log("data is %x", data);
+        Log("paddr is %x", paddr);
+      }
       // 这里的addr是虚拟地址，paddr是物理地址
       paddr_write(paddr, len, data);
     }
