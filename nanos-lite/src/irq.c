@@ -18,6 +18,7 @@ static _RegSet* do_event(_Event e, _RegSet* r) {
     }
     case _EVENT_IRQ_TIME: {
       Log("[important]:::timer interrupt");
+      return NULL;
     }
     default: panic("Unhandled event ID = %d", e.event);
   }
