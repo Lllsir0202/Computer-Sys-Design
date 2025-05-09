@@ -11,10 +11,13 @@ static _RegSet* do_event(_Event e, _RegSet* r) {
       return schedule(r);
     }
     case _EVENT_TRAP: {
-      Log("[important]: reach here");
+      // Log("[important]: reach here");
       // _RegSet *ret = schedule(r);
       // Log("schedule return %p", ret);
       return schedule(r);
+    }
+    case _EVENT_IRQ_TIME: {
+      Log("[important]:::timer interrupt");
     }
     default: panic("Unhandled event ID = %d", e.event);
   }
