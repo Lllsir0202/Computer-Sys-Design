@@ -50,7 +50,7 @@ _RegSet* schedule(_RegSet *prev) {
     current = &pcb[0];
   }
   cnt++;
-  if(cnt == 100) {
+  if(cnt == 10000) {
     current = &pcb[1];
     cnt = 0;
   }
