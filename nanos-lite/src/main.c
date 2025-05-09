@@ -37,5 +37,8 @@ int main() {
   // ((void (*)(void))entry)();
   load_prog("/bin/pal");
 
+  // Add in pa4-2
+  _trap();
+
   panic("Should not reach here");
 }
