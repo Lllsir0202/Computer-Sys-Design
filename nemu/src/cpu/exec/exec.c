@@ -283,10 +283,11 @@ void exec_wrapper(bool print_flag) {
 #ifdef DIFF_TEST
   uint32_t eip = cpu.eip;
 #endif
-
+  Log("reach here");
+  Log("cpu.INTR is %d", cpu.INTR);
   if (cpu.INTR & cpu.EFLAGS.IF) {
     cpu.INTR = false;
-    Log("reach here");
+    Log("reach here2");
     raise_intr(TIMER_IRQ, cpu.eip);
     update_eip();
   }
