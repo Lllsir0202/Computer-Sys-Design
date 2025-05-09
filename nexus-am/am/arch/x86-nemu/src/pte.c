@@ -128,5 +128,22 @@ void _unmap(_Protect *p, void *va) {
 }
 
 _RegSet *_umake(_Protect *p, _Area ustack, _Area kstack, void *entry, char *const argv[], char *const envp[]) {
-  return NULL;
+  // 首先需要在栈上分配start()的参数
+  uintptr_t stack_top = (uintptr_t)ustack.end;
+  // 写入start_()的参数
+  stack_top -= sizeof(int);
+  *(uint32_t *)(stack_top) = 0;
+  stack_top -= sizeof(char *);
+  *(uint32_t *)(stack_top) = 0;
+  stack_top -= sizeof(char *);
+  *(uint32_t *)(stack_top) = 0;
+
+  // 接下来是_RegSet *
+  stack_top -= sizeof(_RegSet);
+  _RegSet *tf = (_RegSet *)stack_top;
+  // 这里的tf是一个指向栈顶的指针
+  tf->cs = 0x8;
+  tf->eip = (uintptr_t)entry;
+  
+  return tf;
 }

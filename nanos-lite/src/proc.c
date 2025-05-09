@@ -12,18 +12,18 @@ void load_prog(const char *filename) {
   int i = nr_proc ++;
   // Log("reach here1");
   _protect(&pcb[i].as);
-  Log("protect %p", pcb[i].as.ptr);
+  // Log("protect %p", pcb[i].as.ptr);
   // Log("here");
   uintptr_t entry = loader(&pcb[i].as, filename);
-  Log("entry = %p", entry);
+  // Log("entry = %p", entry);
   // Log("reach here2");
 
   // TODO: remove the following three lines after you have implemented _umake()
-  _switch(&pcb[i].as);
+  // _switch(&pcb[i].as);
   // Log("switch to new process %p", pcb[i].as);
-  current = &pcb[i];
-  Log("switch to new process %p", current->as.ptr);
-  ((void (*)(void))entry)();
+  // current = &pcb[i];
+  // Log("switch to new process %p", current->as.ptr);
+  // ((void (*)(void))entry)();
 
   _Area stack;
   stack.start = pcb[i].stack;
