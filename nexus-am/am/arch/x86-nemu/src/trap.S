@@ -11,7 +11,7 @@ asm_trap:
 
 # Add in pa4-2
 # 先将栈顶指针切换到新进程的陷阱帧, 然后才根据陷阱帧的内容恢复现场
-#  movl %eax, %esp
+  movl %eax, %esp
 
   addl $4, %esp
 
