@@ -144,6 +144,7 @@ _RegSet *_umake(_Protect *p, _Area ustack, _Area kstack, void *entry, char *cons
   // 这里的tf是一个指向栈顶的指针
   tf->cs = 0x8;
   tf->eip = (uintptr_t)entry;
+  tf->esp = (uintptr_t)tf;
   
   return tf;
 }
