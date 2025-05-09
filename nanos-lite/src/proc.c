@@ -36,6 +36,7 @@ void load_prog(const char *filename) {
 _RegSet* schedule(_RegSet *prev) {
   // save the context pointer
   current->tf = prev;
+  Log("before switch to new process %p", current->as.ptr);
 
   // always select pcb[0] as the new process
   current = &pcb[0];
