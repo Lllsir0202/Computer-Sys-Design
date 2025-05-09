@@ -43,6 +43,7 @@ _RegSet* schedule(_RegSet *prev) {
   // TODO: switch to the new address space,
   // then return the new context
   _switch(&current->as);
+  Log("switch to new process %p", current->as.ptr);
 
   Log("current->tf is %p", current->tf);
   return current->tf;
