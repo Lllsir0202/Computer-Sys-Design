@@ -10,9 +10,9 @@ static _RegSet* do_event(_Event e, _RegSet* r) {
     }
     case _EVENT_TRAP: {
       Log("[important]: reach here");
-      _RegSet *ret = schedule(r);
-      Log("schedule return %p", ret);
-      return ret;
+      // _RegSet *ret = schedule(r);
+      // Log("schedule return %p", ret);
+      return schedule(r);
     }
     default: panic("Unhandled event ID = %d", e.event);
   }

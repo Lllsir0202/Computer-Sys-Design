@@ -40,7 +40,9 @@ _RegSet* schedule(_RegSet *prev) {
   Log("before switch to new process %p", current->as.ptr);
 
   // always select pcb[0] as the new process
-  current = &pcb[0];
+  // current = &pcb[0];
+  // Change in pa4-3
+  current = (current == &pcb[0] ? &pcb[1] : &pcb[0]);
 
   // TODO: switch to the new address space,
   // then return the new context
