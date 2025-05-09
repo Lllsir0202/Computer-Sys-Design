@@ -31,6 +31,7 @@ void load_prog(const char *filename) {
   // Log("reach here3");
 
   pcb[i].tf = _umake(&pcb[i].as, stack, stack, (void *)entry, NULL, NULL);
+  Log("pcb[i].tf = %p", pcb[i].tf);
 }
 
 _RegSet* schedule(_RegSet *prev) {
