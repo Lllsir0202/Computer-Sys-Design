@@ -17,7 +17,7 @@ void raise_intr(uint8_t NO, vaddr_t ret_addr) {
   rtlreg_t *eflags_ptr = (rtlreg_t*)&cpu.EFLAGS.eflags;
   // 压栈eflags
   rtl_push(eflags_ptr);
-  Log("cpu.EFLAGS.IF is %d", cpu.EFLAGS.IF);
+  // Log("cpu.EFLAGS.IF is %d", cpu.EFLAGS.IF);
   cpu.EFLAGS.IF = false;
   rtlreg_t *cs_ptr = (rtlreg_t*)&cpu.cs;
   // 压栈cs
