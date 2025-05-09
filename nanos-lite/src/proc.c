@@ -37,7 +37,7 @@ void load_prog(const char *filename) {
 _RegSet* schedule(_RegSet *prev) {
   // save the context pointer
   current->tf = prev;
-  Log("before switch to new process %p", current->as.ptr);
+  // Log("before switch to new process %p", current->as.ptr);
 
   // always select pcb[0] as the new process
   // current = &pcb[0];
@@ -47,8 +47,8 @@ _RegSet* schedule(_RegSet *prev) {
   // TODO: switch to the new address space,
   // then return the new context
   _switch(&current->as);
-  Log("switch to new process %p", current->as.ptr);
+  // Log("switch to new process %p", current->as.ptr);
 
-  Log("current->tf is %p", current->tf);
+  // Log("current->tf is %p", current->tf);
   return current->tf;
 }
