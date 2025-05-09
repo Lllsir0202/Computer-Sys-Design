@@ -44,5 +44,6 @@ _RegSet* schedule(_RegSet *prev) {
   // then return the new context
   _switch(&current->as);
 
+  Log("current->tf is %p", current->tf);
   return current->tf;
 }
