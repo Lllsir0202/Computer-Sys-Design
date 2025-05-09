@@ -289,9 +289,9 @@ void exec_wrapper(bool print_flag) {
   void difftest_step(uint32_t);
   difftest_step(eip);
 #endif
-  Log("reach here");
-  Log("cpu.INTR is %d", cpu.INTR);
-  Log("cpu.EFLAGS.IF is %d", cpu.EFLAGS.IF);
+  // Log("reach here");
+  // Log("cpu.INTR is %d", cpu.INTR);
+  // Log("cpu.EFLAGS.IF is %d", cpu.EFLAGS.IF);
   if (cpu.INTR & cpu.EFLAGS.IF) {
     cpu.INTR = false;
     Log("reach here2");
