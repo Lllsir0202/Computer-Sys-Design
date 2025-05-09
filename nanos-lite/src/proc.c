@@ -42,7 +42,18 @@ _RegSet* schedule(_RegSet *prev) {
   // always select pcb[0] as the new process
   // current = &pcb[0];
   // Change in pa4-3
-  current = (current == &pcb[0] ? &pcb[1] : &pcb[0]);
+  // current = (current == &pcb[0] ? &pcb[1] : &pcb[0]);
+
+  // 优先级调度
+  static uint32_t cnt = 0;
+  if(cnt == 0) {
+    current = &pcb[0];
+  }
+  cnt++;
+  if(cnt == 100000) {
+    current = &pcb[1];
+    cnt = 0;
+  }
 
   // TODO: switch to the new address space,
   // then return the new context
