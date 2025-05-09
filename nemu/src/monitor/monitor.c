@@ -89,6 +89,7 @@ static inline void restart() {
   assert(sizeof(cpu.EFLAGS) == sizeof(init_val));
   memcpy(&cpu.EFLAGS, &init_val, sizeof(init_val));
   // Log("EFLAGS init value is %x", test);
+  Log("EFLAGS.IF = %d", cpu.EFLAGS.IF);
 
   // ADD in pa3 : 对于CS寄存器进行初始化
   cpu.cs = 0x8;
