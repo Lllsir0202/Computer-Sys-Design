@@ -84,6 +84,9 @@ typedef struct {
   uint32_t cr0;
   uint32_t cr3;
 
+  // ADD in pa4-3
+  bool INTR;
+
 } CPU_state;
 
 extern CPU_state cpu;

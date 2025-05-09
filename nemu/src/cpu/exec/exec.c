@@ -1,6 +1,10 @@
 #include "cpu/exec.h"
 #include "all-instr.h"
 
+// ADD in pa4-3
+#define TIMER_IRQ 32
+extern void raise_intr(uint8_t NO, vaddr_t ret_addr);
+
 // 这里其实相当于把这里的所有可能的情况，都通过这里的函数指针进行记录
 // 需要执行的时候，其实更换下函数指针，传入eip，就可以一样的执行了
 // 其实本质上是避免太多的if-else或者switch-case
@@ -279,6 +283,12 @@ void exec_wrapper(bool print_flag) {
 #ifdef DIFF_TEST
   uint32_t eip = cpu.eip;
 #endif
+
+  if (cpu.INTR & cpu.EFLAGS.IF) {
+    cpu.INTR = false;
+    raise_intr(TIMER_IRQ, cpu.eip);
+    update_eip();
+  }
 
   update_eip();
 
