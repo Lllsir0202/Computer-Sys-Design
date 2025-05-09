@@ -20,6 +20,15 @@ union {
   } bits;
 } float_union;
 
+union {
+  FLOAT F;
+  struct {
+    uint32_t fraction : 16;
+    uint32_t interger : 15;
+    uint32_t sign : 1;
+  } bits;
+} FLOAT_union;
+
 FLOAT f2F(float a) {
   /* You should figure out how to convert `a' into FLOAT without
    * introducing x87 floating point instructions. Else you can
@@ -31,19 +40,16 @@ FLOAT f2F(float a) {
    * performing arithmetic operations on it directly?
    */
   float_union.f = a;
-  uint32_t sign = float_union.bits.sign;
-  uint32_t exponent = float_union.bits.exponent;
-  uint32_t fraction = float_union.bits.fraction;
   // offset表示偏移量,可以通过这里得到整数位
-  uint8_t offset = exponent - 127;
-  uint32_t result = 1 << 23 | fraction;
+  uint8_t offset = float_union.bits.exponent - 127;
+  uint32_t result = 1 << 23 | float_union.bits.fraction;
   // 这里的result是offset前的浮点数
-  uint16_t interger = result >> (23 - offset);
-  uint16_t fraction2 = result & ((1 << (23 - offset)) - 1);
-  FLOAT F;
-  F = (sign << 31) | interger << 16 | fraction2;
+  FLOAT_union.F = 0;
+  FLOAT_union.bits.sign = float_union.bits.sign;
+  FLOAT_union.bits.interger = result >> (23 - offset);
+  FLOAT_union.bits.fraction = result << (offset);
 
-  return F;
+  return FLOAT_union.F;
 }
 
 FLOAT Fabs(FLOAT a) {
