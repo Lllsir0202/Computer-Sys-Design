@@ -294,7 +294,7 @@ void exec_wrapper(bool print_flag) {
   // Log("cpu.EFLAGS.IF is %d", cpu.EFLAGS.IF);
   if (cpu.INTR & cpu.EFLAGS.IF) {
     cpu.INTR = false;
-    Log("reach here2");
+    // Log("reach here2");
     raise_intr(TIMER_IRQ, cpu.eip);
     update_eip();
   }
