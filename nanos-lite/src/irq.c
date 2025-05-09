@@ -9,7 +9,7 @@ static _RegSet* do_event(_Event e, _RegSet* r) {
       return do_syscall(r);
     }
     case _EVENT_TRAP: {
-      Log("[important]: reach here");
+      Log("\38[important]: reach here");
       _RegSet *ret = schedule(r);
       Log("schedule return %p", ret);
       return ret;
