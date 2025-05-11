@@ -20,15 +20,6 @@ union {
   } bits;
 } float_union;
 
-union {
-  FLOAT F;
-  struct {
-    uint32_t fraction : 16;
-    uint32_t interger : 15;
-    uint32_t sign : 1;
-  } bits;
-} FLOAT_union;
-
 FLOAT f2F(float a) {
   /* You should figure out how to convert `a' into FLOAT without
    * introducing x87 floating point instructions. Else you can
@@ -39,17 +30,27 @@ FLOAT f2F(float a) {
    * stack. How do you retrieve it to another variable without
    * performing arithmetic operations on it directly?
    */
+
+  if(a == 0) {
+    return 0;
+  }
+
   float_union.f = a;
   // offset表示偏移量,可以通过这里得到整数位
   uint8_t offset = float_union.bits.exponent - 127;
-  uint32_t result = 1 << 23 | float_union.bits.fraction;
+  uint32_t result = (1u << 23) | float_union.bits.fraction;
   // 这里的result是offset前的浮点数
-  FLOAT_union.F = 0;
-  FLOAT_union.bits.sign = float_union.bits.sign;
-  FLOAT_union.bits.interger = result >> (23 - offset);
-  FLOAT_union.bits.fraction = result << (offset);
-
-  return FLOAT_union.F;
+  FLOAT res;
+  uint8_t swift = offset - 23 + 16;
+  if(swift > 0) {
+    res = result << swift;
+  } else {
+    res = result >> -swift;
+  }
+  if(float_union.bits.sign) {
+    res = -res;
+  }
+  return res;
 }
 
 FLOAT Fabs(FLOAT a) {
