@@ -50,7 +50,12 @@ _RegSet* schedule(_RegSet *prev, bool keyboard) {
     current_game = &pcb[0];
   }
   if(keyboard) {
-    current_game = (current_game == &pcb[0] ? &pcb[2] : &pcb[0]);
+    if(current == current_game) {
+      current_game = (current_game == &pcb[0] ? &pcb[2] : &pcb[0]);
+      current = current_game;
+    }else {
+      current_game = (current_game == &pcb[0] ? &pcb[2] : &pcb[0]);
+    }
   }
   // 优先级调度
   static uint32_t cnt = 0;
