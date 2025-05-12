@@ -35,7 +35,7 @@ int main() {
 
   // uint32_t entry = loader(NULL, "/bin/pal");
   // ((void (*)(void))entry)();
-  load_prog("/bin/pal");
+  load_prog("/bin/videotest");
   
   // Add in pa4-3
   load_prog("/bin/hello");
