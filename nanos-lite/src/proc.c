@@ -46,6 +46,9 @@ _RegSet* schedule(_RegSet *prev, bool keyboard) {
   // current = &pcb[0];
   // Change in pa4-3
   // current = (current == &pcb[0] ? &pcb[1] : &pcb[0]);
+  if(current_game == NULL) {
+    current_game = &pcb[0];
+  }
   if(keyboard) {
     current_game = (current_game == &pcb[0] ? &pcb[2] : &pcb[0]);
   }
