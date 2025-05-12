@@ -46,6 +46,8 @@ _RegSet* schedule(_RegSet *prev, bool keyboard) {
 
   if(keyboard) {
     current = (current == &pcb[0] ? &pcb[1] : &pcb[0]);
+    _switch(&current->as);
+    return current->tf;
   }
 
   // 优先级调度
