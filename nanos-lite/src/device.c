@@ -23,6 +23,7 @@ size_t events_read(void *buf, size_t len) {
     // printf("%s %s\n", down ? "kd" : "ku" , keyname[key]);
     snprintf(buf, len, "%s %s\n", down ? "kd" : "ku" , keyname[key]);
     if(key == _KEY_F12) {
+      Log("exit");
       schedule(current->tf);
     }
     // Log("buf is %s", buf);
