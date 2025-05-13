@@ -85,10 +85,7 @@ FLOAT f2F(float a) {
 
 FLOAT Fabs(FLOAT a) {
   printf("Fabs: a = %d\n", a);
-  if(a & (1u << 31)) {
-    return a & ~(1u << 31);
-  }
-  return a;
+  return a < 0 ? -a : a;
 }
 
 /* Functions below are already implemented */
