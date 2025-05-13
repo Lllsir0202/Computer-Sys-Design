@@ -61,7 +61,7 @@ _RegSet* schedule(_RegSet *prev, bool keyboard) {
     current = current_game;
   }
   cnt++;
-  if(cnt == 1000) {
+  if(cnt == 100) {
     current = &pcb[1];
     cnt = 0;
   }
