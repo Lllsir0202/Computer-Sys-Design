@@ -4,8 +4,9 @@
 
 FLOAT F_mul_F(FLOAT a, FLOAT b) {
   printf("F_mul_F: a = %d, b = %d\n", a, b);
-  printf("F_mul_F: a * b = %d\n", (a * b) >> 16);
-  return (a * b) >> 16;
+  int64_t res = a * b;
+  printf("F_mul_F: a * b = %d\n", (int)(res >> 16));
+  return (int)(res >> 16);
 }
 
 FLOAT F_div_F(FLOAT a, FLOAT b) {
