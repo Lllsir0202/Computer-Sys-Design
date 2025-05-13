@@ -95,7 +95,7 @@ _RegSet* do_syscall(_RegSet *r) {
       if(SYSCALL_ARG2(r) == 4){
         char* buf = (char *)SYSCALL_ARG3(r);
         if(SYSCALL_ARG1(r) != 0 && strcmp(buf, "kd F12\n") == 0){
-        Log("buf is %s", buf);
+        // Log("buf is %s", buf);
         return schedule(r);
         }
     }

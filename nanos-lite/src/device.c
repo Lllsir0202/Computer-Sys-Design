@@ -22,10 +22,10 @@ size_t events_read(void *buf, size_t len) {
   if (key != _KEY_NONE) {
     // printf("%s %s\n", down ? "kd" : "ku" , keyname[key]);
     snprintf(buf, len, "%s %s\n", down ? "kd" : "ku" , keyname[key]);
-    if(key == _KEY_F12 && down) {
-      Log("F12 pressed");
-      Log("%s", buf);
-    }
+    // if(key == _KEY_F12 && down) {
+    //   Log("F12 pressed");
+    //   Log("%s", buf);
+    // }
     // Log("buf is %s", buf);
   }else{
     unsigned long ms = _uptime();
