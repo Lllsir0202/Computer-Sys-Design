@@ -35,8 +35,39 @@ FLOAT F_div_F(FLOAT a, FLOAT b) {
   if(b == 0) {
     assert(0);
   }
-  printf("F_div_F: a / b = %d\n", (a / b) << 16);
-  return (a / b) << 16;
+  
+  // 处理符号位
+  int sign = 1;
+  if ((a < 0 && b > 0) || (a > 0 && b < 0)) {
+    sign = -1;
+  }
+  
+  // 取绝对值
+  uint32_t ua = a < 0 ? -a : a;
+  uint32_t ub = b < 0 ? -b : b;
+  
+  // 结果的整数部分
+  uint32_t int_part = ua / ub;
+  
+  // 计算余数
+  uint32_t remainder = ua % ub;
+  
+  // 计算小数部分（余数扩大2^16倍再除）
+  uint32_t frac_part = 0;
+  for (int i = 0; i < 16; i++) {
+    remainder <<= 1;
+    frac_part <<= 1;
+    if (remainder >= ub) {
+      remainder -= ub;
+      frac_part |= 1;
+    }
+  }
+  
+  // 组合整数部分和小数部分
+  uint32_t result = (int_part << 16) | frac_part;
+  
+  printf("F_div_F: a / b = %d\n", sign > 0 ? result : -result);
+  return sign > 0 ? result : -result;
 }
 
 // 用于处理float -> FLOAT的转换
