@@ -7,12 +7,16 @@ typedef int FLOAT;
 
 static inline int F2int(FLOAT a) {
   printf("F2int: %d\n", a);
-  return a >> 16;
+  FLOAT nosignF = a & ~(1u << 31);
+  int nosigni = nosignF >> 16;
+  return (a & (1u << 31)) ? -nosigni : nosigni;
 }
 
 static inline FLOAT int2F(int a) {
   printf("int2F: %d\n", a);
-  return a << 16;
+  int nosigni = a > 0 ? a : -a;
+  FLOAT nosignF = nosigni << 16;
+  return a < 0 ? (1u << 31) | nosignF : nosignF;
 }
 
 static inline FLOAT F_mul_int(FLOAT a, int b) {
