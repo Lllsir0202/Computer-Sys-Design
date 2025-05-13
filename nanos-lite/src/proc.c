@@ -34,8 +34,6 @@ void load_prog(const char *filename) {
   Log("pcb[i].tf = %p", pcb[i].tf);
 }
 
-// Add in pa4-3
-// 默认为pal
 static PCB *current_game = NULL;
 _RegSet* schedule(_RegSet *prev, bool keyboard) {
   // save the context pointer
@@ -51,10 +49,10 @@ _RegSet* schedule(_RegSet *prev, bool keyboard) {
   }
   if(keyboard) {
     if(current == current_game) {
-      current_game = (current_game == &pcb[0] ? &pcb[2] : &pcb[0]);
-      current = current_game;
-    }else {
-      current_game = (current_game == &pcb[0] ? &pcb[2] : &pcb[0]);
+      current = current_game == &pcb[0] ? &pcb[2] : &pcb[0];
+      current_game = current;
+    } else {
+      current_game = current_game == &pcb[0] ? &pcb[2] : &pcb[0];
     }
   }
   // 优先级调度
