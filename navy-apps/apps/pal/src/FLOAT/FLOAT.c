@@ -52,11 +52,15 @@ FLOAT f2F(float a) {
   if(float_union.bits.sign) {
     res = -res;
   }
+  printf("f2F: res = %d\n", res);
   return res;
 }
 
 FLOAT Fabs(FLOAT a) {
-  return a < 0 ? -a : a;
+  if(a & (1u << 31)) {
+    return -a;
+  }
+  return a;
 }
 
 /* Functions below are already implemented */
