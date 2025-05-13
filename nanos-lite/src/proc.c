@@ -44,12 +44,6 @@ _RegSet* schedule(_RegSet *prev, bool keyboard) {
   // Change in pa4-3
   // current = (current == &pcb[0] ? &pcb[1] : &pcb[0]);
 
-  if(keyboard) {
-    current = (current == &pcb[0] ? &pcb[1] : &pcb[0]);
-    _switch(&current->as);
-    return current->tf;
-  }
-
   // 优先级调度
   static uint32_t cnt = 0;
   if(cnt == 0) {
