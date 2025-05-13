@@ -93,7 +93,7 @@ _RegSet* do_syscall(_RegSet *r) {
     case SYS_read: {
       SYSCALL_ARG1(r) = sys_read(SYSCALL_ARG2(r), (void *)SYSCALL_ARG3(r), SYSCALL_ARG4(r));
       char* buf = (char *)SYSCALL_ARG3(r);
-      if(SYSCALL_ARG1(r) != 0 && strcmp(buf, "kd F12") == 0){
+      if(SYSCALL_ARG1(r) != 0 && strcmp(buf, "kd F12\n") == 0){
         return schedule(r);
       }
       return r;
