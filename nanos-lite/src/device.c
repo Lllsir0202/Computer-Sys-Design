@@ -21,7 +21,7 @@ size_t events_read(void *buf, size_t len) {
   }
   if (key != _KEY_NONE) {
     // printf("%s %s\n", down ? "kd" : "ku" , keyname[key]);
-    snprintf(buf, len, "%s %s\n", down ? "kd" : "ku" , keyname[key]);
+    snprintf(buf, len, "%s %s", down ? "kd" : "ku" , keyname[key]);
     // Log("buf is %s", buf);
   }else{
     unsigned long ms = _uptime();
