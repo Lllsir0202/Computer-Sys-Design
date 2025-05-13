@@ -1,6 +1,6 @@
 #include "common.h"
-
 #include "proc.h"
+
 #define NAME(key) \
   [_KEY_##key] = #key,
 
@@ -10,7 +10,7 @@ static const char *keyname[256] __attribute__((used)) = {
 };
 
 extern PCB *current;
-extern _RegSet* schedule(_RegSet *prev, bool keyboard);
+extern _RegSet* schedule(_RegSet* prev);
 
 size_t events_read(void *buf, size_t len) {
   int key = _read_key();
@@ -22,10 +22,10 @@ size_t events_read(void *buf, size_t len) {
   if (key != _KEY_NONE) {
     // printf("%s %s\n", down ? "kd" : "ku" , keyname[key]);
     snprintf(buf, len, "%s %s\n", down ? "kd" : "ku" , keyname[key]);
-    if(key == _KEY_F12) {
-      Log("F12 pressed");
-      schedule(current->tf, true);
-    }
+    // if(key == _KEY_F12 && down) {
+    //   Log("F12 pressed");
+    //   Log("%s", buf);
+    // }
     // Log("buf is %s", buf);
   }else{
     unsigned long ms = _uptime();
