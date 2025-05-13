@@ -9,7 +9,7 @@ extern int fs_close(int fd);
 extern int mm_brk(uint32_t new_brk);
 
 // Add in pa4-4
-extern _RegSet* schedule(_RegSet *r);
+extern _RegSet* schedule(_RegSet *r, bool keyboard);
 
 static int sys_non(_RegSet *r) {
   return 1;
@@ -96,7 +96,7 @@ _RegSet* do_syscall(_RegSet *r) {
         char* buf = (char *)SYSCALL_ARG3(r);
         if(SYSCALL_ARG1(r) != 0 && strcmp(buf, "kd F12\n") == 0){
         // Log("buf is %s", buf);
-        return schedule(r);
+        return schedule(r, true);
         }
     }
       return r;

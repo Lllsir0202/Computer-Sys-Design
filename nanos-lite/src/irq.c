@@ -1,7 +1,7 @@
 #include "common.h"
 
 extern _RegSet* do_syscall(_RegSet* r);
-extern _RegSet* schedule(_RegSet* r);
+extern _RegSet* schedule(_RegSet* r, bool keyboard);
 
 static _RegSet* do_event(_Event e, _RegSet* r) {
   switch (e.event) {
@@ -15,11 +15,11 @@ static _RegSet* do_event(_Event e, _RegSet* r) {
       // Log("[important]: reach here");
       // _RegSet *ret = schedule(r);
       // Log("schedule return %p", ret);
-      return schedule(r);
+      return schedule(r, false);
     }
     case _EVENT_IRQ_TIME: {
       // Log("[important]:::timer interrupt");
-      return schedule(r);
+      return schedule(r, false);
     }
     default: panic("Unhandled event ID = %d", e.event);
   }
