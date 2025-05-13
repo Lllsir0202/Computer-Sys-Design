@@ -40,7 +40,7 @@ FLOAT f2F(float a) {
   float_union.f = a;
   // offset表示偏移量,可以通过这里得到整数位
   uint8_t offset = float_union.bits.exponent - 127;
-  uint32_t result = (float_union.sign << 23) | float_union.bits.fraction;
+  uint32_t result = (float_union.bits.sign << 23) | float_union.bits.fraction;
   // 这里的result是offset前的浮点数
   FLOAT res;
   uint8_t swift = offset - 23 + 16;
