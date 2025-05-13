@@ -4,6 +4,7 @@
 
 FLOAT F_mul_F(FLOAT a, FLOAT b) {
   printf("F_mul_F: a = %d, b = %d\n", a, b);
+  printf("F_mul_F: a * b = %d\n", (a * b) >> 16);
   return (a * b) >> 16;
 }
 
@@ -12,6 +13,7 @@ FLOAT F_div_F(FLOAT a, FLOAT b) {
   if(b == 0) {
     assert(0);
   }
+  printf("F_div_F: a / b = %d\n", (a / b) << 16);
   return (a / b) << 16;
 }
 
