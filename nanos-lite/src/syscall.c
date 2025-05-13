@@ -8,6 +8,9 @@ extern off_t fs_lseek(int fd, off_t offset, int whence);
 extern int fs_close(int fd);
 extern int mm_brk(uint32_t new_brk);
 
+// Add in pa4-4
+extern _RegSet* schedule(_RegSet *r, bool keyboard);
+
 static int sys_non(_RegSet *r) {
   return 1;
 }
@@ -89,6 +92,13 @@ _RegSet* do_syscall(_RegSet *r) {
     }
     case SYS_read: {
       SYSCALL_ARG1(r) = sys_read(SYSCALL_ARG2(r), (void *)SYSCALL_ARG3(r), SYSCALL_ARG4(r));
+      if(SYSCALL_ARG2(r) == 4){
+        char* buf = (char *)SYSCALL_ARG3(r);
+        if(SYSCALL_ARG1(r) != 0 && strcmp(buf, "kd F12\n") == 0){
+        // Log("buf is %s", buf);
+        return schedule(r, true);
+        }
+    }
       return r;
     }
     case SYS_lseek: {
