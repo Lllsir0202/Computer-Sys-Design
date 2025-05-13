@@ -3,10 +3,12 @@
 #include <assert.h>
 
 FLOAT F_mul_F(FLOAT a, FLOAT b) {
+  printf("F_mul_F: a = %d, b = %d\n", a, b);
   return (a * b) >> 16;
 }
 
 FLOAT F_div_F(FLOAT a, FLOAT b) {
+  printf("F_div_F: a = %d, b = %d\n", a, b);
   return (a / b) << 16;
 }
 
@@ -30,7 +32,7 @@ FLOAT f2F(float a) {
    * stack. How do you retrieve it to another variable without
    * performing arithmetic operations on it directly?
    */
-
+  printf("f2F: a = %f\n", a);
   if(a == 0) {
     return 0;
   }
