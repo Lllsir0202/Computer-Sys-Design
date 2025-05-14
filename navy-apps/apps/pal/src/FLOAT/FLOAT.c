@@ -85,12 +85,10 @@ FLOAT F_div_F(FLOAT a, FLOAT b) {
 #define get_sign(x) (x) >> 31
 #define get_exponent(x) ((x) >> 23) & 0xFF
 #define get_fraction(x) (x) & 0x7FFFFF
-// union {
-//   float f;
-//   uint32_t i;
-// } float_union;
-
-extern void memcpy(void *dest, const void *src, int n);
+union {
+  float f;
+  uint32_t i;
+} float_union;
 
 FLOAT f2F(float a) {
   /* You should figure out how to convert `a' into FLOAT without
@@ -107,8 +105,8 @@ FLOAT f2F(float a) {
     return 0;
   }
   printf("reach here0\n");
-  uint32_t a_int;
-  memcpy(&a_int, &a, sizeof(uint32_t));
+  float_union.f = a;
+  uint32_t a_int = float_union.i;
   printf("reach here1\n");
   // offset表示偏移量,可以通过这里得到整数位
   uint32_t offset = get_exponent(a_int) - 127;
