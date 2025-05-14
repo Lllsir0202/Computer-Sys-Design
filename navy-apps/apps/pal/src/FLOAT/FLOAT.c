@@ -82,9 +82,9 @@ FLOAT F_div_F(FLOAT a, FLOAT b) {
 // } float_union;
 
 // 定义一些宏的位运算来进行处理
-#define get_sign(x) (x) >> 31
-#define get_exponent(x) ((x) >> 23) & 0xFF
-#define get_fraction(x) (x) & 0x7FFFFF
+#define get_sign(x) ((x) >> 31)
+#define get_exponent(x) (((x) >> 23) & 0xFF)
+#define get_fraction(x) ((x) & 0x7FFFFF)
 // union {
 //   float f;
 //   uint32_t i;
@@ -115,7 +115,7 @@ FLOAT f2F(float a) {
   printf("reach here1\n");
   // offset表示偏移量,可以通过这里得到整数位
   uint32_t offset = get_exponent(a_int) - 127;
-  printf("offset is %d", offset);
+  printf("offset is %d\n", offset);
   uint32_t result = get_sign(a_int) << 23 | get_fraction(a_int);
   printf("result = %d\n", result);
   // 这里的result是offset前的浮点数
