@@ -100,7 +100,8 @@ FLOAT f2F(float a) {
   if(a == 0) {
     return 0;
   }
-  uint32_t a_int = *(uint32_t *)&a;
+  uint32_t a_int;
+  memcpy(&a_int, &a, sizeof(uint32_t));
   // offset表示偏移量,可以通过这里得到整数位
   uint32_t offset = get_exponent(a_int) - 127;
   uint32_t result = get_sign(a_int) << 23 | get_fraction(a_int);
