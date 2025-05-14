@@ -7,21 +7,17 @@ typedef int FLOAT;
 
 static inline int F2int(FLOAT a) {
   printf("F2int: %d\n", (int)a);
-  int sign = a < 0;
-  printf("result is %d\n", sign ? -(-a >> 16) : (a >> 16));
-  return sign ? -(-a >> 16) : (a >> 16);
+  return a >> 16;
 }
 
 static inline FLOAT int2F(int a) {
   printf("int2F: %d\n", a);
-  printf("result is %d\n", a < 0 ? -(-a << 16) : (a << 16));
-  return a < 0 ? -(-a << 16) : (a << 16);
+  return a << 16;
 }
 
 static inline FLOAT F_mul_int(FLOAT a, int b) {
   printf("F_mul_int: %d * %d\n", a, b);
-  int sign = (a < 0 & b > 0) | (a > 0 & b < 0);
-  return sign ? -(a * b) : (a * b);
+  return a * b;
 }
 
 static inline FLOAT F_div_int(FLOAT a, int b) {
@@ -29,8 +25,7 @@ static inline FLOAT F_div_int(FLOAT a, int b) {
   if(b == 0) {
     assert(0);
   }
-  int sign = (a < 0 & b > 0) | (a > 0 & b < 0);
-  return sign ? -(a / b) : (a / b);
+  return a / b;
 }
 
 FLOAT f2F(float);

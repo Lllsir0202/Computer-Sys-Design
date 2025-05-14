@@ -7,27 +7,23 @@ FLOAT F_mul_F(FLOAT a, FLOAT b) {
   // printf("F_mul_F: a * b = %d\n", (int)(a*b >> 16));
   // 会出现溢出的Undefined Behavior
   // 这里的a和b都是32位的整数,所以乘法会溢出
-  int sign = 1;
-  if((a < 0 && b > 0) || (a > 0 && b < 0)) {
-    sign = -1;
-  }
-  // 取绝对值
-  uint32_t ua = a < 0 ? -a : a;
-  uint32_t ub = b < 0 ? -b : b;
+  // 这里采用分段乘法来做处理
   
-  // 拆分运算
-  uint32_t a_high = ua >> 16;
-  uint32_t a_low = ua & 0xFFFF;
-  uint32_t b_high = ub >> 16;
-  uint32_t b_low = ub & 0xFFFF;
+  int a_hi = a >> 16;
+  // a high 16 bits
+  int a_lo = a & 0xFFFF;
+  // a low 16 bits
+  int b_hi = b >> 16;
+  // b high 16 bits
+  int b_lo = b & 0xFFFF;
+  // b low 16 bits
 
-  uint32_t result = a_high * b_high;
-  uint32_t mid1 = a_high * b_low;
-  uint32_t mid2 = a_low * b_high;
-  uint32_t mid = (mid1 & 0xFFFF0000) + (mid2 & 0xFFFF0000) + (((mid1 & 0xFFFF) + (mid2 & 0xFFFF)) & 0xFFFF0000);
-  result += mid >> 16;
-  result += (a_low * b_low) >> 16;
-  return sign > 0 ? result : -result;
+  // 计算
+  int high = (a_hi * b_hi) << 16;
+  int mid1 = (a_hi * b_lo);
+  int mid2 = (a_lo * b_hi);
+
+  return high + mid1 + mid2;
 }
 
 FLOAT F_div_F(FLOAT a, FLOAT b) {
@@ -35,39 +31,7 @@ FLOAT F_div_F(FLOAT a, FLOAT b) {
   if(b == 0) {
     assert(0);
   }
-  
-  // 处理符号位
-  int sign = 1;
-  if ((a < 0 && b > 0) || (a > 0 && b < 0)) {
-    sign = -1;
-  }
-  
-  // 取绝对值
-  uint32_t ua = a < 0 ? -a : a;
-  uint32_t ub = b < 0 ? -b : b;
-  
-  // 结果的整数部分
-  uint32_t int_part = ua / ub;
-  
-  // 计算余数
-  uint32_t remainder = ua % ub;
-  
-  // 计算小数部分（余数扩大2^16倍再除）
-  uint32_t frac_part = 0;
-  for (int i = 0; i < 16; i++) {
-    remainder <<= 1;
-    frac_part <<= 1;
-    if (remainder >= ub) {
-      remainder -= ub;
-      frac_part |= 1;
-    }
-  }
-  
-  // 组合整数部分和小数部分
-  uint32_t result = (int_part << 16) | frac_part;
-  
-  printf("F_div_F: a / b = %d\n", sign > 0 ? result : -result);
-  return sign > 0 ? result : -result;
+  return (a << 16) / b;
 }
 
 // 用于处理float -> FLOAT的转换
