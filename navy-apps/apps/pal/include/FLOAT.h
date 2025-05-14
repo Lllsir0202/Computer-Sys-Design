@@ -7,7 +7,7 @@ typedef int FLOAT;
 
 static inline int F2int(FLOAT a) {
   printf("F2int: %d\n", (int)a);
-  int sign = a & (1u << 31);
+  int sign = a < 0;
   return sign ? -(-a >> 16) : (a >> 16);
 }
 
