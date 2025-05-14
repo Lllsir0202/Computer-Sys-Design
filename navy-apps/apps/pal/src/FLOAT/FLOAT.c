@@ -82,9 +82,9 @@ FLOAT F_div_F(FLOAT a, FLOAT b) {
 // } float_union;
 
 // 定义一些宏的位运算来进行处理
-#define get_sign(x) {(x) >> 31}
-#define get_exponent(x) {((x) >> 23) & 0xFF}
-#define get_fraction(x) {(x) & 0x7FFFFF}
+#define get_sign(x) (x) >> 31
+#define get_exponent(x) ((x) >> 23) & 0xFF
+#define get_fraction(x) (x) & 0x7FFFFF
 
 FLOAT f2F(float a) {
   /* You should figure out how to convert `a' into FLOAT without
@@ -100,9 +100,10 @@ FLOAT f2F(float a) {
   if(a == 0) {
     return 0;
   }
+  uint32_t a_int = *(uint32_t *)&a;
   // offset表示偏移量,可以通过这里得到整数位
-  uint32_t offset = get_exponent(a) - 127;
-  uint32_t result = get_sign(a) << 23 | get_fraction(a);
+  uint32_t offset = get_exponent(a_int) - 127;
+  uint32_t result = get_sign(a_int) << 23 | get_fraction(a_int);
   // 这里的result是offset前的浮点数
   FLOAT res;
   uint32_t swift = offset - 23 + 16;
@@ -111,7 +112,7 @@ FLOAT f2F(float a) {
   } else {
     res = result >> -swift;
   }
-  if(get_sign(a)) {
+  if(get_sign(a_int)) {
     res = -res;
   }
   printf("f2F: res = %d\n", res);
