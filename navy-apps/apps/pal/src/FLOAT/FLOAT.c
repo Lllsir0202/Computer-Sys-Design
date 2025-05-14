@@ -105,7 +105,7 @@ FLOAT f2F(float a) {
    * stack. How do you retrieve it to another variable without
    * performing arithmetic operations on it directly?
    */
-  printf("f2F: a = \n");
+  printf("f2F: a = %f\n", a);
   if(a == 0) {
     return 0;
   }
