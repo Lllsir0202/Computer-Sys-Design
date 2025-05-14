@@ -31,7 +31,7 @@ FLOAT F_mul_F(FLOAT a, FLOAT b) {
 }
 
 FLOAT F_div_F(FLOAT a, FLOAT b) {
-  printf("F_div_F: a = %d, b = %d\n", a, b);
+  // printf("F_div_F: a = %d, b = %d\n", a, b);
   if(b == 0) {
     assert(0);
   }
@@ -66,7 +66,7 @@ FLOAT F_div_F(FLOAT a, FLOAT b) {
   // 组合整数部分和小数部分
   uint32_t result = (int_part << 16) | frac_part;
   
-  printf("F_div_F: a / b = %d\n", sign > 0 ? result : -result);
+  // printf("F_div_F: a / b = %d\n", sign > 0 ? result : -result);
   return sign > 0 ? result : -result;
 }
 
@@ -100,18 +100,18 @@ FLOAT f2F(float a) {
    * stack. How do you retrieve it to another variable without
    * performing arithmetic operations on it directly?
    */
-  printf("f2F: a = \n");
+  // printf("f2F: a = \n");
   if(a == 0) {
     return 0;
   }
   float_union.f = a;
   uint32_t a_int = float_union.i;
-  printf("reach here1\n");
+  // printf("reach here1\n");
   // offset表示偏移量,可以通过这里得到整数位
   uint32_t offset = get_exponent(a_int) - 127;
   uint32_t result = get_sign(a_int) << 23 | get_fraction(a_int);
   // 这里的result是offset前的浮点数
-  printf("reach here1\n");
+  // printf("reach here1\n");
   FLOAT res;
   uint32_t swift = offset - 23 + 16;
   if(swift > 0) {
@@ -119,17 +119,17 @@ FLOAT f2F(float a) {
   } else {
     res = result >> -swift;
   }
-  printf("reach here2\n");
+  // printf("reach here2\n");
   if(get_sign(a_int)) {
     res = -res;
   }
-  printf("reach here3\n");
-  printf("f2F: res = %d\n", res);
+  // printf("reach here3\n");
+  // printf("f2F: res = %d\n", res);
   return res;
 }
 
 FLOAT Fabs(FLOAT a) {
-  printf("Fabs: a = %d\n", a < 0 ? -a : a);
+  // printf("Fabs: a = %d\n", a < 0 ? -a : a);
   return a < 0 ? -a : a;
 }
 

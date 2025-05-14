@@ -6,23 +6,23 @@
 typedef int FLOAT;
 
 static inline int F2int(FLOAT a) {
-  printf("F2int: %d\n", a);
+  // printf("F2int: %d\n", (int)a);
   int sign = a & (1u << 31);
   return sign ? -(-a >> 16) : (a >> 16);
 }
 
 static inline FLOAT int2F(int a) {
-  printf("int2F: %d\n", a);
+  // printf("int2F: %d\n", a);
   return a < 0 ? -(-a << 16) : (a << 16);
 }
 
 static inline FLOAT F_mul_int(FLOAT a, int b) {
-  printf("F_mul_int: %d * %d\n", a, b);
+  // printf("F_mul_int: %d * %d\n", a, b);
   return a * b;
 }
 
 static inline FLOAT F_div_int(FLOAT a, int b) {
-  printf("F_div_int: %d / %d\n", a, b);
+  // printf("F_div_int: %d / %d\n", a, b);
   if(b == 0) {
     assert(0);
   }
