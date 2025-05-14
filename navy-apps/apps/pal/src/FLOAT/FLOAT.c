@@ -111,10 +111,13 @@ FLOAT f2F(float a) {
   }
   printf("reach here0\n");
   uint32_t a_int = *(uint32_t *)&a;
+  printf("a_int = %d\n", a_int);
   printf("reach here1\n");
   // offset表示偏移量,可以通过这里得到整数位
   uint32_t offset = get_exponent(a_int) - 127;
+  printf("offset is %d", offset);
   uint32_t result = get_sign(a_int) << 23 | get_fraction(a_int);
+  printf("result = %d\n", result);
   // 这里的result是offset前的浮点数
   printf("reach here1\n");
   FLOAT res;
