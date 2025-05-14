@@ -104,6 +104,7 @@ FLOAT f2F(float a) {
   if(a == 0) {
     return 0;
   }
+  printf("reach here0\n");
   float_union.f = a;
   uint32_t a_int = float_union.i;
   printf("reach here1\n");
