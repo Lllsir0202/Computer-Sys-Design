@@ -71,14 +71,20 @@ FLOAT F_div_F(FLOAT a, FLOAT b) {
 }
 
 // 用于处理float -> FLOAT的转换
-union {
-  float f;
-  struct {
-    uint32_t fraction : 23;
-    uint32_t exponent : 8;
-    uint32_t sign : 1;
-  } bits;
-} float_union;
+// -> 使用float不能这么做，因为union编译后会出现奇奇怪怪的指令
+// union {
+//   float f;
+//   struct {
+//     uint32_t fraction : 23;
+//     uint32_t exponent : 8;
+//     uint32_t sign : 1;
+//   } bits;
+// } float_union;
+
+// 定义一些宏的位运算来进行处理
+#define get_sign(x) {(x) >> 31}
+#define get_exponent(x) {((x) >> 23) & 0xFF}
+#define get_fraction(x) {(x) & 0x7FFFFF}
 
 FLOAT f2F(float a) {
   /* You should figure out how to convert `a' into FLOAT without
@@ -94,11 +100,9 @@ FLOAT f2F(float a) {
   if(a == 0) {
     return 0;
   }
-
-  float_union.f = a;
   // offset表示偏移量,可以通过这里得到整数位
-  uint32_t offset = float_union.bits.exponent - 127;
-  uint32_t result = (float_union.bits.sign << 23) | float_union.bits.fraction;
+  uint32_t offset = get_exponent(a) - 127;
+  uint32_t result = get_sign(a) << 23 | get_fraction(a);
   // 这里的result是offset前的浮点数
   FLOAT res;
   uint32_t swift = offset - 23 + 16;
@@ -107,7 +111,7 @@ FLOAT f2F(float a) {
   } else {
     res = result >> -swift;
   }
-  if(float_union.bits.sign) {
+  if(get_sign(a)) {
     res = -res;
   }
   printf("f2F: res = %d\n", res);
