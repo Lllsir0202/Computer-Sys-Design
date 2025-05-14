@@ -3,7 +3,7 @@
 #include <assert.h>
 
 FLOAT F_mul_F(FLOAT a, FLOAT b) {
-  // printf("F_mul_F: a = %d, b = %d\n", a, b);
+  printf("F_mul_F: a = %d, b = %d\n", a, b);
   // printf("F_mul_F: a * b = %d\n", (int)(a*b >> 16));
   // 会出现溢出的Undefined Behavior
   // 这里的a和b都是32位的整数,所以乘法会溢出
@@ -31,7 +31,7 @@ FLOAT F_mul_F(FLOAT a, FLOAT b) {
 }
 
 FLOAT F_div_F(FLOAT a, FLOAT b) {
-  // printf("F_div_F: a = %d, b = %d\n", a, b);
+  printf("F_div_F: a = %d, b = %d\n", a, b);
   if(b == 0) {
     assert(0);
   }
@@ -66,7 +66,7 @@ FLOAT F_div_F(FLOAT a, FLOAT b) {
   // 组合整数部分和小数部分
   uint32_t result = (int_part << 16) | frac_part;
   
-  // printf("F_div_F: a / b = %d\n", sign > 0 ? result : -result);
+  printf("F_div_F: a / b = %d\n", sign > 0 ? result : -result);
   return sign > 0 ? result : -result;
 }
 
@@ -105,7 +105,7 @@ FLOAT f2F(float a) {
    * stack. How do you retrieve it to another variable without
    * performing arithmetic operations on it directly?
    */
-  // printf("f2F: a = \n");
+  printf("f2F: a = \n");
   if(a == 0) {
     return 0;
   }
@@ -129,12 +129,12 @@ FLOAT f2F(float a) {
     res = -res;
   }
   // printf("reach here3\n");
-  // printf("f2F: res = %d\n", res);
+  printf("f2F: res = %d\n", res);
   return res;
 }
 
 FLOAT Fabs(FLOAT a) {
-  // printf("Fabs: a = %d\n", a < 0 ? -a : a);
+  printf("Fabs: a = %d\n", a < 0 ? -a : a);
   return a < 0 ? -a : a;
 }
 
