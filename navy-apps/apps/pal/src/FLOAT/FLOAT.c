@@ -106,12 +106,12 @@ FLOAT f2F(float a) {
   }
   float_union.f = a;
   uint32_t a_int = float_union.i;
-  // printf("reach here1\n");
+  printf("reach here1\n");
   // offset表示偏移量,可以通过这里得到整数位
   uint32_t offset = get_exponent(a_int) - 127;
   uint32_t result = get_sign(a_int) << 23 | get_fraction(a_int);
   // 这里的result是offset前的浮点数
-  // printf("reach here1\n");
+  printf("reach here1\n");
   FLOAT res;
   uint32_t swift = offset - 23 + 16;
   if(swift > 0) {
@@ -119,12 +119,12 @@ FLOAT f2F(float a) {
   } else {
     res = result >> -swift;
   }
-  // printf("reach here2\n");
+  printf("reach here2\n");
   if(get_sign(a_int)) {
     res = -res;
   }
-  // printf("reach here3\n");
-  // printf("f2F: res = %d\n", res);
+  printf("reach here3\n");
+  printf("f2F: res = %d\n", res);
   return res;
 }
 
