@@ -105,18 +105,18 @@ FLOAT f2F(float a) {
    * stack. How do you retrieve it to another variable without
    * performing arithmetic operations on it directly?
    */
-  printf("f2F: a = \n");
+  // printf("f2F: a = \n");
   if(a == 0) {
     return 0;
   }
-  printf("reach here0\n");
+  // printf("reach here0\n");
   struct float_union *a_float = (struct float_union *)&a;
-  printf("reach here1\n");
+  // printf("reach here1\n");
   // offset表示偏移量,可以通过这里得到整数位
   uint32_t offset = a_float->exponent - 127;
   uint32_t result = a_float->sign << 23 | a_float->fraction;
   // 这里的result是offset前的浮点数
-  printf("reach here1\n");
+  // printf("reach here1\n");
   FLOAT res;
   uint32_t swift = offset - 23 + 16;
   if(swift > 0) {
@@ -124,12 +124,12 @@ FLOAT f2F(float a) {
   } else {
     res = result >> -swift;
   }
-  printf("reach here2\n");
+  // printf("reach here2\n");
   if(a_float->sign) {
     res = -res;
   }
-  printf("reach here3\n");
-  printf("f2F: res = %d\n", res);
+  // printf("reach here3\n");
+  // printf("f2F: res = %d\n", res);
   return res;
 }
 
