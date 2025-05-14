@@ -3,7 +3,7 @@
 #include <assert.h>
 
 FLOAT F_mul_F(FLOAT a, FLOAT b) {
-  printf("F_mul_F: a = %d, b = %d\n", a, b);
+  // printf("F_mul_F: a = %d, b = %d\n", a, b);
   // printf("F_mul_F: a * b = %d\n", (int)(a*b >> 16));
   // 会出现溢出的Undefined Behavior
   // 这里的a和b都是32位的整数,所以乘法会溢出
@@ -31,7 +31,7 @@ FLOAT F_mul_F(FLOAT a, FLOAT b) {
 }
 
 FLOAT F_div_F(FLOAT a, FLOAT b) {
-  printf("F_div_F: a = %d, b = %d\n", a, b);
+  // printf("F_div_F: a = %d, b = %d\n", a, b);
   if(b == 0) {
     assert(0);
   }
@@ -66,7 +66,7 @@ FLOAT F_div_F(FLOAT a, FLOAT b) {
   // 组合整数部分和小数部分
   uint32_t result = (int_part << 16) | frac_part;
   
-  printf("F_div_F: a / b = %d\n", sign > 0 ? result : -result);
+  // printf("F_div_F: a / b = %d\n", sign > 0 ? result : -result);
   return sign > 0 ? result : -result;
 }
 
@@ -82,18 +82,15 @@ FLOAT F_div_F(FLOAT a, FLOAT b) {
 // } float_union;
 
 // 定义一些宏的位运算来进行处理
-#define get_sign(x) ((x) >> 31)
-#define get_exponent(x) (((x) >> 23) & 0xFF)
-#define get_fraction(x) ((x) & 0x7FFFFF)
+#define get_sign(x) (x) >> 31
+#define get_exponent(x) ((x) >> 23) & 0xFF
+#define get_fraction(x) (x) & 0x7FFFFF
 // union {
 //   float f;
 //   uint32_t i;
 // } float_union;
-// struct float_union{
-//   uint32_t fraction : 23;
-//   uint32_t exponent : 8;
-//   uint32_t sign : 1;
-// };
+
+extern void memcpy(void *dest, const void *src, int n);
 
 FLOAT f2F(float a) {
   /* You should figure out how to convert `a' into FLOAT without
@@ -105,19 +102,17 @@ FLOAT f2F(float a) {
    * stack. How do you retrieve it to another variable without
    * performing arithmetic operations on it directly?
    */
-  // printf("f2F: a = \n");
+  printf("f2F: a = \n");
   if(a == 0) {
     return 0;
   }
   printf("reach here0\n");
-  uint32_t a_int = *(uint32_t *)&a;
-  printf("a_int = %d\n", a_int);
+  uint32_t a_int;
+  memcpy(&a_int, &a, sizeof(uint32_t));
   printf("reach here1\n");
   // offset表示偏移量,可以通过这里得到整数位
   uint32_t offset = get_exponent(a_int) - 127;
-  printf("offset is %d\n", offset);
   uint32_t result = get_sign(a_int) << 23 | get_fraction(a_int);
-  printf("result = %d\n", result);
   // 这里的result是offset前的浮点数
   printf("reach here1\n");
   FLOAT res;
@@ -127,17 +122,17 @@ FLOAT f2F(float a) {
   } else {
     res = result >> -swift;
   }
-  // printf("reach here2\n");
+  printf("reach here2\n");
   if(get_sign(a_int)) {
     res = -res;
   }
-  // printf("reach here3\n");
+  printf("reach here3\n");
   printf("f2F: res = %d\n", res);
   return res;
 }
 
 FLOAT Fabs(FLOAT a) {
-  printf("Fabs: a = %d\n", a < 0 ? -a : a);
+  // printf("Fabs: a = %d\n", a < 0 ? -a : a);
   return a < 0 ? -a : a;
 }
 
