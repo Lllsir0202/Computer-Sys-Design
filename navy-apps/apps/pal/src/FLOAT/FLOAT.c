@@ -31,7 +31,7 @@ FLOAT F_mul_F(FLOAT a, FLOAT b) {
 }
 
 FLOAT F_div_F(FLOAT a, FLOAT b) {
-  // printf("F_div_F: a = %d, b = %d\n", a, b);
+  printf("F_div_F: a = %d, b = %d\n", a, b);
   if(b == 0) {
     assert(0);
   }
@@ -66,7 +66,7 @@ FLOAT F_div_F(FLOAT a, FLOAT b) {
   // 组合整数部分和小数部分
   uint32_t result = (int_part << 16) | frac_part;
   
-  // printf("F_div_F: a / b = %d\n", sign > 0 ? result : -result);
+  printf("F_div_F: a / b = %d\n", sign > 0 ? result : -result);
   return sign > 0 ? result : -result;
 }
 
@@ -85,10 +85,10 @@ FLOAT F_div_F(FLOAT a, FLOAT b) {
 #define get_sign(x) (x) >> 31
 #define get_exponent(x) ((x) >> 23) & 0xFF
 #define get_fraction(x) (x) & 0x7FFFFF
-union {
-  float f;
-  uint32_t i;
-} float_union;
+// union {
+//   float f;
+//   uint32_t i;
+// } float_union;
 
 FLOAT f2F(float a) {
   /* You should figure out how to convert `a' into FLOAT without
@@ -104,9 +104,7 @@ FLOAT f2F(float a) {
   if(a == 0) {
     return 0;
   }
-  printf("reach here0\n");
-  float_union.f = a;
-  uint32_t a_int = float_union.i;
+  uint32_t a_int = *(uint32_t*)&a;
   printf("reach here1\n");
   // offset表示偏移量,可以通过这里得到整数位
   uint32_t offset = get_exponent(a_int) - 127;
@@ -130,7 +128,7 @@ FLOAT f2F(float a) {
 }
 
 FLOAT Fabs(FLOAT a) {
-  // printf("Fabs: a = %d\n", a < 0 ? -a : a);
+  printf("Fabs: a = %d\n", a < 0 ? -a : a);
   return a < 0 ? -a : a;
 }
 
