@@ -82,18 +82,18 @@ FLOAT F_div_F(FLOAT a, FLOAT b) {
 // } float_union;
 
 // 定义一些宏的位运算来进行处理
-// #define get_sign(x) (x) >> 31
-// #define get_exponent(x) ((x) >> 23) & 0xFF
-// #define get_fraction(x) (x) & 0x7FFFFF
+#define get_sign(x) (x) >> 31
+#define get_exponent(x) ((x) >> 23) & 0xFF
+#define get_fraction(x) (x) & 0x7FFFFF
 // union {
 //   float f;
 //   uint32_t i;
 // } float_union;
-struct float_union{
-  uint32_t fraction : 23;
-  uint32_t exponent : 8;
-  uint32_t sign : 1;
-};
+// struct float_union{
+//   uint32_t fraction : 23;
+//   uint32_t exponent : 8;
+//   uint32_t sign : 1;
+// };
 
 FLOAT f2F(float a) {
   /* You should figure out how to convert `a' into FLOAT without
@@ -105,16 +105,16 @@ FLOAT f2F(float a) {
    * stack. How do you retrieve it to another variable without
    * performing arithmetic operations on it directly?
    */
-  printf("f2F: a = %f\n", a);
+  printf("f2F: a = \n");
   if(a == 0) {
     return 0;
   }
   // printf("reach here0\n");
-  struct float_union *a_float = (struct float_union *)&a;
+  uint32_t a_int = *(uint32_t *)&a;
   // printf("reach here1\n");
   // offset表示偏移量,可以通过这里得到整数位
-  uint32_t offset = a_float->exponent - 127;
-  uint32_t result = a_float->sign << 23 | a_float->fraction;
+  uint32_t offset = get_exponent(a_int) - 127;
+  uint32_t result = get_sign(a_int) << 23 | get_fraction(a_int);
   // 这里的result是offset前的浮点数
   // printf("reach here1\n");
   FLOAT res;
@@ -125,7 +125,7 @@ FLOAT f2F(float a) {
     res = result >> -swift;
   }
   // printf("reach here2\n");
-  if(a_float->sign) {
+  if(get_sign(a_int)) {
     res = -res;
   }
   // printf("reach here3\n");
