@@ -65,10 +65,13 @@ FLOAT f2F(float a) {
    * performing arithmetic operations on it directly?
    */
   printf("f2F: a = \n");
-  if(a == 0) {
+  // if(a == 0) {
+  //   return 0;
+  // }
+  uint32_t a_int = *(uint32_t*)&a;
+  if(a_int == 0) {
     return 0;
   }
-  uint32_t a_int = *(uint32_t*)&a;
   printf("reach here1\n");
   // offset表示偏移量,可以通过这里得到整数位
   uint32_t offset = get_exponent(a_int) - 127;
