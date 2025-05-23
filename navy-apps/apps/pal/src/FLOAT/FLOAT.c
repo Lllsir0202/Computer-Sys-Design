@@ -70,6 +70,8 @@ FLOAT f2F(float a) {
   // }
   uint32_t a_int = *(uint32_t*)&a;
   if(a_int == 0) {
+    printf("f2F: a = 0\n");
+    assert(0);
     return 0;
   }
   // printf("reach here1\n");
