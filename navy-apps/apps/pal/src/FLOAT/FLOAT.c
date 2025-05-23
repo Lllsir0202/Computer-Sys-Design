@@ -31,6 +31,7 @@ FLOAT F_div_F(FLOAT a, FLOAT b) {
   if(b == 0) {
     assert(0);
   }
+  printf("F_div_F: a / b = %d\n", (a << 16) / b);
   return (a << 16) / b;
 }
 
