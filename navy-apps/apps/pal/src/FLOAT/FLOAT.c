@@ -29,11 +29,11 @@ FLOAT F_mul_F(FLOAT a, FLOAT b) {
 FLOAT F_div_F(FLOAT a, FLOAT b) {
   printf("F_div_F: a = %d, b = %d\n", a, b);
   if(b == 0) {
-    assert(0);  // 除数不能为0
+    assert(0);
   }
   
   // 确定结果符号
-  int sign = ((a ^ b) & 0x80000000) ? -1 : 1;
+  int sign = ((a ^ b) & (1U << 31)) ? -1 : 1;
   
   // 取绝对值处理
   FLOAT abs_a = a < 0 ? -a : a;
