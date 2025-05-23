@@ -81,10 +81,13 @@ FLOAT f2F(float a) {
   // printf("reach here1\n");
   FLOAT res;
   int shift = offset - 23 + 16;
+  printf("shift = %d\n", shift);
   if(shift > 0) {
     res = result << shift;
+    printf("res = %d\n", res);
   } else {
     res = result >> (-shift);
+    printf("res = %d\n", res);
   }
   // printf("reach here2\n");
   if(get_sign(a_int)) {
