@@ -70,31 +70,18 @@ FLOAT f2F(float a) {
   // }
   uint32_t a_int = *(uint32_t*)&a;
   if(a_int == 0) {
-    // printf("f2F: a = 0\n");
-    // assert(0);
     return 0;
   }
   // printf("reach here1\n");
   // offset表示偏移量,可以通过这里得到整数位
-  int offset;
-  uint32_t result;
-  if(get_exponent(a_int) == 0) {
-    offset = 1 - 127;
-    result = get_fraction(a_int);
-  }
-  else{
-    offset = get_exponent(a_int) - 127;
-    result = (1U << 23) | get_fraction(a_int);
-  }
+  int offset = get_exponent(a_int) - 127;
+  printf("offset = %d\n", offset);
+  uint32_t result = (1U << 23) | get_fraction(a_int);
   // 这里的result是offset前的浮点数
   // printf("reach here1\n");
   FLOAT res;
   int shift = offset - 23 + 16;
-  if(shift > 31) {
-    res = 0x7FFFFFFF;
-  }else if(shift < -31) {
-    res = 0;
-  }else if(shift >= 0) {
+  if(shift > 0) {
     res = result << shift;
   } else {
     res = result >> (-shift);
