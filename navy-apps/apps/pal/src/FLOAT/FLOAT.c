@@ -75,17 +75,17 @@ FLOAT f2F(float a) {
   // printf("reach here1\n");
   // offset表示偏移量,可以通过这里得到整数位
   int offset = get_exponent(a_int) - 127;
-  printf("offset = %d\n", offset);
-  printf("get_fraction(a_int) = %d\n", get_fraction(a_int));
-  printf("get_sign(a_int) = %d\n", get_sign(a_int));
-  printf("get_exponent(a_int) = %d\n", get_exponent(a_int));
+  // printf("offset = %d\n", offset);
+  // printf("get_fraction(a_int) = %d\n", get_fraction(a_int));
+  // printf("get_sign(a_int) = %d\n", get_sign(a_int));
+  // printf("get_exponent(a_int) = %d\n", get_exponent(a_int));
   uint32_t result = (1U << 23) | get_fraction(a_int);
-  printf("result = %d\n", result);
+  // printf("result = %d\n", result);
   // 这里的result是offset前的浮点数
   // printf("reach here1\n");
   int64_t res;
   int shift = offset - 23 + 16;
-  printf("shift = %d\n", shift);
+  // printf("shift = %d\n", shift);
   if(shift >= 0) {
     res = result << shift;
     printf("here1 res = %d\n", res);
@@ -104,7 +104,7 @@ FLOAT f2F(float a) {
 }
 
 FLOAT Fabs(FLOAT a) {
-  // printf("Fabs: a = %d\n", a < 0 ? -a : a);
+  printf("Fabs: a = %d\n", a < 0 ? -a : a);
   return a < 0 ? -a : a;
 }
 
