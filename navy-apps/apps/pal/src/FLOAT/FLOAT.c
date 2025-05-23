@@ -76,6 +76,9 @@ FLOAT f2F(float a) {
   // offset表示偏移量,可以通过这里得到整数位
   int offset = get_exponent(a_int) - 127;
   printf("offset = %d\n", offset);
+  printf("get_fraction(a_int) = %d\n", get_fraction(a_int));
+  printf("get_sign(a_int) = %d\n", get_sign(a_int));
+  printf("get_exponent(a_int) = %d\n", get_exponent(a_int));
   uint32_t result = (1U << 23) | get_fraction(a_int);
   // 这里的result是offset前的浮点数
   // printf("reach here1\n");
