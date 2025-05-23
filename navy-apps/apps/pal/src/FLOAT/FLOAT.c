@@ -27,7 +27,7 @@ FLOAT F_mul_F(FLOAT a, FLOAT b) {
 }
 
 FLOAT F_div_F(FLOAT a, FLOAT b) {
-  printf("F_div_F: a = %d, b = %d\n", a, b);
+  // printf("F_div_F: a = %d, b = %d\n", a, b);
   if(b == 0) {
     assert(0);
   }
@@ -118,23 +118,23 @@ FLOAT f2F(float a) {
   // printf("shift = %d\n", shift);
   if(shift >= 0) {
     res = result << shift;
-    printf("here1 res = %d\n", res);
+    // printf("here1 res = %d\n", res);
   } else {
     res = result >> (-shift);
-    printf("here2 res = %d\n", res);
+    // printf("here2 res = %d\n", res);
   }
   // printf("reach here2\n");
   if(get_sign(a_int)) {
     res = -res;
   }
-  printf("here3 res = %d\n", res);
+  // printf("here3 res = %d\n", res);
   // printf("reach here3\n");
   // printf("f2F: res = %d\n", res);
   return (FLOAT)res;
 }
 
 FLOAT Fabs(FLOAT a) {
-  printf("Fabs: a = %d\n", a < 0 ? -a : a);
+  // printf("Fabs: a = %d\n", a < 0 ? -a : a);
   return a < 0 ? -a : a;
 }
 
