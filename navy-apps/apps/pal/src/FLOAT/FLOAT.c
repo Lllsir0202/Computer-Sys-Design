@@ -80,6 +80,7 @@ FLOAT f2F(float a) {
   printf("get_sign(a_int) = %d\n", get_sign(a_int));
   printf("get_exponent(a_int) = %d\n", get_exponent(a_int));
   uint32_t result = (1U << 23) | get_fraction(a_int);
+  printf("result = %d\n", result);
   // 这里的result是offset前的浮点数
   // printf("reach here1\n");
   FLOAT res;
