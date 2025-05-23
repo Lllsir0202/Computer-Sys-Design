@@ -83,10 +83,10 @@ FLOAT f2F(float a) {
   printf("result = %d\n", result);
   // 这里的result是offset前的浮点数
   // printf("reach here1\n");
-  FLOAT res;
+  int64_t res;
   int shift = offset - 23 + 16;
   printf("shift = %d\n", shift);
-  if(shift > 0) {
+  if(shift >= 0) {
     res = result << shift;
     printf("here1 res = %d\n", res);
   } else {
@@ -100,7 +100,7 @@ FLOAT f2F(float a) {
   printf("here3 res = %d\n", res);
   // printf("reach here3\n");
   // printf("f2F: res = %d\n", res);
-  return res;
+  return (FLOAT)res;
 }
 
 FLOAT Fabs(FLOAT a) {
