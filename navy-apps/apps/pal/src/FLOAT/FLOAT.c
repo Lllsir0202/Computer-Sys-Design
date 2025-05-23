@@ -46,9 +46,9 @@ FLOAT F_div_F(FLOAT a, FLOAT b) {
 // } float_union;
 
 // 定义一些宏的位运算来进行处理
-#define get_sign(x) (x) >> 31
-#define get_exponent(x) ((x) >> 23) & 0xFF
-#define get_fraction(x) (x) & 0x7FFFFF
+#define get_sign(x) ((x) >> 31)
+#define get_exponent(x) (((x) >> 23) & 0xFF)
+#define get_fraction(x) ((x) & 0x7FFFFF)
 // union {
 //   float f;
 //   uint32_t i;
@@ -74,16 +74,16 @@ FLOAT f2F(float a) {
   }
   // printf("reach here1\n");
   // offset表示偏移量,可以通过这里得到整数位
-  uint32_t offset = get_exponent(a_int) - 127;
-  uint32_t result = get_sign(a_int) << 23 | get_fraction(a_int);
+  int offset = get_exponent(a_int) - 127;
+  uint32_t result = (1U << 23) | get_fraction(a_int);
   // 这里的result是offset前的浮点数
   // printf("reach here1\n");
   FLOAT res;
-  uint32_t swift = offset - 23 + 16;
-  if(swift > 0) {
-    res = result << swift;
+  int shift = offset - 23 + 16;
+  if(shift > 0) {
+    res = result << shift;
   } else {
-    res = result >> -swift;
+    res = result >> -shift;
   }
   // printf("reach here2\n");
   if(get_sign(a_int)) {
