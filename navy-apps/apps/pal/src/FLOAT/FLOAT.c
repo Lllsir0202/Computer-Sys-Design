@@ -84,15 +84,16 @@ FLOAT f2F(float a) {
   printf("shift = %d\n", shift);
   if(shift > 0) {
     res = result << shift;
-    printf("res = %d\n", res);
+    printf("here1 res = %d\n", res);
   } else {
     res = result >> (-shift);
-    printf("res = %d\n", res);
+    printf("here2 res = %d\n", res);
   }
   // printf("reach here2\n");
   if(get_sign(a_int)) {
     res = -res;
   }
+  printf("here3 res = %d\n", res);
   // printf("reach here3\n");
   // printf("f2F: res = %d\n", res);
   return res;
