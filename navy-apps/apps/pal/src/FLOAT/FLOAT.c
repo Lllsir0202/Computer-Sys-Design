@@ -29,10 +29,39 @@ FLOAT F_mul_F(FLOAT a, FLOAT b) {
 FLOAT F_div_F(FLOAT a, FLOAT b) {
   printf("F_div_F: a = %d, b = %d\n", a, b);
   if(b == 0) {
-    assert(0);
+    assert(0);  // 除数不能为0
   }
-  printf("F_div_F: a / b = %d\n", (a << 16) / b);
-  return (a << 16) / b;
+  
+  // 确定结果符号
+  int sign = ((a ^ b) & 0x80000000) ? -1 : 1;
+  
+  // 取绝对值处理
+  FLOAT abs_a = a < 0 ? -a : a;
+  FLOAT abs_b = b < 0 ? -b : b;
+  
+  // 计算整数部分
+  FLOAT int_part = abs_a / abs_b;
+  
+  // 计算余数
+  FLOAT remainder = abs_a % abs_b;
+  FLOAT frac_part = 0;
+  
+  // 计算小数部分（处理16位小数）
+  for(int i = 0; i < 16 && remainder != 0; i++) {
+    // 余数左移一位（乘以2）
+    remainder <<= 1;
+    // 小数部分结果左移一位
+    frac_part <<= 1;
+    
+    // 如果新余数大于等于除数，则当前位为1
+    if(remainder >= abs_b) {
+      remainder -= abs_b;  // 减去除数
+      frac_part |= 1;      // 当前位设为1
+    }
+  }
+  
+  // 组合整数和小数部分，应用符号
+  return sign * ((int_part << 16) | frac_part);
 }
 
 // 用于处理float -> FLOAT的转换
