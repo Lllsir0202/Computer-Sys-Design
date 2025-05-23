@@ -83,7 +83,7 @@ FLOAT f2F(float a) {
   if(shift > 0) {
     res = result << shift;
   } else {
-    res = result >> -shift;
+    res = result >> (-shift);
   }
   // printf("reach here2\n");
   if(get_sign(a_int)) {
