@@ -40,7 +40,7 @@ int main() {
   // Add in pa4-3
   load_prog("/bin/hello");
 
-  // Add in pa4-4
+  // Add in pa4-3
   load_prog("/bin/videotest");
 
   // Add in pa4-2
