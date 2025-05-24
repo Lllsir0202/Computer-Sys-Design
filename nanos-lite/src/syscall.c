@@ -1,9 +1,6 @@
 #include "common.h"
 #include "syscall.h"
 
-extern char end;
-static uintptr_t program_break = (uintptr_t)&end;
-
 extern int fs_open(const char *pathname, int flags, int mode);
 extern ssize_t fs_read(int fd, void *buf, size_t len);
 extern ssize_t fs_write(int fd, const void *buf, size_t len);
