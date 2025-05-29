@@ -8,14 +8,18 @@ FLOAT F_mul_F(FLOAT a, FLOAT b) {
   // 会出现溢出的Undefined Behavior
   // 这里的a和b都是32位的整数,所以乘法会溢出
   // 这里采用分段乘法来做处理
+  int sign = ((a ^ b) & (1U << 31)) ? -1 : 1;
+
+  FLOAT abs_a = a < 0 ? -a : a;
+  FLOAT abs_b = b < 0 ? -b : b;
   
-  int a_hi = a >> 16;
+  int a_hi = abs_a >> 16;
   // a high 16 bits
-  int a_lo = a & 0xFFFF;
+  int a_lo = abs_a & 0xFFFF;
   // a low 16 bits
-  int b_hi = b >> 16;
+  int b_hi = abs_b >> 16;
   // b high 16 bits
-  int b_lo = b & 0xFFFF;
+  int b_lo = abs_b & 0xFFFF;
   // b low 16 bits
 
   // 计算
@@ -23,7 +27,7 @@ FLOAT F_mul_F(FLOAT a, FLOAT b) {
   int mid1 = (a_hi * b_lo);
   int mid2 = (a_lo * b_hi);
 
-  return high + mid1 + mid2;
+  return sign * (high + mid1 + mid2);
 }
 
 FLOAT F_div_F(FLOAT a, FLOAT b) {
